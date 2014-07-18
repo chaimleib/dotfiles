@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Copyright(c) 1997, by Sun Microsystems, Inc.
+# All rights reserved.
+#
+# Modified by Chaim-Leib Halbert 2014
+#
+# ident	"@(#)which.csh	1.5	00/07/17 SMI"
+#
+#       which : tells you which program you get
+#
+# The original ran in an interactive shell, which caused rc scripts to be run 
+# again. This could cause unwanted output. My fix doesn't require resourcing 
+# the rc scripts.
+
+function _lspath() {
+    local pathlistname=${1}
+    [[ -z $pathlistname ]] && pathlistname="PATH"
+    eval local pathlist=\$${pathlistname}
+    echo $pathlist | tr ':' '\n' | awk 'NF > 0'
+}
+
+for arg in "$@"; do
+    alius="alias $arg 2>/dev/null"
+	if alias $arg 2>/dev/null; then
+		alius="`$alius`"
+		
+    	case `echo "$alius" | wc -l | xargs` in
+    	1) arg=$alius ;;
+    	*) echo ${arg}: "      " aliased to $alius
+       		continue
+	   		;;
+    	esac
+	fi
+    found=n
+	dir="`dirname $arg`"
+    if [ $dir != '.' ]; then		# if path is specified
+        if [[ -e $arg ]]; then		# just do simple lookup
+            echo $arg
+        else
+            echo $arg not found
+        fi
+        continue
+    else							# if no path specified
+		paths="`_lspath`"
+        for i in $paths; do
+            if [[ -x $i/$arg ]] && [[ ! -d $i/$arg ]]; then
+                echo $i/$arg
+                found=y
+                break
+            fi
+        done
+    fi
+    if [[ $found = n ]] ; then
+        echo "no ${arg} in PATH = ${PATH}"
+    fi
+done
+

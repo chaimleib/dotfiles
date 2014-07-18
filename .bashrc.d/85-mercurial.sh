@@ -1,0 +1,1 @@
+export HGMERGE=vimdiff
