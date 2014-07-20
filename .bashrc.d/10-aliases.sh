@@ -21,9 +21,9 @@ esac
 
 alias l='ls -F'
 alias lll='ls -CF --color=always | more'
-alias llla='ls -CFa --color=always | more'
+alias llla='ls -CFA --color=always | more'
 alias ll='ls -lh'
-alias la='ls -aC'
+alias la='ls -ACF'
 
 alias more='less -R --hilite-search --status-column'
 alias search-content='grep --color=always -n'
@@ -46,6 +46,10 @@ alias modv='vim ~/.vimrc'
 alias rsrc='rsync -ravz --exclude ".*.swp" chaimleib@musashiaharon.com:"$( echo .vimrc .bashrc{,.d} .bash_completion{,.d} .hushlogin local )" ~/'
 alias rsrcup='rsync -ravz --exclude ".*.swp" ~/.vimrc ~/.bashrc{,.d} ~/.bash_completion{,.d} ~/.hushlogin ~/local chaimleib@musashiaharon.com:~/'
 
+alias gis='git status'
+alias gir='git rebase'
+alias gil='git log'
+alias gic='git commit -a -m'
 
 ## OS-specific shortcuts
 case $OSTYPE in
@@ -81,10 +85,6 @@ fi
 
 [[ $USER = cs9f* ]] && alias g++='g++ -g -Wall -I /home/ff/cs9f/lib'
 
-alias gir='git rebase'
-alias gis='git status'
-alias gif='git fetch --all'
-
 ## Directory shortcuts
 alias cdd='cd ~/Desktop'
 alias cddw='cd ~/Downloads'
@@ -105,3 +105,4 @@ alias cdl='cd ~/Library'
 [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
 [[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
 [[ -d ~/tincanschema ]] && alias cds='cd ~/tincanschema'
+

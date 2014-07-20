@@ -30,14 +30,19 @@ esac
 #prependPath /home2/truthspo/boost/lib LD_LIBRARY_PATH
 #prependPath /home2/truthspo/boost/lib DYLD_LIBRARY_PATH
 
-prependPath /home2/truthspo/django/django_src/django/bin
-prependPath /home2/truthspo/django/django_src PYTHONPATH
-prependPath /home2/truthspo/django/django_projects PYTHONPATH
+#prependPath /home2/truthspo/django/django_src/django/bin
+#prependPath /home2/truthspo/django/django_src PYTHONPATH
+#prependPath /home2/truthspo/django/django_projects PYTHONPATH
 
-prependPath /home2/truthspo/python/bin
+#prependPath /home2/truthspo/python/bin
 
 # ruby and sass
-prependPath /usr/local/Cellar/ruby/2.1.0/bin
+pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
+prependPath /usr/local/Cellar/ruby/`ls | sort -r | head -1`/bin
+popd 2>&1 > /dev/null
+
+# Haskell
+prependPath ~/.cabal/bin
 
 # Inkscape
 appendPath /Applications/Inkscape.app/Contents/Resources/bin
@@ -64,6 +69,6 @@ function _addOPPathTree() {
     fi
 }
 
-_addOPPathTree "${HOME}/local/$OS-`uname -m`"
+_addOPPathTree "${HOME}/local/$OSTYPE-`uname -m`"
 _addOPPathTree "${HOME}/local/all"
 
