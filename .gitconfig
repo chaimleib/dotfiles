@@ -1,0 +1,13 @@
+[user]
+	email = chaim.leib.halbert@gmail.com
+	name = Chaim-Leib Halbert
+[pull]
+	ff = only
+[alias]
+	up = "!git remote update -p; git merge --ff-only @{u}"
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[push]
+	default = simple

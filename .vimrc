@@ -118,8 +118,9 @@ let g:tex_flavor='latex'
 
 syntax on
 
-if filereadable("~/.vim_syntax/syntax.vim")
-	source ~/.vim_syntax/syntax.vim
+let file=expand("~/.vim/syntax/syntax.vim")
+if filereadable(file)
+	silent! execute 'source '.file
 endif
 
 autocmd Syntax python setlocal foldmethod=indent
