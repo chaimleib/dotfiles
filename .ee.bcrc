@@ -1,0 +1,105 @@
+scale=20
+p=10^-12
+n=10^-9
+u=10^-6
+m=10^-3
+k=10^3
+mm=10^6
+
+pi=4*a(1)
+kb=8.617*10^-5
+esi=10^-12
+vt=0.026
+q=1.6*10^-19
+
+define par(a,b) {
+return a*b/(a+b);
+}
+
+define mag(a,b) {
+return sqrt(a^2 + b^2);
+}
+
+define pha(a,b) {
+return datan(b/a);
+}
+
+define cexpr(k,x) {
+return k*cos(x);
+}
+
+define cdexpr(k,x) {
+return cexpr(k,rad(x));
+}
+
+define cexpi(k,x) {
+return k*sin(x);
+}
+
+define cdexpi(k,x) {
+return cexpi(k,rad(x));
+}
+
+define cmultr(a1,b1,a2,b2) {
+return a1*a2-b1*b2;
+}
+
+define cmulti(a1,b1,a2,b2) {
+return a1*b2+a2*b1;
+}
+
+define cdivr(a1,b1,a2,b2) {
+return cmultr(a1,b1,a2,-b2)/(a2^2+b2^2);
+}
+
+define cdivi(a1,b1,a2,b2) {
+return cmulti(a1,b1,a2,-b2)/(a2^2+b2^2);
+}
+
+define deg(r) {
+return r*45/a(1);
+}
+
+define rad(d) {
+return d*a(1)/45;
+}
+
+define sin(x) {
+return s(x);
+}
+define cos(x) {
+return c(x);
+}
+define tan(x) {
+return s(x)/c(x);
+}
+define atan(x) {
+return a(x);
+}
+define acos(x) {
+return a(sqrt(1-x^2)/x);
+}
+define asin(x) {
+return a(x/sqrt(1-x^2));
+}
+
+define dsin(x) {
+return s(rad(x));
+}
+define dcos(x) {
+return c(rad(x));
+}
+define dtan(x) {
+r=rad(x);
+return s(r)/c(r);
+}
+define datan(x) {
+return deg(a(x));
+}
+define dacos(x) {
+return deg(a(sqrt(1-x^2)/x));
+}
+define dasin(x) {
+return deg(a(x/sqrt(1-x^2)));
+}
+
