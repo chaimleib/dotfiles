@@ -104,5 +104,6 @@ alias cdl='cd ~/Library'
 # [[ -d /home2/truthspo/django/django_projects/liespotter ]] && alias cdjl='cd /home2/truthspo/django/django_projects/liespotter'
 [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
 [[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
-[[ -d ~/tincanschema ]] && alias cds='cd ~/tincanschema'
+[[ -d ~/TinCanValidator ]] && alias cdv='cd ~/TinCanValidator'
+[[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanCalidator/lib/schema'
 
