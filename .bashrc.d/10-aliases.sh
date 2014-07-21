@@ -105,5 +105,5 @@ alias cdl='cd ~/Library'
 [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
 [[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
 [[ -d ~/TinCanValidator ]] && alias cdv='cd ~/TinCanValidator'
-[[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanCalidator/lib/schema'
+[[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanValidator/lib/schema'
 
