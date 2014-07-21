@@ -37,9 +37,11 @@ esac
 #prependPath /home2/truthspo/python/bin
 
 # ruby and sass
-pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
-prependPath /usr/local/Cellar/ruby/`ls | sort -r | head -1`/bin
-popd 2>&1 > /dev/null
+if [[ -d /usr/local/Cellar/ruby ]]; then
+    pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
+    prependPath /usr/local/Cellar/ruby/`ls | sort -r | head -1`/bin
+    popd 2>&1 > /dev/null
+fi
 
 # Haskell
 prependPath ~/.cabal/bin
