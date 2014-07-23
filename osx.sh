@@ -1,12 +1,35 @@
 #!/bin/bash
 
+sudo -v
+
+# Keep-alive: update existing `sudo` timestamp until `.osx` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 ## UI ##
+
+## Menu bar ##
+# Disable menu bar transparency
+defaults write NSGlobalDomain AppleEnableMeuBarTransparency -bool false
+
 # Disable Notification Center
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+
+# hide menu extras I don't like
+for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+    defaults write "${domain}" dontAutoLoad -array \
+        "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+        "/System/Library/CoreServices/Menu Extras/User.menu"
+done
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Restart automatically if the computer freezes
+systemsetup -setrestartfreeze on
 
 # Tap to click for me and on login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad CLicking -bool true
@@ -41,6 +64,9 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 
 ## Under the hood ##
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
 # Don't create .DS_Store on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
