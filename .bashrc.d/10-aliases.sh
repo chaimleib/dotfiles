@@ -50,6 +50,7 @@ alias gis='git status'
 alias gir='git rebase'
 alias gil='git log'
 alias gic='git commit -a -m'
+alias gif='git fetch --all'
 
 ## OS-specific shortcuts
 case $OSTYPE in
