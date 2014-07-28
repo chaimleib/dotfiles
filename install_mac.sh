@@ -27,7 +27,7 @@ function machome() {
     [[ -d "$machome" ]] || return
     
     local d="/Library/Application Support/ControllerMate"
-    _lndir "$machome$d" "$d"
+    _lndir "$machome$d" "$HOME$d"
 }
 
 function _rmdir() {
