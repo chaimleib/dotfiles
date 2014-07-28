@@ -24,16 +24,7 @@
 		<integer>5426</integer>
 	</dict>
 	<key>Macros</key>
-	<array>
-		<dict>
-			<key>MacroName</key>
-			<string>Macro</string>
-			<key>delay</key>
-			<integer>0</integer>
-			<key>macroID</key>
-			<integer>0</integer>
-		</dict>
-	</array>
+	<array/>
 	<key>Profiles</key>
 	<array>
 		<dict>
@@ -329,14 +320,7 @@
 					<integer>23</integer>
 				</dict>
 				<key>230</key>
-				<dict>
-					<key>command</key>
-					<integer>10</integer>
-					<key>param1</key>
-					<integer>0</integer>
-					<key>param2</key>
-					<integer>1</integer>
-				</dict>
+				<dict/>
 				<key>231</key>
 				<dict>
 					<key>command</key>
