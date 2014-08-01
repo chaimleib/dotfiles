@@ -12,7 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 defaults write NSGlobalDomain AppleEnableMeuBarTransparency -bool false
 
 # Disable Notification Center
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # hide menu extras I don't like
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
@@ -77,4 +77,9 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Advanced mode in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
+
+# Install stuff
+xcodebuild -version >/dev/null || xcode-select --install
+brew --version || ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 

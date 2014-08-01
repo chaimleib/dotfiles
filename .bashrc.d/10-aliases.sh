@@ -49,7 +49,6 @@ alias rsrcup='rsync -ravz --exclude ".*.swp" ~/.vimrc ~/.bashrc{,.d} ~/.bash_com
 alias gis='git status'
 alias gir='git rebase'
 alias gil='git log'
-alias gic='git commit -a -m'
 alias gif='git fetch --all'
 
 ## OS-specific shortcuts
