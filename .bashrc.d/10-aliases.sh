@@ -50,6 +50,7 @@ alias gis='git status'
 alias gir='git rebase'
 alias gil='git log'
 alias gif='git fetch --all'
+alias gid='git diff HEAD'
 
 ## OS-specific shortcuts
 case $OSTYPE in
@@ -92,6 +93,7 @@ alias cde='cd /etc'
 alias cdb='cd ~/.bashrc.d'
 alias cdbc='cd ~/.bash_completion.d'
 alias cddot='cd ~/dotfiles'
+alias cdloc='cd ~/dotfiles/local'
 alias cddv='cd /dev'
 alias cddc='cd ~/Documents'
 alias cdg='cd ~/Google\ Drive'
