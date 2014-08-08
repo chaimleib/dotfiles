@@ -30,7 +30,7 @@
 #    return
 #fi
 
-(( $BASHRC_debug >=2 )) && echo '~/.bash_completion'
+(( $BASHRC_debug >= 2 )) && echo '~/.bash_completion'
 
 if [[ $- == *v* ]]; then
     BASH_COMPLETION_ORIGINAL_V_VALUE="-v"
