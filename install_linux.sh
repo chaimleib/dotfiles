@@ -4,7 +4,7 @@
 
 this_dir="$(abspath "$(dirname "$0")")"
 
-function install_win() {
+function install_lin() {
     linhome
     pushd "$HOME" >/dev/null
     . .bashrc
