@@ -44,7 +44,7 @@ function _lnargs() {
 }
 
 function _rmdir() {
-    [ -d "$1" ] && mv "$1{,.old}"
+    [ -d "$1" ] && mv "$1"{,.old}
 }
 
 function _lndir() {
@@ -54,7 +54,7 @@ function _lndir() {
 }
 
 function _rmfile() {
-    [[ -e "$1" ]] && mv "$1{,.old}"
+    [[ -e "$1" ]] && mv "$1"{,.old}
 }
 
 function _lnfile() {
@@ -64,7 +64,7 @@ function _lnfile() {
 }
 
 function _srmdir() {
-    [ -d "$1" ] && sudo mv "$1{,.old}"
+    [ -d "$1" ] && sudo mv "$1"{,.old}
 }
 
 function _slndir() {
@@ -74,7 +74,7 @@ function _slndir() {
 }
 
 function _srmfile() {
-    [[ -e "$1" ]] && sudo mv "$1{,.old}"
+    [[ -e "$1" ]] && sudo mv "$1"{,.old}
 }
 
 function _slnfile() {
