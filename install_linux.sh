@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. "$this_dir/install_common.sh"
+. "install_common.sh"
 
 this_dir="$(abspath "$(dirname "$0")")"
 
