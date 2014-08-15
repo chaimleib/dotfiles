@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function abspath() {
     if [[ -d "$1" ]]; then
         pushd "$1" >/dev/null
@@ -21,9 +20,9 @@ function _slnargs() {
     local this_dir="$PWD"
     for item in "$@"; do
         if [[ -d "$this_dir/$item" ]]; then
-            _slndir "$this_dir/$item" "$HOME/$item"
+            _slndir "$this_dir/$item" "/$item"
         elif [[ -f "$this_dir/$item" ]]; then
-            _slnfile "$this_dir/$item" "$HOME/$item"
+            _slnfile "$this_dir/$item" "/$item"
         else
             echo "Could not link '$file'"
         fi
