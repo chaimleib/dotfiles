@@ -19,6 +19,7 @@ function linhome() {
         .bashrc.d \
         .bash_completion \
         .bash_completion.d \
+        .gitconfig \
         .vimrc \
         .vim \
         local \
