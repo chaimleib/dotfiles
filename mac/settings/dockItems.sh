@@ -4,13 +4,15 @@ this_dir="$(dirname "$0")"
 
 . "$this_dir"/utils/addDockItem.sh
 
-# clear the dock's apps
+echo Clear the dock\'s apps
 defaults write com.apple.dock persistent-apps -array
 
+echo Setting the dock\'s apps
 for item in \
     /Applications/Time\ Machine.app \
     /Applications/Safari.app \
     /Applications/Google\ Chrome.app \
+    /Applications/Airmail.app \
     /Applications/Address\ Book.app \
     /Applications/Contacts.app \
     /Applications/iCal.app \
