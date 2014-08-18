@@ -24,13 +24,10 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 echo "Save to disk (not to iCloud) by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-echo Restart automatically if the computer freezes
-systemsetup -setrestartfreeze on
-
 echo Tap to click for me and on login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -bool true
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -bool true
 
 echo Ask for password only after delay when screen shuts off
 defaults write com.apple.screensaver askForPassword -int 1
