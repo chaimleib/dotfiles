@@ -26,10 +26,12 @@ function macroot() {
 }
 
 function machome() {
-    pushd "$this_dir/home"
+    pushd "$this_dir/home" >/dev/null
     _lnargs \
-        "Library/Application Support/ControllerMate"
-    popd >/dev/null
+        "Library/Application Support/ControllerMate" \
+        "Library/Preferences/com.apple.Terminal.plist" \
+        "Library/Preferences/com.googlecode.iterm2.plist"
+    popd >/dev/null >/dev/null
 
     pushd "$this_dir/.."
     _lnargs \
