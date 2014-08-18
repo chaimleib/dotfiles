@@ -42,15 +42,21 @@ function _lnargs() {
     done
 }
 
+function _linkExists() {
+    if [[ "$(readlink "$2")" == "$1" ]]; then
+        echo "Already linked: $2 -> $1"
+        return
+    fi
+    return 1
+}
+    
+    
 function _rmdir() {
-    [ -d "$1" ] && mv "$1"{,.old}
+    [[ -d "$1" ]] && mv "$1"{,.old}
 }
 
 function _lndir() {
-    if [[ -n "$(readlink "$2")" ]]; then
-        echo "Already linked: $2 -> $(readlink "$2")"
-        return
-    fi
+    _linkExists "$@" && return
     _rmdir "$2"
     echo "ln -s \"$1\" \"$2\""
     ln -s "$1" "$2"
@@ -61,10 +67,7 @@ function _rmfile() {
 }
 
 function _lnfile() {
-    if [[ -n "$(readlink "$2")" ]]; then
-        echo "Already linked: $2 -> $(readlink "$2")"
-        return
-    fi
+    _linkExists "$@" && return
     _rmfile "$2"
     echo "ln -s \"$1\" \"$2\""
     ln -s "$1" "$2"
@@ -75,10 +78,7 @@ function _srmdir() {
 }
 
 function _slndir() {
-    if [[ -n "$(readlink "$2")" ]]; then
-        echo "Already linked: $2 -> $(readlink "$2")"
-        return
-    fi
+    _linkExists "$@" && return
     _srmdir "$2"
     echo "ln -s \"$1\" \"$2\""
     sudo ln -s "$1" "$2"
@@ -89,10 +89,7 @@ function _srmfile() {
 }
 
 function _slnfile() {
-    if [[ -n "$(readlink "$2")" ]]; then
-        echo "Already linked: $2 -> $(readlink "$2")"
-        return
-    fi
+    _linkExists "$@" && return
     _srmfile "$2"
     echo "ln -s \"$1\" \"$2\""
     sudo ln -s "$1" "$2"
