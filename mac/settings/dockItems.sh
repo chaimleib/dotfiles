@@ -17,6 +17,7 @@ for item in \
     /Applications/Contacts.app \
     /Applications/iCal.app \
     /Applications/Calendar.app \
+    /Applications/iTerm.app \
 ; do
     if [[ -d "$item" ]]; then
         addDockApp "$item"
