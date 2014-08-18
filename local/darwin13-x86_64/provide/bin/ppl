@@ -2,10 +2,8 @@
 
 ppldir="$( dirname "$( dirname "$0")" )"/lib/ppl
 
-if [[ -x "$ppldir/ppl.pyc" ]]; then
-    python3 "$ppldir/ppl.pyc" "$@"
-elif [[ -x "$ppldir/ppl.py" ]]; then
-    python3 "$ppldir/ppl.py" "$@"
+if [[ -x "$ppldir/ppl.py" ]]; then
+    plutil -convert xml1 "$1" -o - | python "$ppldir/ppl.py"
 else
     echo 'Could not run!' >/dev/stderr
     exit 1
