@@ -29,7 +29,7 @@ function main() {
     rm "$dmgPath"
     
     installed="$(getInstalledVersionNum)"
-    if [[ "$latest" == "$installed" ]]; then
+    if [[ "$installed" != "none" ]]; then
         echo "Installed $installed"
         return 0
     else
