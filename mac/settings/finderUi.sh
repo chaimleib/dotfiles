@@ -36,7 +36,7 @@ echo Ask for password only after delay when screen shuts off
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 10
 
-echo Show attached drives
+echo Show attached drives on Desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
@@ -50,3 +50,4 @@ defaults write com.apple.dock mru-spaces -bool false
 echo Quicker Expose animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
+killall Dock
