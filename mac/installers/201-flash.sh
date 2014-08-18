@@ -12,6 +12,7 @@ function main() {
     
     echo
     echo "$installed is installed. Installing $latest..."
+    
     dmgPath="/tmp/flash.dmg"
     if ! downloadInstaller "$dmgPath"; then
         echo "ERROR: Failed to download. Result was `cat "$dmgPath"`"
@@ -21,6 +22,9 @@ function main() {
         echo "ERROR: Failed to install."
         return 1
     fi
+    
+    rm "$dmgPath"
+    
     installed="$(getInstalledVersionNum)"
     if [[ "$latest" == "$installed" ]]; then
         echo "Installed $installed"
@@ -100,7 +104,7 @@ function downloadInstaller() {
     )"
 
     echo "Downloading from $dmgUri"
-    curl --user-agent "$agent" -s "$dmgUri" -o "$dmgPath"
+    curl --user-agent "$agent" "$dmgUri" -o "$dmgPath"
     
     if file "$dmgPath" | grep bzip2 2>/dev/null 1>/dev/null; then
         return
