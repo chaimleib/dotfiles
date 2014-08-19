@@ -8,6 +8,7 @@ up with an almost fully-configured system.
 
 Features
 --------
+* Comes with installers to symlink the files into place automatically
 * `mac/installers` - installers for many programs, both CLI and GUI
 * `.bashrc.d/*lssys.sh` - list the system info, including OS, CPU and RAM
 * `local/darwin13-x86_64/provide/bin/ppl` - pretty-print an alphabetized plist.
