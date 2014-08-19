@@ -29,11 +29,12 @@ function machome() {
     pushd "$this_dir/home" >/dev/null
     _lnargs \
         "Library/Application Support/ControllerMate" \
+        "Library/Preferences/com.apple.finder.plist" \
         "Library/Preferences/com.apple.Terminal.plist" \
         "Library/Preferences/com.googlecode.iterm2.plist"
-    popd >/dev/null >/dev/null
+    popd >/dev/null
 
-    pushd "$this_dir/.."
+    pushd "$this_dir/.." >/dev/null
     _lnargs \
         .bashrc \
         .bashrc.d \
