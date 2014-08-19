@@ -1,2 +1,5 @@
 *.plist diff=printPlist
+## On a Mac, add this to .git/config:
+# [diff "printPlist"]
+#    textconv = ppl
 
