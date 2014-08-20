@@ -14,6 +14,7 @@ for item in \
     /Applications/Safari.app \
     /Applications/Google\ Chrome.app \
     /Applications/Airmail.app \
+    /Applications/Airmail\ Beta.app \
     /Applications/Address\ Book.app \
     /Applications/Contacts.app \
     /Applications/iCal.app \
