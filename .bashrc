@@ -78,4 +78,5 @@ fi
 
 ## Settings finale...
 unset BASHRC_debug
+export CHAIMLEIBSDOTFILES=1
 

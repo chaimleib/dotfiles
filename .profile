@@ -1,3 +1,3 @@
 #!/bin/bash
 
-. ~/.bashrc
+[[ -z "$CHAIMLEIBSDOTFILES" ]] && . ~/.bashrc
