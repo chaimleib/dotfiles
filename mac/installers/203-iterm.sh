@@ -18,13 +18,15 @@ plistPath="/Applications/$name.app/Contents/Info.plist"
 function main() {
     printf "%-30s" "Installing $name..."
     
+    version="$(getInstalledVersion)"
+    
     if [[ -d "/Applications/$name.app" ]]; then
-        echo "Already installed"
+        echo "Already installed $version"
         return
     fi
     
     echo
-    echo "none is installed. Installing..."
+    echo "$version is installed. Installing..."
     
     zipPath="/tmp/Install ${name}.zip"
     if ! downloadInstaller "$zipPath"; then
@@ -78,6 +80,18 @@ function installZip() {
         return 1
     fi
 }
-    
+
+function getInstalledVersion() {
+    infoPath='/Applications/iTerm.app/Contents/Info.plist'
+    if [[ ! -e "$infoPath" ]]; then
+        echo 'none'
+        return
+    fi
+    version="$(plutil -convert xml1 "$infoPath" -o - | 
+        grep '<key>CFBundleVersion</key>' -A1 |
+        grep -o '[0-9]\+\.[0-9\.]*[0-9]'
+    )"
+    echo "$version"
+}
 
 main
