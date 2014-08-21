@@ -27,8 +27,11 @@ function macroot() {
 
 function machome() {
     pushd "$this_dir/home" >/dev/null
+    if [[ ! -d "$HOME/Library/Application Support/ControllerMate" ]]; then
+        mkdir "$HOME/Library/Application Support/ControllerMate"
+    fi
     _lnargs \
-        "Library/Application Support/ControllerMate" \
+        "Library/Application Support/ControllerMate/Programming.plist" \
         "Library/Preferences/com.apple.finder.plist" \
         "Library/Preferences/com.apple.Terminal.plist" \
         "Library/Preferences/com.googlecode.iterm2.plist"
