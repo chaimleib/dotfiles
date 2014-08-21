@@ -10,6 +10,7 @@ defaults write com.apple.dock persistent-apps -array
 
 echo Setting the dock\'s apps
 for item in \
+    /Applications/ControllerMate.app \
     /Applications/Time\ Machine.app \
     /Applications/Safari.app \
     /Applications/Google\ Chrome.app \
