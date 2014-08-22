@@ -26,9 +26,11 @@
 #
 #   RELEASE: 1.3
 
-#if [[ -n "$BASH_COMPLETION_COMPAT_DIR" ]]; then
-#    return
-#fi
+# Test if BASH_COMPLETION_COMPAT_DIR is readonly.
+# Parentheses test in a subshell to leave variable intact if is read-write.
+if ! (unset BASH_COMPLETION_COMPAT_DIR 2>/dev/null); then
+    return
+fi
 
 [[ "$BASHRC_debug" > "1" ]] && echo '~/.bash_completion'
 
