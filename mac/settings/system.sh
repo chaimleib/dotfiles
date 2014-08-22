@@ -2,12 +2,18 @@
 
 echo
 echo "## System ##"
-echo Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+
+if false; then
+    echo Disable the boot chime
+    sudo nvram SystemAudioVolume=" "
+else
+    echo Re-enable the boot chime
+    sudo nvram -d SystemAudioVolume
+fi
 
 echo Don\'t create .DS_Store on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 echo Restart automatically if the computer freezes
-systemsetup -setrestartfreeze on
+sudo systemsetup -setrestartfreeze on
 
