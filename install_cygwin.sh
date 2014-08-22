@@ -31,7 +31,7 @@ function winhome() {
     if [[ "$gitver" > '2.' ]]; then
         _lnargs .gitconfig
     else
-        pushd cygwin >/dev/null
+        pushd cygwin/home >/dev/null
         _lnargs .gitconfig
         popd >/dev/null
     fi
