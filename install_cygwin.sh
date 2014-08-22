@@ -19,7 +19,6 @@ function winhome() {
         .bashrc.d \
         .bash_completion \
         .bash_completion.d \
-        .gitconfig \
         .vimrc \
         .vim \
         local \
@@ -27,6 +26,15 @@ function winhome() {
         .ee.bcrc \
         .phy.bcrc \
         .profile
+    
+    gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
+    if [[ "$gitver" > '2.' ]]; then
+        _lnargs .gitconfig
+    else
+        pushd cygwin >/dev/null
+        _lnargs .gitconfig
+        popd >/dev/null
+    fi
 
     popd >/dev/null
 }
