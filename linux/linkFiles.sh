@@ -11,33 +11,16 @@ this_dir="$(dirname "$0")"
 
 this_dir="$(abspath "$(dirname "$0")")"
 
-function install_mac() {
-    macroot
-    machome
+function install_lin() {
+    linhome
     pushd "$HOME" >/dev/null
     . .bashrc
     popd >/dev/null
 }
 
-function macroot() {
-    pushd "$this_dir/root" >/dev/null
-    _slnargs "Library/Application Support/Razer"
-    popd >/dev/null
-}
-
-function machome() {
-    pushd "$this_dir/home" >/dev/null
-    if [[ ! -d "$HOME/Library/Application Support/ControllerMate" ]]; then
-        mkdir "$HOME/Library/Application Support/ControllerMate"
-    fi
-    _lnargs \
-        "Library/Application Support/ControllerMate/Programming.plist" \
-        "Library/Preferences/com.apple.finder.plist" \
-        "Library/Preferences/com.apple.Terminal.plist" \
-        "Library/Preferences/com.googlecode.iterm2.plist"
-    popd >/dev/null
-
+function linhome() {
     pushd "$this_dir/.." >/dev/null
+    
     _lnargs \
         .bashrc \
         .bashrc.d \
@@ -61,9 +44,7 @@ function machome() {
         popd >/dev/null
     fi
 
-
     popd >/dev/null
 }
 
-install_mac
-
+install_lin

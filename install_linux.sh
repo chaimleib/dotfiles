@@ -1,35 +1,5 @@
 #!/bin/bash
 
-. "install_common.sh"
+linux/linkFiles.sh
 
-this_dir="$(abspath "$(dirname "$0")")"
-
-function install_lin() {
-    linhome
-    pushd "$HOME" >/dev/null
-    . .bashrc
-    popd >/dev/null
-}
-
-function linhome() {
-    pushd "$this_dir" >/dev/null
-    
-    _lnargs \
-        .bashrc \
-        .bashrc.d \
-        .bash_completion \
-        .bash_completion.d \
-        .gitconfig \
-        .vimrc \
-        .vim \
-        local \
-        .hushlogin \
-        .ee.bcrc \
-        .phy.bcrc \
-        .profile
-
-    popd >/dev/null
-}
-
-install_lin
 

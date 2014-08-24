@@ -26,6 +26,7 @@ function winhome() {
         .bashrc.d \
         .bash_completion \
         .bash_completion.d \
+        .bash_logout \
         .vimrc \
         .vim \
         local \
