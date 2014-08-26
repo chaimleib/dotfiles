@@ -1,5 +1,6 @@
 #!/bin/bash
 
+autoupdate=
 
 function main() {
     printf "%-30s" "Installing Google Chrome..."
@@ -11,8 +12,15 @@ function main() {
         return
     fi
     
+    if [[ -z "$autoupdate" && "$installed" != "none" ]]; then
+        echo "Already installed $installed. Allowing Google Chrome to auto-update"
+        return
+    fi
+    
     echo
-    echo "$installed is installed. Installing $latest..."
+    echo "none is installed. Installing $latest..."
+    
+    checkIfRunning
     
     dmgPath="/tmp/googlechrome.dmg"
     if ! downloadInstaller "$dmgPath"; then
@@ -34,6 +42,23 @@ function main() {
         echo "ERROR: Update unsuccessful, version remains at $installed"
         return 1
     fi
+}
+
+function checkIfRunning() {
+    checker="ps -A | 
+        grep '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' | 
+        grep -v 'grep'"
+        
+    if [[ -z "`$checker`" ]]; then
+        return
+    else
+        echo "Please quit Google Chrome before continuing"
+    fi
+
+    while [[ -n "`$checker`" ]]; do
+        printf .
+        sleep 2
+    done
 }
 
 function downloadInstaller() {
