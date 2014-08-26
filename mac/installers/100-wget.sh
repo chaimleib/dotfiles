@@ -2,7 +2,7 @@
 
 cmdName=wget
 
-printf "%-30s" "Installing $ack..."
+printf "%-30s" "Installing $cmdName..."
 if [[ "$(which "$cmdName")" == "/usr/local/bin/$cmdName" ]]; then
     version="$("$cmdName" --version 2>&1 | grep -o '[0-9]\+\.[0-9\.]\+' | head -n1)"
     echo "Already installed $version"
