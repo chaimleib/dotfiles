@@ -1,0 +1,3 @@
+[submodule "local/all/provide/lib/resolve"]
+	path = local/all/provide/lib/resolve
+	url = git@github.com:chaimleib/resolve
