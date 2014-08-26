@@ -1,5 +1,14 @@
 #!/bin/bash
 
+function installDeps() {
+    pushd "$(abspath "$(dirname "$0")")" >/dev/null
+    
+    git submodule init
+    git submodule update
+    
+    popd >/dev/null
+}
+
 function abspath() {
     if [[ -d "$1" ]]; then
         pushd "$1" >/dev/null
@@ -94,4 +103,6 @@ function _slnfile() {
     echo "ln -s \"$1\" \"$2\""
     sudo ln -s "$1" "$2"
 }
+
+installDeps
 
