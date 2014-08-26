@@ -1,19 +1,20 @@
 #!/bin/bash
 
-autoupdate=
+autoupdate=true
 
 function main() {
     printf "%-30s" "Installing Google Chrome..."
     
     installed="$(getInstalledVersionNum)"
-    latest="$(getLatestVersionNum)"
-    if [[ "$installed" == "$latest" ]]; then
-        echo "Already installed $installed"
+    
+    if [[ -n "$autoupdate" && "$installed" != "none" ]]; then
+        echo "Already installed $installed (auto-updated)"
         return
     fi
     
-    if [[ -z "$autoupdate" && "$installed" != "none" ]]; then
-        echo "Already installed $installed. Allowing Google Chrome to auto-update"
+    latest="$(getLatestVersionNum)"
+    if [[ "$installed" == "$latest" ]]; then
+        echo "Already installed $installed"
         return
     fi
     
