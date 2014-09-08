@@ -32,8 +32,10 @@ function machome() {
     fi
     _lnargs \
         "Library/Application Support/ControllerMate/Programming.plist" \
+        "Library/Keyboard Layouts/Hebrew-Biblical.keylayout" \
         "Library/Preferences/com.apple.finder.plist" \
         "Library/Preferences/com.apple.Terminal.plist" \
+        "Library/Preferences/com.apple.HIToolbox.plist" \
         "Library/Preferences/com.googlecode.iterm2.plist"
     popd >/dev/null
 
