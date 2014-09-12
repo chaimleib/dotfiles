@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## DEPENDENCY: resolve <http://github.com/chaimleib/resolve>
+
+
 name="MenuMeters"
 basepath='http://www.ragingmenace.com/software/menumeters'
 
