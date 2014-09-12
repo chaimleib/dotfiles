@@ -26,7 +26,7 @@ function getLatestVersionNum() {
 
 
 function getInstalledVersionNum() {
-    installed="$(tex --version 2>/dev/null)"
+    installed="$(/usr/texbin/tex --version 2>/dev/null)"
     if [[ -z "$installed" ]]; then
         echo 'none'
         return
