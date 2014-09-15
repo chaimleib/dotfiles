@@ -33,6 +33,7 @@ function machome() {
     _lnargs \
         "Library/Application Support/ControllerMate/Programming.plist" \
         "Library/Keyboard Layouts/Hebrew-Biblical.keylayout" \
+        "Library/Keyboard Layouts/Hebrew-Biblical.icns" \
         "Library/Preferences/com.apple.finder.plist" \
         "Library/Preferences/com.apple.Terminal.plist" \
         "Library/Preferences/com.apple.HIToolbox.plist" \
