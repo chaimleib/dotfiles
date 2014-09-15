@@ -101,8 +101,9 @@ alias cdp='cd ~/Documents/Programming'
 [[ -d /Applications ]] && alias cda='cd /Applications'
 alias cdl='cd ~/Library'
 
-[[ -d ~/Documents/School/ee20 ]] && alias cdee='cd ~/Documents/School/ee20'
-[[ -d ~/Documents/School/cs9f ]] && alias cdcs='cd ~/Documents/School/cs9f'
+[[ -d ~/Documents/School/EE120 ]] && alias cdee='cd ~/Documents/School/EE120'
+[[ -d ~/Documents/School/cs188 ]] && alias cdcs='cd ~/Documents/School/cs188'
+[[ -d ~/Documents/School/eecs149 ]] && alias cdeecs='cd ~/Documents/School/eecs149'
 
 # [[ -d /home2/truthspo/django/django_projects/liespotter ]] && alias cdjl='cd /home2/truthspo/django/django_projects/liespotter'
 [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
