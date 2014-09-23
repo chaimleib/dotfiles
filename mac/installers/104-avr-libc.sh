@@ -3,8 +3,23 @@
 pkgName="avr-libc"
 cmdName=avr-gcc
 
+function getLatestVersion() {
+    version="$(brew info "$pkgName" 2>/dev/null |
+        grep -o '[0-9]\+\.[0-9\.]\+' |
+        head -n1
+    )"
+    echo "$version"
+}
+
 function getInstalledVersion() {
-    version="$(brew info "$pkgName" | grep -o '[0-9]\+\.[0-9\.]\+' | head -n1)"
+    version="$(ls  /usr/local/Cellar/"$pkgName" |
+        sort -r |
+        head -n1
+    )"
+    if [[ -z "$version" ]]; then
+        echo none
+        return
+    fi
     echo "$version"
 }
 
@@ -23,7 +38,7 @@ else
         echo "$errors"
         return 1
     fi
-    
+
     version="$(getInstalledVersion)"
     echo "Installed $version"
 fi
