@@ -100,6 +100,7 @@ alias cdg='cd ~/Google\ Drive'
 alias cdp='cd ~/Documents/Programming'
 [[ -d /Applications ]] && alias cda='cd /Applications'
 alias cdl='cd ~/Library'
+alias cdi='cd ~/dotfiles/mac/installers'
 
 [[ -d ~/Documents/School/EE120 ]] && alias cdee='cd ~/Documents/School/EE120'
 [[ -d ~/Documents/School/cs188 ]] && alias cdcs='cd ~/Documents/School/cs188'
