@@ -12,7 +12,7 @@ this_dir="$(dirname "$0")"
 this_dir="$(abspath "$(dirname "$0")")"
 
 for script in "$this_dir"/settings/*; do
-    if [[ -x "$script" ]]; then
+    if [[ -x "$script" ]] && [[ -f "$script" ]]; then
         "$script"
     fi
 done
