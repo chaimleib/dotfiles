@@ -71,6 +71,9 @@ function _addOPPathTree() {
     fi
 }
 
+if [[ "$OSTYPE" == darwin* ]]; then
+    _addOPPathTree "${HOME}/local/darwin-`uname -m`"
+fi
 _addOPPathTree "${HOME}/local/$OSTYPE-`uname -m`"
 _addOPPathTree "${HOME}/local/all"
 
