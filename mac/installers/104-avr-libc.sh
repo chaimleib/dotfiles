@@ -25,7 +25,7 @@ function getInstalledVersion() {
 
 printf "%-30s" "Installing $pkgName..."
 version="$(getInstalledVersion 2>/dev/null)"
-if [[ -n "$version" ]]; then
+if [[ -n "$version" ]] && [[ "$version" != 'none' ]]; then
     echo "Already installed $version"
 else
     errors="$(brew tap larsimmisch/avr 2>&1)"
