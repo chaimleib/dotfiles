@@ -24,6 +24,20 @@ appendPath /usr/X11/lib/pkgconfig PKG_CONFIG_PATH
 # Qt
 case $OSTYPE in
 darwin*) prependPath /Developer/Qt*/[0-9]*/clang_64/bin ;;
+*linux*)
+    TEX_YEAR=$(
+        ls /usr/local/texlive/ 2>/dev/null |
+        grep -E '^[0-9-]+' |
+        sort -r |
+        head -1
+    )
+    if [[ -n "$TEX_YEAR" ]]; then
+        # expecting only a directory like x86_64-linux inside bin
+        appendPath /usr/local/texlive/$TEX_YEAR/bin/*
+        appendPath /usr/local/texlive/$TEX_YEAR/texmf-dist/doc/info INFOPATH
+        appendPath /usr/local/texlive/$TEX_YEAR/texmf-dist/doc/man MANPATH
+    fi
+    ;;
 esac
 
 # Django/Liespotter stuff
