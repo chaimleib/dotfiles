@@ -12,7 +12,7 @@ case $OSTYPE in
         have gdircolors && alias dircolors='gdircolors'
         ;;
     linux*)
-        alias ls='ls --color' 
+        alias ls='ls --color=auto' 
         ;;
     cygwin*)
         alias ls='ls --color'
