@@ -43,9 +43,6 @@ alias moda='vim ~/.bashrc.d/*aliases.sh'
 alias modp='vim ~/.bashrc.d/*paths.sh'
 alias modv='vim ~/.vimrc'
 
-alias rsrc='rsync -ravz --exclude ".*.swp" chaimleib@musashiaharon.com:"$( echo .vimrc .bashrc{,.d} .bash_completion{,.d} .hushlogin local )" ~/'
-alias rsrcup='rsync -ravz --exclude ".*.swp" ~/.vimrc ~/.bashrc{,.d} ~/.bash_completion{,.d} ~/.hushlogin ~/local chaimleib@musashiaharon.com:~/'
-
 alias gis='git status'
 alias gir='git rebase'
 alias gil='git log'
