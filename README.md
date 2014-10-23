@@ -16,6 +16,12 @@ Features
 
 Hacking
 -------
+The first thing you will likely want to do is do a grep or ack for 'chaim.leib', 'Chaim-Leib', and 'chaimleib' so that you can put your own identity into the setup files.
+
+After that, I suggest exploring `.bashrc.d`, so you can add your own paths and aliases, etc.
+
+You can also add programs to `local`. See the readme there for info on where to put them; different directories are added to the `PATH` depending on your system type and configuration. 
+
 ### Structure
 #### `bashrc`
 * The main bashrc is symlinked to `~/.bashrc` from `dotfiles`.
@@ -26,9 +32,12 @@ Hacking
 
 #### `bashrc.d`
 * `~/.bashrc.d` is also symlinked from `dotfiles`. Only files with execute permissions are sourced.
-* Inside `.bashrc.d`, all scripts are given a numerical prefix to control their order. Some scripts, like `*-paths.sh`, depend on earlier scripts, like `*-pathfuncs`.
 
-* Some of the scripts in `.bashrc.d` define new commands as bash functions and aliases. Others set environment variables.
+* All scripts to be sourced are given a numerical prefix to control their order. Some scripts, like `*-paths.sh`, depend on earlier scripts, like `*-pathfuncs`.
+
+* Other scripts not intended to be sourced directly from `.bashrc` do not have numerical prefixes, and instead begin with '_'
+
+* Some scripts define new commands as bash functions and aliases. Others set environment variables.
 
 #### `bash_completion`
 * There is a bash_completion file symlinked to `~/.bash_completion` from `dotfiles`.
