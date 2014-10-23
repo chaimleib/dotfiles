@@ -22,8 +22,10 @@ Hacking
 
 * `.profile` just sources `~/.bashrc`
 
-* `.bashrc` sources all scripts in `~/.bashrc.d` that have their execute permission set. `~/.bashrc.d` is also symlinked from `dotfiles`.
+* `.bashrc` sources all scripts in `~/.bashrc.d` that have their execute permission set.
 
+#### `bashrc.d`
+* `~/.bashrc.d` is also symlinked from `dotfiles`. Only files with execute permissions are sourced.
 * Inside `.bashrc.d`, all scripts are given a numerical prefix to control their order. Some scripts, like `*-paths.sh`, depend on earlier scripts, like `*-pathfuncs`.
 
 * Some of the scripts in `.bashrc.d` define new commands as bash functions and aliases. Others set environment variables.
