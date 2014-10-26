@@ -83,6 +83,9 @@ fi
 
 [[ $USER = cs9f* ]] && alias g++='g++ -g -Wall -I /home/ff/cs9f/lib'
 
+# sudo vim should use my own vimrc
+alias svim='sudo -E vim'
+
 ## Directory shortcuts
 alias cdd='cd ~/Desktop'
 alias cddw='cd ~/Downloads'
@@ -104,8 +107,8 @@ alias cdi='cd ~/dotfiles/mac/installers'
 [[ -d ~/Documents/School/eecs149 ]] && alias cdeecs='cd ~/Documents/School/eecs149'
 
 # [[ -d /home2/truthspo/django/django_projects/liespotter ]] && alias cdjl='cd /home2/truthspo/django/django_projects/liespotter'
-[[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
-[[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
-[[ -d ~/TinCanValidator ]] && alias cdv='cd ~/TinCanValidator'
-[[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanValidator/lib/schema'
+# [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
+# [[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
+# [[ -d ~/TinCanValidator ]] && alias cdv='cd ~/TinCanValidator'
+# [[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanValidator/lib/schema'
 
