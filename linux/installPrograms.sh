@@ -12,8 +12,12 @@ this_dir="$(dirname "$0")"
 this_dir="$(abspath "$(dirname "$0")")"
 
 sudo apt-get update
-INSTALL='sudo apt-get install -y'
-$INSTALL build-essential 
-$INSTALL imagemagick
-$INSTALL xsel
+sudo apt-get upgrade -y
+sudo apt-get autoremove -y
+
+export INSTALL='sudo apt-get install -y'
+for file in $(ls "$this_dir"/installers/*.sh); do
+    [[ -x "$file" ]] && "$file"
+done
+unset INSTALL
 
