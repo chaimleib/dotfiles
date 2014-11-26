@@ -87,28 +87,39 @@ fi
 alias svim='sudo -E vim'
 
 ## Directory shortcuts
-alias cdd='cd ~/Desktop'
-alias cddw='cd ~/Downloads'
-alias cde='cd /etc'
-alias cdb='cd ~/.bashrc.d'
-alias cdbc='cd ~/.bash_completion.d'
-alias cddot='cd ~/dotfiles'
-alias cdloc='cd ~/dotfiles/local'
-alias cddv='cd /dev'
-alias cddc='cd ~/Documents'
-alias cdg='cd ~/Google\ Drive'
-alias cdp='cd ~/Documents/Programming'
-[[ -d /Applications ]] && alias cda='cd /Applications'
-alias cdl='cd ~/Library'
-alias cdi='cd ~/dotfiles/mac/installers'
+function cdalias() {
+    # alias maker for cd <dir>
+    if [[ -d "$2" ]]; then
+        if err="`type $1 2>&1`"; then
+            echo "cdalias warning: $err" >&2
+        fi
+        alias $1="cd $2"
+    fi
+}
 
-[[ -d ~/Documents/School/EE120 ]] && alias cdee='cd ~/Documents/School/EE120'
-[[ -d ~/Documents/School/cs188 ]] && alias cdcs='cd ~/Documents/School/cs188'
-[[ -d ~/Documents/School/eecs149 ]] && alias cdeecs='cd ~/Documents/School/eecs149'
+cdalias cddx   ~/Desktop
+cdalias cddw   ~/Downloads
+cdalias cde    /etc
+cdalias cdb    ~/.bashrc.d
+cdalias cdbc   ~/.bash_completion.d
+cdalias cddot  ~/dotfiles
+cdalias cdloc  ~/dotfiles/local
+cdalias cddv   /dev
+cdalias cddc   ~/Documents
+cdalias cdg    ~/Google\ Drive
+cdalias cdp    ~/Documents/Programming
+cdalias cda    /Applications
+cdalias cdl    ~/Library
+cdalias cdi    ~/dotfiles/mac/installers
 
-# [[ -d /home2/truthspo/django/django_projects/liespotter ]] && alias cdjl='cd /home2/truthspo/django/django_projects/liespotter'
-# [[ -d ~/TinCanPython ]] && alias cdt='cd ~/TinCanPython'
-# [[ -d ~/xapi_LRS_Test-private ]] && alias cdx='cd ~/xapi_LRS_Test-private'
-# [[ -d ~/TinCanValidator ]] && alias cdv='cd ~/TinCanValidator'
-# [[ -d ~/TinCanValidator/lib/schema ]] && alias cds='cd ~/TinCanValidator/lib/schema'
+cdalias cdee   ~/Documents/School/EE120
+cdalias cdcs   ~/Documents/School/cs188
+cdalias cdeecs ~/Documents/School/eecs149
+cdalias cdsh   ~/Documents/School/eecs149/shazam
+
+# cdalias cdjl /home2/truthspo/django/django_projects/liespotter
+# cdalias cdt  ~/TinCanPython
+# cdalias cdx  ~/xapi_LRS_Test-private
+# cdalias cdv  ~/TinCanValidator
+# cdalias cds  ~/TinCanValidator/lib/schema
 
