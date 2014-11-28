@@ -97,7 +97,7 @@ function cdalias() {
     fi
 }
 
-cdalias cddx   ~/Desktop
+cdalias cdd    ~/Desktop
 cdalias cddw   ~/Downloads
 cdalias cde    /etc
 cdalias cdb    ~/.bashrc.d
