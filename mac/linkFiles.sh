@@ -53,7 +53,8 @@ function machome() {
         .hushlogin \
         .ee.bcrc \
         .phy.bcrc \
-        .profile
+        .profile \
+        .pythonrc.py
 
     gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
     if [[ "$gitver" > '2.' ]]; then
