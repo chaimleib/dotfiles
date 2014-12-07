@@ -10,6 +10,7 @@ alias gids='git diff HEAD --stashed'
 
 # Branches
 alias gib='git branch'
+alias gic='git checkout'
 alias gitcb="git branch | grep ^\* | cut -d' ' -f2-"
 
 alias gir='git rebase'
