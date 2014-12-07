@@ -43,12 +43,6 @@ alias moda='vim ~/.bashrc.d/*aliases.sh'
 alias modp='vim ~/.bashrc.d/*paths.sh'
 alias modv='vim ~/.vimrc'
 
-alias gis='git status'
-alias gir='git rebase'
-alias gil='git log'
-alias gif='git fetch --all'
-alias gid='git diff HEAD'
-
 ## OS-specific shortcuts
 case $OSTYPE in
 darwin*)
@@ -111,6 +105,7 @@ cdalias cdp    ~/Documents/Programming
 cdalias cda    /Applications
 cdalias cdl    ~/Library
 cdalias cdi    ~/dotfiles/mac/installers
+cdalias cds    ~/Sites/chaimleib.github.io
 
 cdalias cdee   ~/Documents/School/EE120
 cdalias cdcs   ~/Documents/School/cs188
