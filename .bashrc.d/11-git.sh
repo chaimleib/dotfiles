@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias modg='vim ~/.bashrc/*-git_aliases.sh'
+alias modg='vim ~/.bashrc.d/*-git.sh'
 
 # Non-modifying commands
 alias gis='git status'
