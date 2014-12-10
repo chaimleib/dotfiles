@@ -102,6 +102,7 @@ cdalias cddv   /dev
 cdalias cddc   ~/Documents
 cdalias cdg    ~/Google\ Drive
 cdalias cdp    ~/Documents/Programming
+cdalias cdpp   ~/Documents/Programming/Python
 cdalias cda    /Applications
 cdalias cdl    ~/Library
 cdalias cdi    ~/dotfiles/mac/installers
