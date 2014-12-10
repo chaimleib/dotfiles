@@ -6,7 +6,7 @@ alias modg='vim ~/.bashrc.d/*-git.sh'
 alias gis='git status'
 alias gil='git log'
 alias gid='git diff HEAD'
-alias gids='git diff HEAD --stashed'
+alias gids='git diff HEAD --staged'
 
 # Branches
 alias gib='git branch'
