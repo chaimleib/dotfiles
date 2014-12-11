@@ -112,6 +112,7 @@ cdalias cdee   ~/Documents/School/EE120
 cdalias cdcs   ~/Documents/School/cs188
 cdalias cdeecs ~/Documents/School/eecs149
 cdalias cdsh   ~/Documents/School/eecs149/shazam
+cdalias cdsh   ~/shazam
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
 # cdalias cdt  ~/TinCanPython
