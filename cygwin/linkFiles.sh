@@ -35,14 +35,7 @@ function winhome() {
         .phy.bcrc \
         .profile
     
-    gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
-    if [[ "$gitver" > '2.' ]]; then
-        _lnargs .gitconfig
-    else
-        pushd cygwin/home >/dev/null
-        _lnargs .gitconfig
-        popd >/dev/null
-    fi
+    "$this_dir"/../common/linkFiles/linkGit.sh
 
     popd >/dev/null
 }
