@@ -94,6 +94,7 @@ function cdalias() {
 cdalias cdd    ~/Desktop
 cdalias cddw   ~/Downloads
 cdalias cde    /etc
+cdalias cdv    /Volumes
 cdalias cdb    ~/.bashrc.d
 cdalias cdbc   ~/.bash_completion.d
 cdalias cddot  ~/dotfiles
