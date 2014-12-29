@@ -103,6 +103,15 @@ function! ToggleHebrew()
     end
 endfunc
 
+"Show syntax highlighting group name
+map <F10> :echo "hi<"
+\ . synIDattr(synID(line("."),col("."),1),"name")
+\ . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name")
+\ . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+\ . ">"<CR>
+
 
 "XML tidying
 "map ,x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
