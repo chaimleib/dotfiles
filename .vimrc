@@ -127,11 +127,6 @@ let g:tex_flavor='latex'
 
 syntax on
 
-let file=expand("~/.vim/syntax/syntax.vim")
-if filereadable(file)
-	silent! execute 'source '.file
-endif
-
 autocmd Syntax python setlocal foldmethod=indent
 let g:pep8_map = ':pep'
 
