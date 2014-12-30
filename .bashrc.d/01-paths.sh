@@ -12,7 +12,7 @@ appendPath /usr/sbin
 #prependPath ~/.bin
 
 # Stellarpad binaries
-#appendPath /Applications/Energia.app/Contents/Resources/Java/hardware/tools/lm4f/bin
+appendPath /Applications/Energia.app/Contents/Resources/Java/hardware/tools/lm4f/bin
 
 # Override default binaries with usr binaries
 prependPath /usr/local/sbin
