@@ -44,6 +44,9 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 echo Show all extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+echo Allow text selection in quick look
+defaults write com.apple.finder QLEnableTextSelection -bool true
+
 ## Mission control ##
 echo Don\'t reorder most-recently-used spaces
 defaults write com.apple.dock mru-spaces -bool false
@@ -53,3 +56,4 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 
 ## Apply changes ##
 killall Dock
+killall Finder
