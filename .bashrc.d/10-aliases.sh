@@ -109,11 +109,7 @@ cdalias cdl    ~/Library
 cdalias cdi    ~/dotfiles/mac/installers
 cdalias cds    ~/Sites/chaimleib.github.io
 
-cdalias cdee   ~/Documents/School/EE120
-cdalias cdcs   ~/Documents/School/cs188
-cdalias cdeecs ~/Documents/School/eecs149
-cdalias cdsh   ~/Documents/School/eecs149/shazam/raspi
-cdalias cdsh   ~/shazam/raspi
+cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
 # cdalias cdt  ~/TinCanPython
