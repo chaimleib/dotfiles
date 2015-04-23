@@ -100,6 +100,8 @@ cdalias cdbc   ~/.bash_completion.d
 cdalias cddot  ~/dotfiles
 cdalias cdloc  ~/dotfiles/local
 cdalias cddv   /dev
+cdalias cdu    /usr
+cdalias cdul   /usr/local
 cdalias cddc   ~/Documents
 cdalias cdg    ~/Google\ Drive
 cdalias cdp    ~/Documents/Programming
