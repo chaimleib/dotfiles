@@ -3,3 +3,5 @@
 [user]
 	name = Chaim-Leib Halbert
 	email = chaim.leib.halbert@gmail.com
+[branch "master"]
+	rebase = true
