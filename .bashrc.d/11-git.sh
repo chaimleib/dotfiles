@@ -2,6 +2,11 @@
 
 alias modg='vim ~/.bashrc.d/*-git.sh'
 
+# use hub instead of git to easily work with github
+if have hub; then
+    alias git='hub'
+fi
+
 # Non-modifying commands
 alias gis='git status -sb'
 alias gil='git log'
