@@ -3,10 +3,10 @@
 alias modg='vim ~/.bashrc.d/*-git.sh'
 
 # Non-modifying commands
-alias gis='git status'
+alias gis='git status -sb'
 alias gil='git log'
-alias gid='git diff HEAD'
-alias gids='git diff HEAD --staged'
+alias gid='git diff HEAD --word-diff'
+alias gids='git diff HEAD --word-diff --staged'
 
 # Branches
 alias gib='git branch'
