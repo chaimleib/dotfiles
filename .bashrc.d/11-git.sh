@@ -12,6 +12,7 @@ alias gis='git status -sb'
 alias gil='git log'
 alias gid='git diff HEAD --word-diff'
 alias gids='git diff HEAD --word-diff --staged'
+alias gidl='gid HEAD^1'
 
 # Branches
 alias gib='git branch'
