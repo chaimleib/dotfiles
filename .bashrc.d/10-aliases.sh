@@ -113,6 +113,7 @@ cdalias cds    ~/Sites/chaimleib.github.io
 
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 cdalias cdr    ~/Documents/Programming/Rails
+cdalias cdrb   ~/Documents/Programming/Ruby
 cdalias cdc    ~/Documents/Programming/Coupa
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
