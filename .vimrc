@@ -130,4 +130,9 @@ syntax on
 autocmd Syntax python setlocal foldmethod=indent
 let g:pep8_map = ':pep'
 
+" Set ruby-style 2-space indents
+autocmd Syntax ruby setlocal tabstop=2
+autocmd Syntax ruby setlocal softtabstop=2
+autocmd Syntax ruby setlocal shiftwidth=2
+
 hi Search ctermbg=lightred ctermfg=black cterm=none
