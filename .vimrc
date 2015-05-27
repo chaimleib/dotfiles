@@ -74,6 +74,10 @@ map -		<C-W><
 map =		<C-W>>
 
 " Mode toggling
+
+"Exit insert mode easily
+imap jj <Esc>
+
 "Copy-paste modes
 set pastetoggle=<F1>
 
@@ -118,6 +122,8 @@ map <F10> :echo "hi<"
 
 
 set backupskip=/tmp/*,/private/tmp/*
+" Used by CommandT - ignores files and directories when fuzzy finding
+set wildignore+=*.log,*.xml,doc/**
 
 "Makes vim invoke latex-suite when a .tex file is opened.
 filetype plugin on
