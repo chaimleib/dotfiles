@@ -26,12 +26,16 @@ filetype plugin indent on
 inoremap <CR> <CR>x<BS>
 nnoremap o ox<BS>
 nnoremap O Ox<BS>
-
 set backspace=indent,eol,start
+
+" Folding
 set foldlevelstart=0
 set foldmethod=syntax
 set foldcolumn=3
+nmap zz za
+nmap zZ zR
 
+" Title
 set title
 auto BufEnter * let &titlestring = hostname() . ":" . expand("%:p")
 auto BufEnter * let &titleold = hostname() . ":" . getcwd()
@@ -68,10 +72,6 @@ map +		<C-W>+
 map _		<C-W>-
 map -		<C-W><
 map =		<C-W>>
-
-"Folding
-nmap zz za
-nmap zZ zR
 
 " Mode toggling
 "Copy-paste modes
