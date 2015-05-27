@@ -5,3 +5,5 @@
 	email = chaim.leib.halbert@gmail.com
 [branch "master"]
 	rebase = true
+[alias]
+	co = checkout
