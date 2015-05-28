@@ -142,3 +142,6 @@ autocmd Syntax ruby setlocal softtabstop=2
 autocmd Syntax ruby setlocal shiftwidth=2
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
+
+execute pathogen#infect()
+filetype plugin indent on
