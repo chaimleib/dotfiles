@@ -32,8 +32,8 @@ set backspace=indent,eol,start
 set foldlevelstart=0
 set foldmethod=syntax
 set foldcolumn=3
-nmap zz za
-nmap zZ zR
+nmap zZ za
+nmap zz zR
 
 " Title
 set title
