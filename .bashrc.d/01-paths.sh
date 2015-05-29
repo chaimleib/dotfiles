@@ -56,6 +56,7 @@ if [[ -d /usr/local/Cellar/ruby ]]; then
     prependPath /usr/local/Cellar/ruby/`ls | sort -r | head -1`/bin
     popd 2>&1 > /dev/null
 fi
+appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
 
 # Haskell
 prependPath ~/.cabal/bin
