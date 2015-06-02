@@ -64,6 +64,8 @@ darwin*)
         done
         octave $newargs
     }
+    
+    have brew && alias brup='brew update && brew upgrade --all'
 ;;
 esac
 
