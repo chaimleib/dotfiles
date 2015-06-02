@@ -10,8 +10,10 @@ fi
 # Non-modifying commands
 alias gis='git status -sb'
 alias gil='git log'
-alias gid='git diff HEAD --word-diff'
-alias gids='git diff HEAD --word-diff --staged'
+alias gid='git diff HEAD'
+alias gids='git diff HEAD --staged'
+alias gidw='git diff HEAD --word-diff'
+alias gidsw='git diff HEAD --word-diff --staged'
 alias gidl='gid HEAD^1'
 
 # Branches
