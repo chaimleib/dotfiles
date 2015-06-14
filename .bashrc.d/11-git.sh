@@ -9,7 +9,7 @@ fi
 
 # Non-modifying commands
 alias gis='git status -sb'
-alias gil='git log'
+alias gil='git log --date=local --pretty=format:"%C(bold blue)%h %C(green)%an %C(yellow)%ad%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) : %s"'
 alias gid='git diff HEAD'
 alias gids='git diff HEAD --staged'
 alias gidw='git diff HEAD --word-diff'
