@@ -4,15 +4,15 @@
 alias ..='cd ..'
 case $OSTYPE in
     darwin*)
-        alias ls='ls -G' 
+        alias ls='ls -G'
         ;;
-    solaris*)    
+    solaris*)
         alias ls='gls --color'
         alias tail='gtail'
         have gdircolors && alias dircolors='gdircolors'
         ;;
     linux*)
-        alias ls='ls --color=auto' 
+        alias ls='ls --color=auto'
         ;;
     cygwin*)
         alias ls='ls --color'
@@ -51,7 +51,7 @@ case $OSTYPE in
 darwin*)
     alias hide='sudo chflags hidden'
     alias unhide='sudo chflags nohidden'
-    
+
     ! have matlab && function matlab() {
         newargs=''
         for arg in "$@"; do
@@ -64,8 +64,10 @@ darwin*)
         done
         octave $newargs
     }
-    
-    have brew && alias brup='brew update && brew upgrade --all'
+
+    have brew && alias brup='echo "Updating..." && brew update -v &&
+        echo "Upgrading..." && brew upgrade --all &&
+        echo "Cleaning..." && brew cleanup && brew cask cleanup'
 ;;
 esac
 
@@ -120,6 +122,7 @@ cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 cdalias cdr    ~/Documents/Programming/Rails
 cdalias cdrb   ~/Documents/Programming/Ruby
 cdalias cdc    ~/Documents/Programming/Coupa
+cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
 # cdalias cdt  ~/TinCanPython
