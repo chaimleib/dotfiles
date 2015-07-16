@@ -99,4 +99,8 @@ function abspath() {
     pwd
     [[ "$1" != '' ]] && popd >/dev/null
 }
+
+function relpath() {
+    python -c "import os.path; print os.path.relpath('$1', '${2:-$PWD}')"
+}
  
