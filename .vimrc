@@ -76,7 +76,7 @@ map =		<C-W>>
 " Mode toggling
 
 "Exit insert mode easily
-imap jj <Esc>
+imap ,, <Esc>
 
 "Copy-paste modes
 set pastetoggle=<F1>
@@ -140,6 +140,10 @@ let g:pep8_map = ':pep'
 autocmd Syntax ruby setlocal tabstop=2
 autocmd Syntax ruby setlocal softtabstop=2
 autocmd Syntax ruby setlocal shiftwidth=2
+
+autocmd Syntax haml setlocal tabstop=2
+autocmd Syntax haml setlocal softtabstop=2
+autocmd Syntax haml setlocal shiftwidth=2
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
 
