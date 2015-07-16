@@ -119,10 +119,9 @@ cdalias cdi    ~/dotfiles/mac/installers
 cdalias cds    ~/Sites/chaimleib.github.io
 
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
-cdalias cdr    ~/Documents/Programming/Rails
-cdalias cdrb   ~/Documents/Programming/Ruby
 cdalias cdc    ~/Documents/Programming/Coupa
 cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
+cdalias cdpo   ~/Documents/Programming/Coupa/potato
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
 # cdalias cdt  ~/TinCanPython
