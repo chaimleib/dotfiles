@@ -1,6 +1,7 @@
 #!/bin/bash
 
 alias modg='vim ~/.bashrc.d/*-git.sh'
+alias modc='git config --edit'
 
 # use hub instead of git to easily work with github
 if have hub; then
@@ -24,4 +25,8 @@ alias gitcb="git branch | grep ^\* | cut -d' ' -f2-"
 alias gir='git rebase'
 alias gim='git merge'
 alias gif='git fetch --all'
+
+function cdr() {
+    cd "$(git rev-parse --show-toplevel)/$1"
+}
 
