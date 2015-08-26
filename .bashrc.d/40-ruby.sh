@@ -14,3 +14,5 @@ function rr() {
     bundle exec rails runner "eval(File.read '$fp')"
 }
 
+export USING_CAPYBARA=true
+
