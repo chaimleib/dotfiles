@@ -30,6 +30,9 @@ alias search-content='grep --color=always -n'
 function agm() {
     ag --color "$@" | more
 }
+function agmr() {
+    ag --color "$@" --ruby | more
+}
 
 
 ## Meta shortcuts
@@ -121,6 +124,9 @@ cdalias cds    ~/Sites/chaimleib.github.io
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 cdalias cdc    ~/Documents/Programming/Coupa
 cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
+cdalias cdca   ~/Documents/Programming/Coupa/csna
+cdalias cdcb   ~/Documents/Programming/Coupa/csnb
+cdalias cdcp   ~/Documents/Programming/Coupa
 cdalias cdpo   ~/Documents/Programming/Coupa/potato
 
 # cdalias cdjl /home2/truthspo/django/django_projects/liespotter
