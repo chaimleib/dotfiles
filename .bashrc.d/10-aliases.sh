@@ -94,9 +94,9 @@ alias svim='sudo -E vim'
 function cdalias() {
     # alias maker for cd <dir>
     if [[ -d "$2" ]]; then
-        if err="`type $1 2>&1`"; then
-            echo "cdalias warning: $err" >&2
-        fi
+        # if err="`type $1 2>&1`"; then
+        #     echo "cdalias warning: $err" >&2
+        # fi
         alias $1="cd $2"
     fi
 }
@@ -126,6 +126,7 @@ cdalias cdc    ~/Documents/Programming/Coupa
 cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
 cdalias cdca   ~/Documents/Programming/Coupa/csna
 cdalias cdcb   ~/Documents/Programming/Coupa/csnb
+cdalias cdcc   ~/Documents/Programming/Coupa/csnc
 cdalias cdcp   ~/Documents/Programming/Coupa
 cdalias cdpo   ~/Documents/Programming/Coupa/potato
 
