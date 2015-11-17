@@ -127,6 +127,7 @@ cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
 cdalias cdca   ~/Documents/Programming/Coupa/csna
 cdalias cdcb   ~/Documents/Programming/Coupa/csnb
 cdalias cdcc   ~/Documents/Programming/Coupa/csnc
+cdalias cdsw   ~/Documents/Programming/Coupa/solano-weekly
 cdalias cdcp   ~/Documents/Programming/Coupa
 cdalias cdpo   ~/Documents/Programming/Coupa/potato
 
