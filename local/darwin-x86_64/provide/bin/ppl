@@ -1,11 +1,1 @@
-#!/bin/bash
-
-ppldir="$( dirname "$( dirname "$0")" )"/lib/ppl
-
-if [[ -x "$ppldir/ppl.py" ]]; then
-    plutil -convert xml1 "$1" -o - | python "$ppldir/ppl.py"
-else
-    echo 'Could not run!' >/dev/stderr
-    exit 1
-fi
-
+../lib/ppl/ppl.py
