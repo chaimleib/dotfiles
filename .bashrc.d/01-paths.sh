@@ -50,6 +50,12 @@ esac
 
 #prependPath /home2/truthspo/python/bin
 
+# Haskell
+prependPath ~/.cabal/bin
+
+# Inkscape
+appendPath /Applications/Inkscape.app/Contents/Resources/bin
+
 # ruby and sass
 if [[ -d /usr/local/Cellar/ruby ]]; then
     pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
@@ -57,12 +63,6 @@ if [[ -d /usr/local/Cellar/ruby ]]; then
     popd 2>&1 > /dev/null
 fi
 appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
-
-# Haskell
-prependPath ~/.cabal/bin
-
-# Inkscape
-appendPath /Applications/Inkscape.app/Contents/Resources/bin
 
 # OS-specific
 
