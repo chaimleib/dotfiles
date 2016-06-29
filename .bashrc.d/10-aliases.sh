@@ -28,10 +28,10 @@ alias la='ls -ACF'
 alias more='less -R --hilite-search --status-column'
 alias search-content='grep --color=always -n'
 function agm() {
-    ag --color "$@" | more
+    ag --color "$@" | cut -c1-500 | more
 }
 function agmr() {
-    ag --color "$@" --ruby | more
+    ag --color "$@" --ruby | cut -c1-500 | more
 }
 
 
