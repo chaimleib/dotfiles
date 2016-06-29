@@ -1,12 +1,5 @@
 #!/bin/bash
 
-function have() {
-# Whether a function is installed on the PATH
-# Modified from /usr/local/etc/bash_completion
-    unset -v have
-    type $1 &>/dev/null
-}
-
 function lspath() {
 # Displays the members of the path variable on separate lines
 	local pathlistname=$1
