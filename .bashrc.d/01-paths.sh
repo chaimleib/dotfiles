@@ -21,25 +21,6 @@ prependPath /usr/local/bin
 appendPath /usr/local/lib PKG_CONFIG_PATH
 appendPath /usr/X11/lib/pkgconfig PKG_CONFIG_PATH
 
-# Qt
-case $OSTYPE in
-darwin*) prependPath /Developer/Qt*/[0-9]*/clang_64/bin ;;
-*linux*)
-    TEX_YEAR=$(
-        ls /usr/local/texlive/ 2>/dev/null |
-        grep -E '^[0-9-]+' |
-        sort -r |
-        head -1
-    )
-    if [[ -n "$TEX_YEAR" ]]; then
-        # expecting only a directory like x86_64-linux inside bin
-        appendPath /usr/local/texlive/$TEX_YEAR/bin/*
-        appendPath /usr/local/texlive/$TEX_YEAR/texmf-dist/doc/info INFOPATH
-        appendPath /usr/local/texlive/$TEX_YEAR/texmf-dist/doc/man MANPATH
-    fi
-    ;;
-esac
-
 # Django/Liespotter stuff
 #prependPath /home2/truthspo/boost/lib LD_LIBRARY_PATH
 #prependPath /home2/truthspo/boost/lib DYLD_LIBRARY_PATH
@@ -66,4 +47,7 @@ if [[ -d /usr/local/Cellar/ruby ]]; then
     popd 2>&1 > /dev/null
 fi
 appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
+
+# node
+prependPath "$HOME/.node_modules_global/bin"
 
