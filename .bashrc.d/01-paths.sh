@@ -56,6 +56,9 @@ prependPath ~/.cabal/bin
 # Inkscape
 appendPath /Applications/Inkscape.app/Contents/Resources/bin
 
+# ColdFusion
+appendPath /Applications/ColdFusion2016/cfusion/bin
+
 # ruby and sass
 if [[ -d /usr/local/Cellar/ruby ]]; then
     pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
