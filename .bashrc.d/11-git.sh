@@ -30,3 +30,6 @@ function cdr() {
     cd "$(git rev-parse --show-toplevel)/$1"
 }
 
+function gitpath() {
+    git rev-parse --show-toplevel
+}
