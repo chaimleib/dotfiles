@@ -1,5 +1,6 @@
 set nocompatible    "disable vi compatibility; unleash the POWER!
 
+"Search options
 set showmatch
 set hlsearch
 set incsearch
