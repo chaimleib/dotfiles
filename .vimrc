@@ -1,4 +1,4 @@
-set nocompatible	"disable vi compatibility
+set nocompatible    "disable vi compatibility; unleash the POWER!
 
 set showmatch
 set hlsearch
@@ -16,10 +16,10 @@ set wildmode=list:longest
 "Indent handling
 set autoindent
 set smartindent
-set tabstop=4		"tabs 4 spaces wide
+set tabstop=4       "tabs 4 spaces wide
 set softtabstop=4   "delete whole tabs at a time
-set shiftwidth=4	"indent 4 spaces wide
-set expandtab		"soft tabs
+set shiftwidth=4    "indent 4 spaces wide
+set expandtab       "soft tabs
 filetype plugin indent on
 
 " Don't remove leading space in the line
@@ -44,8 +44,15 @@ set ruler
 set number
 
 set laststatus=2
-set statusline=%F%r%w[%{&ff}]%y[%p%%\ %l/%L,%v]
-let g:Powerline_symbols = 'fancy'
+"Status line:
+" %F full file path
+" %r read only status, appears as [RO]
+" %w preview window flag, appears as [Preview]
+" %y file type/syntax language
+" %p vertical position as percent of file
+" %l/%L line number/total lines
+" %v column number
+set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 
 "Show the current command in the lower right corner
 set showcmd
@@ -68,8 +75,10 @@ map <C-h>	<C-W>h
 map <C-l>	<C-W>l
 map <C-j>	<C-W>j
 map <C-k>	<C-W>k
+"Resize vertically with shift:
 map +		<C-W>+
 map _		<C-W>-
+"Resize horizontally without shift:
 map -		<C-W><
 map =		<C-W>>
 
@@ -118,8 +127,8 @@ map <F10> :echo "hi<"
 
 
 "XML tidying
+"Disabled, since it could not tidy large, multi-megabyte files
 "map ,x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
-
 
 set backupskip=/tmp/*,/private/tmp/*
 " Used by CommandT - ignores files and directories when fuzzy finding
@@ -149,3 +158,4 @@ hi Search ctermbg=lightred ctermfg=black cterm=none
 
 execute pathogen#infect()
 filetype plugin indent on
+
