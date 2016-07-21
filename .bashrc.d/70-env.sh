@@ -15,7 +15,3 @@ if [[ "$OSTYPE" == darwin* ]]; then
     export HOMEBREW_CASK_OPTS='--appdir=/Applications'
 fi
 
-if [[ -d /usr/local/Cellar/tomcat ]]; then
-    export TOMCAT_HOME="$(brew --prefix tomcat)/libexec"
-fi
-
