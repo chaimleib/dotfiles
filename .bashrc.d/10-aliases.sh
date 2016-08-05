@@ -44,6 +44,14 @@ if ! have vim && have vi; then
         alias vim='vi'
     fi
 fi
+if have nvim; then
+    alias vim='nvim'
+fi
+
+if ! have subl && [ -x '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' ]; then
+    alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+fi
+
 alias modb='vim ~/.bashrc'
 alias moda='vim ~/.bashrc.d/*-aliases.sh'
 alias modp='vim ~/.bashrc.d/*-paths.sh'
