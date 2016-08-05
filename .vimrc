@@ -17,9 +17,9 @@ set wildmode=list:longest
 "Indent handling
 set autoindent
 set smartindent
-set tabstop=4       "tabs 4 spaces wide
-set softtabstop=4   "delete whole tabs at a time
-set shiftwidth=4    "indent 4 spaces wide
+set tabstop=2       "tabs 2 spaces wide
+set softtabstop=2   "delete whole tabs at a time
+set shiftwidth=2    "indent 2 spaces wide
 set expandtab       "soft tabs
 filetype plugin indent on
 
@@ -144,7 +144,19 @@ let g:tex_flavor='latex'
 syntax on
 
 autocmd Syntax python setlocal foldmethod=indent
+autocmd Syntax python setlocal tabstop=4
+autocmd Syntax python setlocal softtabstop=4
+autocmd Syntax python setlocal shiftwidth=4
 let g:pep8_map = ':pep'
+
+
+autocmd Syntax sh setlocal tabstop=4
+autocmd Syntax sh setlocal softtabstop=4
+autocmd Syntax sh setlocal shiftwidth=4
+
+autocmd Syntax makefile setlocal tabstop=4
+autocmd Syntax makefile setlocal softtabstop=4
+autocmd Syntax makefile setlocal shiftwidth=4
 
 " Set ruby-style 2-space indents
 autocmd Syntax ruby setlocal tabstop=2
