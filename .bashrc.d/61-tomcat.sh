@@ -5,6 +5,6 @@ if [[ -d /usr/local/Cellar/tomcat ]]; then
     [ -L "$TOMCAT_HOME" ] && TOMCAT_HOME="$(resolve $(dirname $TOMCAT_HOME) $(readlink $TOMCAT_HOME))/libexec"
     export TOMCAT_HOME
 
-    export JAVA_OPTS="-Xms512m -Xmx1024m"
+    export JAVA_OPTS="-Xms512m -Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=2048m"
 fi
 
