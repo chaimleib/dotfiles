@@ -162,3 +162,7 @@ autocmd Syntax haml setlocal shiftwidth=2
 
 filetype plugin indent on
 
+call plug#begin('~/.config/nvim/plugged')
+Plug 'airblade/vim-gitgutter'
+call plug#end()
+

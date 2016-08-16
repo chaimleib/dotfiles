@@ -42,10 +42,11 @@ function commonhome() {
 }
 
 function commonconfig() {
-    mkdir -p "${HOME}/.config"
+    mkdir -p "${HOME}/.config/nvim"
     pushd "$this_dir/../.config" >/dev/null
     _lnargs \
-        nvim
+        nvim/init.vim \
+        nvim/autoload
     
     popd >/dev/null
 }
