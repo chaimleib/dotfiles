@@ -71,6 +71,12 @@ set showcmd
 "noremap k <NOP>
 "noremap l <NOP>
 
+"Move by display lines
+map <A-j>	gj
+map <A-k>	gk
+map <A-h>	g0
+map <A-l>	g$
+
 "Split view manipulation
 map <C-h>	<C-W>h
 map <C-l>	<C-W>l
