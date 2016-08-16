@@ -13,6 +13,7 @@ this_dir="$(abspath "$(dirname "$0")")"
 
 function install_common() {
     commonhome
+    commonconfig
     pushd "$HOME" >/dev/null
     . .bashrc
     popd >/dev/null
@@ -37,6 +38,15 @@ function commonhome() {
     
     "$this_dir"/linkFiles/linkGit.sh
 
+    popd >/dev/null
+}
+
+function commonconfig() {
+    mkdir -p "${HOME}/.config"
+    pushd "$this_dir/../.config" >/dev/null
+    _lnargs \
+        nvim
+    
     popd >/dev/null
 }
 
