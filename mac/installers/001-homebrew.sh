@@ -1,4 +1,5 @@
 #!/bin/bash
+this_dir="$(dirname "$0")"
 
 printf "%-30s" "Installing brew..."
 if brew --version 1>/dev/null 2>/dev/null; then
@@ -13,3 +14,10 @@ else
     version="$(brew --version | grep -o '[0-9]\+\.[0-9\.]\+')"
     echo "Installed $version"
 fi
+
+echo "Setting up taps..."
+while read tap; do
+  echo "  Tapping $tap..."
+  brew tap "$tap"
+done < "${this_dir}/brewtap.txt"
+
