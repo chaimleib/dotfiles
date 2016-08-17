@@ -72,10 +72,10 @@ function machome() {
 
 function macconfig() {
     mkdir -p "${HOME}/.config/nvim"
-    pushd "$this_dir/../.config" >/dev/null
+    pushd "$this_dir/.." >/dev/null
     _lnargs \
-        nvim/init.vim \
-        nvim/autoload
+        .config/nvim/init.vim \
+        .config/nvim/autoload
     
     popd >/dev/null
 }
