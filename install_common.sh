@@ -33,7 +33,7 @@ function _slnargs() {
         elif [[ -f "$this_dir/$item" ]]; then
             _slnfile "$this_dir/$item" "/$item"
         else
-            echo "Could not link '$file'"
+            echo "Could not link '$item'"
         fi
     done
 }
@@ -46,7 +46,7 @@ function _lnargs() {
         elif [[ -f "$this_dir/$item" ]]; then
             _lnfile "$this_dir/$item" "$HOME/$item"
         else
-            echo "Could not link '$file'"
+            echo "Could not link '$item'"
         fi
     done
 }
