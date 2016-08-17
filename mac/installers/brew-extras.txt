@@ -2,6 +2,7 @@ avrdude
 osx-cross/avr/avr-libc
 awscli
 bdw-gc
+bfg
 chromedriver
 cmake
 ctags
