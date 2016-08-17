@@ -23,8 +23,8 @@ nnoremap O Ox<BS>
 set foldlevelstart=0
 set foldmethod=syntax
 set foldcolumn=3
-nmap zZ za
-nmap zz zR
+nnoremap zZ za
+nnoremap zz zR
 
 " Title
 set title
@@ -61,32 +61,41 @@ set showcmd
 "noremap l <NOP>
 
 "Move by display lines
-map <A-j>	gj
-map <A-k>	gk
-map <A-h>	g0
-map <A-l>	g$
+noremap <A-j>	gj
+noremap <A-k>	gk
+noremap <A-h>	g0
+noremap <A-l>	g$
 
 "Split view manipulation
-map <C-h>	<C-W>h
-map <C-l>	<C-W>l
-map <C-j>	<C-W>j
-map <C-k>	<C-W>k
+inoremap <C-h>	<C-w>h
+inoremap <C-l>	<C-w>l
+inoremap <C-j>	<C-w>j
+inoremap <C-k>	<C-w>k
+nnoremap <C-h>	<C-w>h
+nnoremap <C-l>	<C-w>l
+nnoremap <C-j>	<C-w>j
+nnoremap <C-k>	<C-w>k
+tnoremap <C-h>	<C-\><C-n><C-w>h
+tnoremap <C-l>	<C-\><C-n><C-w>l
+tnoremap <C-j>	<C-\><C-n><C-w>j
+tnoremap <C-k>	<C-\><C-n><C-w>k
 "Resize vertically with shift:
-map +		<C-W>+
-map _		<C-W>-
+noremap +		<C-W>+
+noremap _		<C-W>-
 "Resize horizontally without shift:
-map -		<C-W><
-map =		<C-W>>
+noremap -		<C-W><
+noremap =		<C-W>>
 
 " Mode toggling
 
 "Exit insert mode easily
-imap ,, <Esc>
+inoremap ,, <Esc>
+tnoremap ,, <C-\><C-n>
 
 "Copy-paste modes
 set pastetoggle=<F1>
 
-nmap <silent> <F2> :call ToggleInfoCols()<CR>
+nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 let infocols=1
 function! ToggleInfoCols()
     if g:infocols
@@ -100,8 +109,8 @@ function! ToggleInfoCols()
     endif
 endfunction
 
-imap <F3> <c-o>:call ToggleHebrew()<CR>
-nmap <F3> :call ToggleHebrew()<CR>
+inoremap <F3> <c-o>:call ToggleHebrew()<CR>
+nnoremap <F3> :call ToggleHebrew()<CR>
 function! ToggleHebrew()
     if &rl
         set norl
@@ -113,7 +122,7 @@ function! ToggleHebrew()
 endfunc
 
 "Show syntax highlighting group name
-map <F10> :echo "hi<"
+noremap <F10> :echo "hi<"
 \ . synIDattr(synID(line("."),col("."),1),"name")
 \ . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name")
@@ -164,5 +173,10 @@ filetype plugin indent on
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
 
