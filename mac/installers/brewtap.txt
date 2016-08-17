@@ -1,10 +1,9 @@
 caskroom/cask
 caskroom/fonts
 chaimleib/formulae
-gapple/services
 homebrew/core
 homebrew/dupes
 homebrew/php
+homebrew/services
 homebrew/versions
 neovim/neovim
-px4/px4
