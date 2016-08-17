@@ -11,11 +11,8 @@ defaults write com.apple.dock persistent-apps -array
 echo Setting the dock\'s apps
 for item in \
     /Applications/ControllerMate.app \
-    /Applications/Time\ Machine.app \
-    /Applications/Safari.app \
     /Applications/Google\ Chrome.app \
     /Applications/Airmail.app \
-    /Applications/Airmail\ Beta.app \
     /Applications/Address\ Book.app \
     /Applications/Contacts.app \
     /Applications/iCal.app \
@@ -38,3 +35,4 @@ echo "Autohide dock"
 defaults write com.apple.dock autohide -bool true
 
 killall Dock
+
