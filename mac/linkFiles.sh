@@ -14,6 +14,7 @@ this_dir="$(abspath "$(dirname "$0")")"
 function install_mac() {
     macroot
     machome
+    macconfig
     pushd "$HOME" >/dev/null
     . .bashrc
     popd >/dev/null
@@ -66,6 +67,16 @@ function machome() {
     fi
 
 
+    popd >/dev/null
+}
+
+function macconfig() {
+    mkdir -p "${HOME}/.config/nvim"
+    pushd "$this_dir/../.config" >/dev/null
+    _lnargs \
+        nvim/init.vim \
+        nvim/autoload
+    
     popd >/dev/null
 }
 
