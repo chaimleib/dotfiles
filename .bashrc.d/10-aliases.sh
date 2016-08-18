@@ -56,6 +56,7 @@ alias modb='vim ~/.bashrc'
 alias moda='vim ~/.bashrc.d/*-aliases.sh'
 alias modp='vim ~/.bashrc.d/*-paths.sh'
 alias modv='vim ~/.vimrc'
+alias modn='vim ~/.config/nvim/init.vim'
 
 ## OS-specific shortcuts
 case $OSTYPE in
