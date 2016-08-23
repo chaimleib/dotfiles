@@ -1,5 +1,5 @@
 [push]
-	default = matching
+	default = simple
 [user]
 	name = Chaim-Leib Halbert
 	email = chaim.leib.halbert@gmail.com
