@@ -47,6 +47,7 @@ fi
 if have nvim; then
     alias vim='nvim'
 fi
+alias v='vim'
 
 if ! have subl && [ -x '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' ]; then
     alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
