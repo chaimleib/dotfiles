@@ -1,5 +1,6 @@
 caskroom/cask
 caskroom/fonts
+caskroom/versions
 chaimleib/formulae
 homebrew/core
 homebrew/dupes
