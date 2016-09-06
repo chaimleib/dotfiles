@@ -21,3 +21,6 @@ while read tap; do
   brew tap "$tap"
 done < "${this_dir}/brewtap.txt"
 
+brew update
+brew upgrade
+
