@@ -67,10 +67,10 @@ noremap <A-h>	g0
 noremap <A-l>	g$
 
 "Split view manipulation
-inoremap <C-h>	<C-w>h
-inoremap <C-l>	<C-w>l
-inoremap <C-j>	<C-w>j
-inoremap <C-k>	<C-w>k
+inoremap <C-h>	<C-\><C-n><C-w>h
+inoremap <C-l>	<C-\><C-n><C-w>l
+inoremap <C-j>	<C-\><C-n><C-w>j
+inoremap <C-k>	<C-\><C-n><C-w>k
 nnoremap <C-h>	<C-w>h
 nnoremap <C-l>	<C-w>l
 nnoremap <C-j>	<C-w>j
