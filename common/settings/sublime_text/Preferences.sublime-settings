@@ -1,0 +1,19 @@
+{
+	"font_size": 11,
+	"ignored_packages":
+	[
+		"CSS",
+		"Vintage"
+	],
+	"rulers":
+	[
+		80,
+		90,
+		100
+	],
+	"show_full_path": true,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"vintageous_use_ctrl_keys": true,
+	"word_wrap": true
+}
