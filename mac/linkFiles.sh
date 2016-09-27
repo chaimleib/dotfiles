@@ -10,75 +10,19 @@ this_dir="$(dirname "$0")"
 . "$this_dir"/../install_common.sh
 
 this_dir="$(abspath "$(dirname "$0")")"
+mac_dir="${this_dir}"
+common_dir="$(dirname "$this_dir")"
 
-function install_mac() {
-    macroot
-    machome
-    macconfig
-    pushd "$HOME" >/dev/null
-    . .bashrc
-    popd >/dev/null
-}
-
-function macroot() {
-    pushd "$this_dir/root" >/dev/null
-    _slnargs "Library/Application Support/Razer"
-    popd >/dev/null
-}
-
-function machome() {
-    pushd "$this_dir/home" >/dev/null
-    if [[ ! -d "$HOME/Library/Application Support/ControllerMate" ]]; then
-        mkdir "$HOME/Library/Application Support/ControllerMate"
+for f in "${this_dir}/linkFiles/"*; do
+    if ! [ -x "$f" ]; then
+        echo "$f not executable; skipping"
+        continue
     fi
-    _lnargs \
-        "Library/Application Support/ControllerMate/Programming.plist" \
-        "Library/Keyboard Layouts/Hebrew-Biblical.keylayout" \
-        "Library/Keyboard Layouts/Hebrew-Biblical.icns" \
-        "Library/Preferences/com.apple.finder.plist" \
-        "Library/Preferences/com.apple.Terminal.plist" \
-        "Library/Preferences/com.apple.HIToolbox.plist" \
-        "Library/Preferences/com.googlecode.iterm2.plist"
-    popd >/dev/null
+    [[ -n "$dotfiles_DRYRUN" ]] && echo "#> $f"
+    . "$f"
+done
 
-    pushd "$this_dir/.." >/dev/null
-    _lnargs \
-        .bashrc \
-        .bashrc.d \
-        .bash_completion \
-        .bash_completion.d \
-        .bash_logout \
-        .vimrc \
-        .vim \
-        local \
-        .hushlogin \
-        .ee.bcrc \
-        .phy.bcrc \
-        .profile \
-        .pythonrc.py
-
-    gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
-    if [[ "$gitver" > '2.' ]]; then
-        _lnargs .gitconfig
-    else
-        pushd cygwin/home >/dev/null
-        _lnargs .gitconfig
-        popd >/dev/null
-    fi
-
-
-    popd >/dev/null
-}
-
-function macconfig() {
-    mkdir -p "${HOME}/.config/nvim"
-    pushd "$this_dir/.." >/dev/null
-    _lnargs \
-        .config/nvim/init.vim \
-        .config/nvim/autoload
-    
-    popd >/dev/null
-}
-
-install_mac
+pushd "$HOME" >/dev/null
+. .bashrc
+popd >/dev/null
 
