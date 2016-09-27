@@ -14,6 +14,7 @@ function abspath() {
     fi 
 }
 
+# Modifies fs root using sudo
 function _slnargs() {
     local this_dir="$PWD"
     for item in "$@"; do
@@ -84,7 +85,7 @@ function _srmdir() {
 function _slndir() {
     _linkExists "$@" && return
     _srmdir "$2"
-    echo "ln -s \"$1\" \"$2\""
+    echo "sudo ln -s \"$1\" \"$2\""
     [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"
 }
@@ -98,7 +99,7 @@ function _srmfile() {
 function _slnfile() {
     _linkExists "$@" && return
     _srmfile "$2"
-    echo "ln -s \"$1\" \"$2\""
+    echo "sudo ln -s \"$1\" \"$2\""
     [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"
 }
