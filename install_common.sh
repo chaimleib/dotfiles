@@ -1,14 +1,5 @@
 #!/bin/bash
 
-function installDeps() {
-    pushd "$(abspath "$(dirname "$0")")" >/dev/null
-    
-    git submodule init
-    git submodule update
-    
-    popd >/dev/null
-}
-
 function abspath() {
     if [[ -d "$1" ]]; then
         pushd "$1" >/dev/null
@@ -22,8 +13,6 @@ function abspath() {
         popd >/dev/null
     fi 
 }
-
-# this_dir="$(abspath "$(dirname "$0")")"
 
 function _slnargs() {
     local this_dir="$PWD"
@@ -58,51 +47,59 @@ function _linkExists() {
     fi
     return 1
 }
-    
-    
+
 function _rmdir() {
-    [[ -d "$1" ]] && mv "$1"{,.old}
+    [[ -d "$1" ]] || return
+    [[ -n "$dotfiles_DRYRUN" ]] && echo "mv $1{,.old}" && return
+    mv "$1"{,.old}
 }
 
 function _lndir() {
     _linkExists "$@" && return
     _rmdir "$2"
     echo "ln -s \"$1\" \"$2\""
+    [[ -n "$dotfiles_DRYRUN" ]] && return
     ln -s "$1" "$2"
 }
 
 function _rmfile() {
-    [[ -e "$1" ]] && mv "$1"{,.old}
+    [[ -e "$1" ]] || return
+    [[ -n "$dotfiles_DRYRUN" ]] && echo "mv $1{,.old}" && return
+    mv "$1"{,.old}
 }
 
 function _lnfile() {
     _linkExists "$@" && return
     _rmfile "$2"
     echo "ln -s \"$1\" \"$2\""
-    ln -s "$1" "$2"
+    [[ -n "$dotfiles_DRYRUN" ]] || ln -s "$1" "$2"
 }
 
 function _srmdir() {
-    [ -d "$1" ] && sudo mv "$1"{,.old}
+    [ -d "$1" ] || return
+    [[ -n "$dotfiles_DRYRUN" ]] && echo "sudo mv $1{,.old}" && return
+    sudo mv "$1"{,.old}
 }
 
 function _slndir() {
     _linkExists "$@" && return
     _srmdir "$2"
     echo "ln -s \"$1\" \"$2\""
+    [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"
 }
 
 function _srmfile() {
-    [[ -e "$1" ]] && sudo mv "$1"{,.old}
+    [[ -e "$1" ]] || return
+    [[ -n "$dotfiles_DRYRUN" ]] && echo "sudo mv $1{,.old}" && return
+    sudo mv "$1"{,.old}
 }
 
 function _slnfile() {
     _linkExists "$@" && return
     _srmfile "$2"
     echo "ln -s \"$1\" \"$2\""
+    [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"
 }
-
-installDeps
 
