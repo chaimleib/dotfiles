@@ -50,14 +50,16 @@ function _linkExists() {
 }
 
 function _rmdir() {
-    [[ -d "$1" ]] || return
+    [[ -d "$1" || -L "$1" ]] || return
     [[ -n "$dotfiles_DRYRUN" ]] && echo "mv $1{,.old}" && return
+    rm -rf "$1.old"
     mv "$1"{,.old}
 }
 
 function _lndir() {
     _linkExists "$@" && return
     _rmdir "$2"
+    # do not force link; if the dir exists, _rmdir failed
     echo "ln -s \"$1\" \"$2\""
     [[ -n "$dotfiles_DRYRUN" ]] && return
     ln -s "$1" "$2"
@@ -66,25 +68,30 @@ function _lndir() {
 function _rmfile() {
     [[ -e "$1" ]] || return
     [[ -n "$dotfiles_DRYRUN" ]] && echo "mv $1{,.old}" && return
+    rm -f "$1.old"
     mv "$1"{,.old}
 }
 
 function _lnfile() {
     _linkExists "$@" && return
     _rmfile "$2"
+    # do not force link; if the file exists, _rmfile failed
     echo "ln -s \"$1\" \"$2\""
-    [[ -n "$dotfiles_DRYRUN" ]] || ln -s "$1" "$2"
+    [[ -n "$dotfiles_DRYRUN" ]] && return
+    ln -s "$1" "$2"
 }
 
 function _srmdir() {
     [ -d "$1" ] || return
     [[ -n "$dotfiles_DRYRUN" ]] && echo "sudo mv $1{,.old}" && return
+    sudo rm -rf "$1.old"
     sudo mv "$1"{,.old}
 }
 
 function _slndir() {
     _linkExists "$@" && return
     _srmdir "$2"
+    # do not force link; if the dir exists, _srmdir failed
     echo "sudo ln -s \"$1\" \"$2\""
     [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"
@@ -93,12 +100,14 @@ function _slndir() {
 function _srmfile() {
     [[ -e "$1" ]] || return
     [[ -n "$dotfiles_DRYRUN" ]] && echo "sudo mv $1{,.old}" && return
+    sudo rm -f "$1.old"
     sudo mv "$1"{,.old}
 }
 
 function _slnfile() {
     _linkExists "$@" && return
     _srmfile "$2"
+    # do not force link; if the file exists, _srmfile failed
     echo "sudo ln -s \"$1\" \"$2\""
     [[ -n "$dotfiles_DRYRUN" ]] && return
     sudo ln -s "$1" "$2"

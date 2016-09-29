@@ -11,6 +11,8 @@ _lnargs \
     "Library/Preferences/com.apple.finder.plist" \
     "Library/Preferences/com.apple.Terminal.plist" \
     "Library/Preferences/com.apple.HIToolbox.plist" \
-    "Library/Preferences/com.googlecode.iterm2.plist"
+    "Library/Preferences/com.googlecode.iterm2.plist" \
+    "Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap" \
+    "Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
 popd >/dev/null
 
