@@ -46,6 +46,7 @@ if ! have vim && have vi; then
 fi
 if have nvim; then
     alias vim='nvim'
+    alias vimdiff='nvim -d'
 fi
 alias v='vim'
 
