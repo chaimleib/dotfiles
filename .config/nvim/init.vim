@@ -145,31 +145,17 @@ set shellslash
 set grepprg="grep -nH $*"
 let g:tex_flavor='latex'
 
-autocmd Syntax python setlocal foldmethod=indent
-autocmd Syntax python setlocal tabstop=4
-autocmd Syntax python setlocal softtabstop=4
-autocmd Syntax python setlocal shiftwidth=4
+"Python style settings
 let g:pep8_map = ':pep'
 
-
-autocmd Syntax sh setlocal tabstop=4
-autocmd Syntax sh setlocal softtabstop=4
-autocmd Syntax sh setlocal shiftwidth=4
-
-autocmd Syntax makefile setlocal tabstop=4
-autocmd Syntax makefile setlocal softtabstop=4
-autocmd Syntax makefile setlocal shiftwidth=4
-
-" Set ruby-style 2-space indents
-autocmd Syntax ruby setlocal tabstop=2
-autocmd Syntax ruby setlocal softtabstop=2
-autocmd Syntax ruby setlocal shiftwidth=2
-
-autocmd Syntax haml setlocal tabstop=2
-autocmd Syntax haml setlocal softtabstop=2
-autocmd Syntax haml setlocal shiftwidth=2
+autocmd Filetype python   setlocal tabstop=4 softtabstop=4 shiftwidth=4 foldmethod=indent 
+autocmd Filetype sh       setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd Filetype makefile setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+autocmd Filetype ruby     setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype haml     setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 filetype plugin indent on
+
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
@@ -179,4 +165,12 @@ call plug#end()
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
+
+hi Search ctermbg=lightred ctermfg=black cterm=none
+
+"Diff mode color customizations
+hi DiffAdd     ctermbg=22 guibg=#2E5815
+hi DiffDelete  ctermbg=88 guibg=#771C12
+hi DiffChange  ctermbg=19 guibg=#0138A7
+hi DiffText    ctermbg=none guibg=none
 
