@@ -25,6 +25,7 @@ libxml2
 libxmlsec1
 libxslt
 libyaml
+mas
 neovim/neovim/neovim
 node
 pandoc

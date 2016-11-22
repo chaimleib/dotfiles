@@ -7,4 +7,5 @@ homebrew/dupes
 homebrew/php
 homebrew/services
 homebrew/versions
+homebrew/bundle
 neovim/neovim
