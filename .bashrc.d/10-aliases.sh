@@ -148,3 +148,7 @@ cdalias cdpo   ~/Documents/Programming/Coupa/potato
 # cdalias cdv  ~/TinCanValidator
 # cdalias cds  ~/TinCanValidator/lib/schema
 
+function cdg() {
+    cd "${GOPATH}/$1"
+}
+
