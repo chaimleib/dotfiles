@@ -61,6 +61,11 @@ if [[ -d ${MASTERDIR}/adm/bashrc.d/ ]]; then
         /share/b/grading/bin/register
 fi
 
+## Google GCP
+if [ -f "/google/devshell/bashrc.google" ]; then
+  source "/google/devshell/bashrc.google"
+fi
+
 ## Set up local settings
 (( $BASHRC_debug >= 1 )) && echo ">> Loading local rc's..."
 if [[ -d ~/.bashrc.d ]]; then
