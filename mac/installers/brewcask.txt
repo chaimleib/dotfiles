@@ -1,3 +1,4 @@
+xquartz
 betterzipql
 caffeine
 color-oracle
@@ -28,4 +29,3 @@ slack
 sublime-text
 suspicious-package
 textmate
-xquartz
