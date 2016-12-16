@@ -2,5 +2,5 @@
 this_dir="$(dirname "$0")"
 
 echo "Installing brew GUI programs..."
-brew install $(cat "${this_dir}/brewcask.txt")
+brew cask install $(cat "${this_dir}/brewcask.txt")
 
