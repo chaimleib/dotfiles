@@ -2,9 +2,7 @@
 
 # Initialize nvm shell function
 export NVM_DIR="$HOME/.nvm"
-if [ -f $NVM_DIR/nvm.sh ]; then
-    . "$NVM_DIR/nvm.sh"
-fi
+[ -s $NVM_DIR/nvm.sh ] && \. "$NVM_DIR/nvm.sh"
 
 # Detect node version from noderc
 function noderc_update() {
