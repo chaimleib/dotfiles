@@ -52,4 +52,5 @@ appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
 # node
 prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
+prependPath "$HOME/.yarn/bind"
 
