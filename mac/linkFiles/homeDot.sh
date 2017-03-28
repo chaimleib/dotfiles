@@ -16,7 +16,8 @@ _lnargs \
     .ee.bcrc \
     .phy.bcrc \
     .profile \
-    .pythonrc.py
+    .pythonrc.py \
+    .tmux.conf
 
 gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
 if [[ "$gitver" > '2.' ]]; then

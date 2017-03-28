@@ -33,7 +33,8 @@ function linhome() {
         .hushlogin \
         .ee.bcrc \
         .phy.bcrc \
-        .profile
+        .profile \
+        .tmux.conf
 
     gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
     if [[ "$gitver" > '2.' ]]; then

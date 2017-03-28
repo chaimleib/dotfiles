@@ -33,7 +33,8 @@ function winhome() {
         .hushlogin \
         .ee.bcrc \
         .phy.bcrc \
-        .profile
+        .profile \
+        .tmux.conf
     
     "$this_dir"/../common/linkFiles/linkGit.sh
 

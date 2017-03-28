@@ -34,7 +34,8 @@ function commonhome() {
         .hushlogin \
         .ee.bcrc \
         .phy.bcrc \
-        .profile
+        .profile \
+        .tmux.conf
     
     "$this_dir"/linkFiles/linkGit.sh
 
