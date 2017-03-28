@@ -1,9 +1,22 @@
 {
 	"color_scheme": "Packages/Color Scheme - Default/Blackboard.tmTheme",
-	"font_size": 11,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"node_modules",
+		".cache"
+	],
+	"font_size": 12,
 	"ignored_packages":
 	[
 		"CSS",
+		"CSS3",
+		"GitGutter",
+		"MarkdownHighlighting",
+		"Solarized Color Scheme",
 		"Vintage"
 	],
 	"rulers":
