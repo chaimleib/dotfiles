@@ -13,10 +13,6 @@
 	"ignored_packages":
 	[
 		"CSS",
-		"CSS3",
-		"GitGutter",
-		"MarkdownHighlighting",
-		"Solarized Color Scheme",
 		"Vintage"
 	],
 	"rulers":
