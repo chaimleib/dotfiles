@@ -55,8 +55,8 @@ if ! have subl && [ -x '/Applications/Sublime Text.app/Contents/SharedSupport/bi
 fi
 
 alias modb='vim ~/.bashrc'
-alias moda='vim ~/.bashrc.d/*-aliases.sh'
-alias modp='vim ~/.bashrc.d/*-paths.sh'
+alias moda='vim ~/.bashrc.d/??-aliases.sh'
+alias modp='vim ~/.bashrc.d/??-paths.sh'
 alias modv='vim ~/.vimrc'
 alias modn='vim ~/.config/nvim/init.vim'
 
@@ -100,6 +100,9 @@ fi
 
 # sudo vim should use my own vimrc
 alias svim='sudo -E vim'
+
+# copy SSH key
+alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(echo " $USER") | pbcopy'
 
 ## Directory shortcuts
 function cdalias() {

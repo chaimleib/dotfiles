@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias modg='vim ~/.bashrc.d/*-git.sh'
+alias modg='vim ~/.bashrc.d/??-git.sh'
 alias modc='git config --edit'
 
 # use hub instead of git to easily work with github
