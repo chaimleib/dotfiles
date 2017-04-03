@@ -15,7 +15,7 @@ alias gid='git diff HEAD'
 alias gids='git diff HEAD --staged'
 alias gidw='git diff HEAD --word-diff'
 alias gidsw='git diff HEAD --word-diff --staged'
-alias gidl='gid HEAD^1'
+alias gidl='gid -R HEAD^1'
 
 # Branches
 alias gib='git branch'
