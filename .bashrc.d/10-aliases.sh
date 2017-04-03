@@ -102,7 +102,7 @@ fi
 alias svim='sudo -E vim'
 
 # copy SSH key
-alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(echo " $USER") | pbcopy'
+alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(printf " $USER") | pbcopy'
 
 ## Directory shortcuts
 function cdalias() {
