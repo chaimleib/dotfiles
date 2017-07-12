@@ -161,7 +161,9 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/tpope-vim-abolish'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
