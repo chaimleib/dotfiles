@@ -115,43 +115,31 @@ function cdalias() {
     fi
 }
 
+cdalias cda    /Applications
+cdalias cdb    ~/.bashrc.d
+cdalias cdc    /usr/local/Cellar
 cdalias cdd    ~/Desktop
+cdalias cddc   ~/Documents
+cdalias cddot  ~/dotfiles
+cdalias cddv   /dev
 cdalias cddw   ~/Downloads
 cdalias cde    /etc
-cdalias cdv    /Volumes
-cdalias cdb    ~/.bashrc.d
-cdalias cdbc   ~/.bash_completion.d
-cdalias cddot  ~/dotfiles
+cdalias cdl    ~/Library
 cdalias cdloc  ~/dotfiles/local
-cdalias cddv   /dev
+cdalias cds    ~/Sites/chaimleib.github.io
 cdalias cdu    /usr
 cdalias cdul   /usr/local
-cdalias cddc   ~/Documents
-cdalias cdg    ~/Google\ Drive
+cdalias cdv    /Volumes
+
 cdalias cdp    ~/Documents/Programming
 cdalias cdpp   ~/Documents/Programming/Python
-cdalias cda    /Applications
-cdalias cdl    ~/Library
-cdalias cdi    ~/dotfiles/mac/installers
-cdalias cds    ~/Sites/chaimleib.github.io
-
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
-cdalias cdc    ~/Documents/Programming/Coupa
-cdalias cdcd   ~/Documents/Programming/Coupa/coupa_development
-cdalias cdca   ~/Documents/Programming/Coupa/csna
-cdalias cdcb   ~/Documents/Programming/Coupa/csnb
-cdalias cdcc   ~/Documents/Programming/Coupa/csnc
-cdalias cdsw   ~/Documents/Programming/Coupa/solano-weekly
-cdalias cdcp   ~/Documents/Programming/Coupa
-cdalias cdpo   ~/Documents/Programming/Coupa/potato
 
-# cdalias cdjl /home2/truthspo/django/django_projects/liespotter
-# cdalias cdt  ~/TinCanPython
-# cdalias cdx  ~/xapi_LRS_Test-private
-# cdalias cdv  ~/TinCanValidator
-# cdalias cds  ~/TinCanValidator/lib/schema
-
-function cdg() {
+cdg() {
     cd "${GOPATH}/$1"
+}
+
+cdi() {
+    cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"$1"
 }
 

@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cdalias cem ~/Desktop/marketing-dev
-cdalias cec ~/Desktop/corp-websites
+cdalias cec ~/Desktop/marketing-content
 
