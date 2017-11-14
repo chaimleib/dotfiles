@@ -7,9 +7,10 @@
 		".hg",
 		"CVS",
 		"node_modules",
-		".cache"
+		".cache",
+		"build"
 	],
-	"font_size": 12,
+	"font_size": 11,
 	"ignored_packages":
 	[
 		"CSS",
