@@ -5,8 +5,14 @@
 	email = chaim.leib.halbert@gmail.com
 [branch "master"]
 	rebase = true
+[core]
+	editor = vim
 [alias]
 	co = checkout
+[color]
+	ui = auto
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 [merge]
 	tool = p4mergetool
 [mergetool "p4mergetool"]
