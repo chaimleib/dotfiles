@@ -11,8 +11,8 @@
 	co = checkout
 [color]
 	ui = auto
-[url "git@github.com:"]
-	insteadOf = https://github.com/
+[url "git@github.com:chaimleib/"]
+	insteadOf = https://github.com/chaimleib/
 [merge]
 	tool = p4mergetool
 [mergetool "p4mergetool"]
