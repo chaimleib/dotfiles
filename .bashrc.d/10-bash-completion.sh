@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ -z "$PS1" ]] && return
+
 if [[ -n "$BASH_COMPLETION_COMPAT_DIR" ]]; then
     return
 fi

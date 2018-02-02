@@ -41,6 +41,9 @@
 # The default is "exfxcxdxbxegedabagacad", i.e. blue foreground and default 
 # background for regular directories, black foreground and red background for 
 # setuid executables, etc.
+
+[[ -z "$PS1" ]] && return
+
 case $OSTYPE in
 darwin*)
     export LSCOLORS=gxfxcxdxbxgeedagacad
