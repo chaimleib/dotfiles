@@ -36,7 +36,7 @@ function agmr() {
 
 
 ## Meta shortcuts
-alias reinit='source ~/.profile'
+alias reinit='export CHAIMLEIBSDOTFILES= ;source ~/.profile'
 if ! have vim && have vi; then
     if vi -h | grep VIM &>/dev/null ; then
         alias vim='vi --cmd "set nocompat" -u ~/.vimrc'
