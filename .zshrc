@@ -64,6 +64,7 @@ plugins=(
   go
   mosh
   nvm
+  rvm
   screen
   tmux
   jump
@@ -107,12 +108,9 @@ source $ZSH/oh-my-zsh.sh
 ## Settings prelude...
 [[ -z $BASHRC_debug ]] && export BASHRC_debug=1
 
-## Meat
-(( $BASHRC_debug >= 2 )) && echo "Running ~/.bashrc ..."
-
 ## Google GCP
-if [ -f "/google/devshell/bashrc.google" ]; then
-  source "/google/devshell/bashrc.google"
+if [ -f "/google/devshell/zshrc.google" ]; then
+  source "/google/devshell/zshrc.google"
 fi
 
 ## Set up local settings
