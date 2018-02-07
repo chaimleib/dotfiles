@@ -29,6 +29,7 @@ function linhome() {
         .bash_logout \
         .vimrc \
         .vim \
+        .zshrc \
         local \
         .hushlogin \
         .ee.bcrc \
