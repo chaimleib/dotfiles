@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [[ -z "$PS1" ]] && return
+[[ "$SHELL" != */bash ]] && return
 
 if [[ -n "$BASH_COMPLETION_COMPAT_DIR" ]]; then
     return

@@ -10,5 +10,5 @@ export GIT_PS1_SHOWCOLORHINTS=1
 
 export PROMPT_COMMAND='__git_ps1 "\u@\[\e[31m\]`hostname`\[\e[0m\]:\[\e[32;1m\]\w\[\e[0m\]\n" "\$ " "(%s) "'
 export HISTCONTROL=ignoredups
-shopt -s histappend;
+[[ "$SHELL" == */bash ]] && shopt -s histappend;
 
