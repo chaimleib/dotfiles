@@ -1,7 +1,6 @@
 #!/bin/bash
 
 [[ -z "$PS1" ]] && return
-[[ "$SHELL" != */bash ]] && return
 [[ -n "$BASH_COMPLETION_COMPAT_DIR" ]] && return
 
 bash_completion_candidates=(
@@ -20,6 +19,11 @@ for f in ${bash_completion_candidates[*]}; do
 done
 
 # Google Cloud SDK
-[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc' ] &&
+[[ "$0" == *bash ]] &&
+  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+
+[[ "$0" == *zsh ]] &&
+  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ] &&
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 

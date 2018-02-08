@@ -1,6 +1,4 @@
-#!/usr/bin/env zsh
-
-[[ "$SHELL" == */zsh ]] || return
+[[ "$0" == *zsh ]] || return
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word

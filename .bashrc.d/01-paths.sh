@@ -38,8 +38,12 @@ prependPath ~/.cabal/bin
 appendPath /Applications/Inkscape.app/Contents/Resources/bin
 
 # Google Cloud SDK
-[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ] &&
+[[ "$0" == *bash ]] &&
+  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
+[[ "$0" == *zsh ]] &&
+  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
 # ruby and sass
 if [[ -d /usr/local/Cellar/ruby ]]; then

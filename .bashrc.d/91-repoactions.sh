@@ -1,6 +1,9 @@
 #!/bin/bash
 if have repoactions; then
-    PROMPT_COMMAND='eval "$(repoactions -e)";'"$PROMPT_COMMAND"
+    if [[ -n "$PROMPT_COMMAND" ]] && [[ "$PROMPT_COMMAND" != *';' ]]; then
+        PROMPT_COMMAND="$PROMPT_COMMAND;"
+    fi
+    PROMPT_COMMAND="$PROMPT_COMMAND"'eval "$(repoactions -e)"'
     export PROMPT_COMMAND
 fi
 

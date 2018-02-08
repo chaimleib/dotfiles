@@ -5,6 +5,7 @@
 case $OSTYPE in
 darwin*)
     # Qt
+    [[ -d /Developer/Qt*/[0-9]*/clang_64/bin ]] &&
     prependPath /Developer/Qt*/[0-9]*/clang_64/bin
     ;;
 *linux*)
