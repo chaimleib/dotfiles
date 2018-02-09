@@ -3,20 +3,22 @@
 [[ -z "$PS1" ]] && return
 [[ -n "$BASH_COMPLETION_COMPAT_DIR" ]] && return
 
-bash_completion_candidates=(
-    ~/.bash_completion
-)
+if [[ "$0" == *bash ]]; then
+    bash_completion_candidates=(
+        ~/.bash_completion
+    )
 
-for f in ${bash_completion_candidates[*]}; do
-    if [[ -f "$f" ]]; then
-        (( $BASHRC_debug >= 2 )) && echo "Sourcing $f ..."
-        BASH_COMPLETION="$f"
-        BASH_COMPLETION_DIR="${f}.d"
-        BASH_COMPLETION_COMPAT_DIR="$BASH_COMPLETION_DIR"
-        source "$f"
-        return
-    fi
-done
+    for f in ${bash_completion_candidates[*]}; do
+        if [[ -f "$f" ]]; then
+            (( $BASHRC_debug >= 2 )) && echo "Sourcing $f ..."
+            BASH_COMPLETION="$f"
+            BASH_COMPLETION_DIR="${f}.d"
+            BASH_COMPLETION_COMPAT_DIR="$BASH_COMPLETION_DIR"
+            source "$f"
+            return
+        fi
+    done
+fi
 
 # Google Cloud SDK
 [[ "$0" == *bash ]] &&
