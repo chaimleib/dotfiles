@@ -10,7 +10,41 @@ export GIT_PS1_SHOWCOLORHINTS=1
 export HISTCONTROL=ignoredups
 if [[ "$0" == *bash ]]; then
   shopt -s histappend;
-  export PROMPT_COMMAND='__git_ps1 "$([[ "$?" -eq 0 ]] && echo "\[\e[32;1m\]" || echo "\[\e[31;1m\]")➜ \e[0m\]\u@\[\e[31m\]`hostname`\[\e[0m\]:\[\e[32;1m\]\w\[\e[0m\]\n" "\$ " "(%s) "'
+  # https://tiswww.case.edu/php/chet/bash/bashref.html#Controlling-the-Prompt
+  # \u - username
+  # \h - hostname, 1st segment
+  # \H - hostname
+  # \n - newline
+  # \w - current working directory, tilde-contracted
+  # \W - basename of PWD, tilde-contracted
+  # \$ - # for root user, else $
+  # \[...\] - non-printing characters, for control sequences
+  RED='\[\e[31m\]'
+  GREEN='\[\e[32m\]'
+  BOLD_RED='\[\e[31;1m\]'
+  BOLD_GREEN='\[\e[32;1m\]'
+  RESET_COLOR='\[\e[0m\]'
+  PROMPT_COMMAND='__git_ps1 "'
+  exit_indicator='$('
+  exit_indicator+='[[ "$?" -eq 0 ]] &&'
+  exit_indicator+=' echo "'$BOLD_GREEN'" ||'
+  exit_indicator+=' echo "'$BOLD_RED'"'
+  exit_indicator+=')'
+  exit_indicator+='➜ '
+  exit_indicator+=$RESET_COLOR
+  PROMPT_COMMAND+="$exit_indicator"
+  PROMPT_COMMAND+='\u'
+  PROMPT_COMMAND+='@'
+  PROMPT_COMMAND+=$RED'\H'$RESET_COLOR
+  PROMPT_COMMAND+=':'
+  PROMPT_COMMAND+=$BOLD_GREEN'\w'$RESET_COLOR
+  PROMPT_COMMAND+='\n'
+  PROMPT_COMMAND+='"'
+  PROMPT_COMMAND+=' '
+  PROMPT_COMMAND+='"\$ "'
+  PROMPT_COMMAND+=' '
+  PROMPT_COMMAND+='"(%s) "'
+  export PROMPT_COMMAND
 elif [[ -n "$ZSH_NAME" ]]; then
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
   # %n - $USERNAME
