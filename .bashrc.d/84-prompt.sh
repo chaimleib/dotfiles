@@ -59,18 +59,17 @@ elif [[ -n "$ZSH_NAME" ]]; then
   #           position, except if %G included. Nesting allowed.
   # %G - inside %{...%}, increase string width by 1, or by # after %. Affects
   #      prompt truncation, when in use.
-  PROMPT=''
-  PROMPT+='${ret_status}%{$reset_color%}'
-  PROMPT+='%n'
-  PROMPT+=@
-  PROMPT+='%{$fg[red]%}%M%{$reset_color%}'
-  PROMPT+=:
-  PROMPT+='%{$fg_bold[green]%}%~%{$reset_color%}'
-  PROMPT+=$'\n'
-  export ZSH_THEME_GIT_PROMPT_PREFIX=''
-  export ZSH_THEME_GIT_PROMPT_SUFFIX=''
-  PROMPT+='$(git_prompt_info)%{$reset_color%} '
-  PROMPT+='%# '
-  export PROMPT
+  function ps1_func() {
+      local preps1
+      preps1+="${ret_status}%{$reset_color%}"
+      preps1+="%n"
+      preps1+=@
+      preps1+="%{$fg[red]%}%M%{$reset_color%}"
+      preps1+=:
+      preps1+="%{$fg_bold[green]%}%~%{$reset_color%}"
+      preps1+=$'\n'
+      __git_ps1 "$preps1" "%# " "(%s) "
+  }
+  precmd_functions+=( ps1_func )
 fi
 
