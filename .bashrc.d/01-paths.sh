@@ -41,7 +41,7 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
 [[ "$0" == *bash ]] &&
   [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
-[[ "$0" == *zsh ]] &&
+[[ -n "$ZSH_NAME" ]] &&
   [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
