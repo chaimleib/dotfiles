@@ -86,6 +86,9 @@ noremap _		<C-W>-
 noremap -		<C-W><
 noremap =		<C-W>>
 
+"Easy terminal exit
+tnoremap <C-\><C-\> <C-\><C-n>
+
 " Mode toggling
 
 "Exit insert mode easily
