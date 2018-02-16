@@ -46,10 +46,9 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
 # ruby and sass
-if [[ -d /usr/local/Cellar/ruby ]]; then
-    pushd /usr/local/Cellar/ruby 2>&1 > /dev/null
-    prependPath /usr/local/Cellar/ruby/`ls | sort -r | head -1`/bin
-    popd 2>&1 > /dev/null
+ruby_dir="/usr/local/Cellar/ruby"
+if [[ -d "$ruby_dir" ]]; then
+    prependPath "${ruby_dir}/$(ls "$ruby_dir" | sort -r | head -1)/bin"
 fi
 appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
 
