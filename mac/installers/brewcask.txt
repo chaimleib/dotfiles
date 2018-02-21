@@ -1,16 +1,13 @@
 xquartz
 betterzipql
 caffeine
-color-oracle
 controllermate
 deluge
 dropbox
-flash-player
 font-inconsolata
 font-inconsolata-for-powerline
 google-chrome
 grandperspective
-hipchat
 inkscape
 istat-menus
 iterm2
@@ -29,3 +26,5 @@ slack
 sublime-text
 suspicious-package
 textmate
+1password
+1password-cli

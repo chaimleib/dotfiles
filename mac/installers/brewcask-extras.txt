@@ -1,9 +1,11 @@
 arduino
 audacity
 blender
+color-oracle
 cyberduck
 eagle
 firefox
+flash-player
 fontforge
 gitx
 haroopad

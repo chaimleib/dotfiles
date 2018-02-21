@@ -12,6 +12,7 @@ gettext
 ghostscript
 git
 glib
+go
 gtk+
 chaimleib/formulae/haveinet
 heroku
@@ -26,13 +27,14 @@ libxmlsec1
 libxslt
 libyaml
 mas
-neovim/neovim/neovim
+neovim
 node
 pandoc
 pyenv
 python
 python3
 readline
+chaimleib/formulae/repoactions
 chaimleib/formulae/resolve
 sqlite
 the_silver_searcher
