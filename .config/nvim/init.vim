@@ -46,6 +46,8 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 
 "Show the current command in the lower right corner
 set showcmd
+set timeoutlen=200 ttimeoutlen=0
+let mapleader = ","
 
 " #### Key mappings ####
 "Break the arrow key habit
@@ -86,14 +88,11 @@ noremap _		<C-W>-
 noremap -		<C-W><
 noremap =		<C-W>>
 
-"Easy terminal exit
-tnoremap <C-\><C-\> <C-\><C-n>
-
 " Mode toggling
 
 "Exit insert mode easily
-inoremap ,, <Esc>
-tnoremap ,, <C-\><C-n>
+inoremap <leader><leader> <Esc>
+tnoremap <leader><leader> <C-\><C-n>
 
 "Copy-paste modes
 set pastetoggle=<F1>
@@ -136,7 +135,7 @@ noremap <F10> :echo "hi<"
 
 "XML tidying
 "Disabled, since it could not tidy large, multi-megabyte files
-"map ,x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
+"map <leader>x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
 
 set backupskip=/tmp/*,/private/tmp/*
 " Used by CommandT - ignores files and directories when fuzzy finding

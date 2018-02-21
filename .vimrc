@@ -57,6 +57,8 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 
 "Show the current command in the lower right corner
 set showcmd
+set timeoutlen=200 ttimeoutlen=0
+let mapleader = ","
 
 " #### Key mappings ####
 "Break the arrow key habit
@@ -139,7 +141,7 @@ noremap <F10> :echo "hi<"
 
 "XML tidying
 "Disabled, since it could not tidy large, multi-megabyte files
-"map ,x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
+"map <leader>x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
 
 set backupskip=/tmp/*,/private/tmp/*
 " Used by CommandT - ignores files and directories when fuzzy finding
@@ -181,5 +183,5 @@ hi Search ctermbg=lightred ctermfg=black cterm=none
 hi DiffAdd     ctermbg=22 guibg=#2E5815
 hi DiffDelete  ctermbg=88 guibg=#771C12
 hi DiffChange  ctermbg=19 guibg=#0138A7
-hi DiffText    ctermbg=Black guibg=#000000
+hi DiffText    ctermbg=none guibg=none
 
