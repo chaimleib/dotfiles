@@ -116,7 +116,7 @@ function cdalias() {
 }
 
 cdalias cda    /Applications
-cdalias cdb    ~/.bashrc.d
+cdalias cdb    ~/dotfiles/.bashrc.d
 cdalias cdc    /usr/local/Cellar
 cdalias cdd    ~/Desktop
 cdalias cddc   ~/Documents
