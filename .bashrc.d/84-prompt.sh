@@ -105,6 +105,7 @@ function ps1_func() {
     __git_ps1 "$preps1" "$posts1" "(%s) "
 }
 if [[ "$0" == *bash ]]; then
+    export -f ps1_func
     PROMPT_COMMAND='ps1_func'
     export PROMPT_COMMAND
 elif [[ -n "$ZSH_NAME" ]]; then

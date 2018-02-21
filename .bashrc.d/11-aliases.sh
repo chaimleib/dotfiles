@@ -57,6 +57,7 @@ fi
 alias modb='vim ~/.bashrc'
 alias moda='vim ~/.bashrc.d/??-aliases.sh'
 alias modp='vim ~/.bashrc.d/??-paths.sh'
+alias modpr='vim ~/.bashrc.d/??-prompt.sh'
 alias modv='vim ~/.vimrc'
 alias modn='vim ~/.config/nvim/init.vim'
 
