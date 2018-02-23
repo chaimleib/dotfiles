@@ -101,23 +101,10 @@ __git_ps1_show_upstream ()
 
 	svn_remote=()
 	# get some config options from git-config
-	local output="$(git config -z --get-regexp '^(svn-remote\..*\.url|bash\.showupstream)$' 2>/dev/null | tr '\0\n' '\n ')"
-	while read -r key value; do
-		case "$key" in
-		bash.showupstream)
-			GIT_PS1_SHOWUPSTREAM="$value"
-			if [[ -z "${GIT_PS1_SHOWUPSTREAM}" ]]; then
-				p=""
-				return
-			fi
-			;;
-		svn-remote.*.url)
-			svn_remote[$((${#svn_remote[@]} + 1))]="$value"
-			svn_url_pattern="$svn_url_pattern\\|$value"
-			upstream=svn+git # default upstream is SVN if available, else git
-			;;
-		esac
-	done <<< "$output"
+  if [[ -z "${GIT_PS1_SHOWUPSTREAM}" ]]; then
+    p=""
+    return
+  fi
 
 	# parse configuration values
 	for option in ${GIT_PS1_SHOWUPSTREAM}; do
@@ -459,8 +446,7 @@ __git_ps1 ()
 			b="GIT_DIR!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
-		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
-		   [ "$(git config --bool bash.showDirtyState)" != "false" ]
+		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]
 		then
 			git diff --no-ext-diff --quiet --exit-code || w="*"
 			if [ -n "$short_sha" ]; then
@@ -476,7 +462,6 @@ __git_ps1 ()
 		fi
 
 		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
-		   [ "$(git config --bool bash.showUntrackedFiles)" != "false" ] &&
 		   git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null
 		then
 			u="%${ZSH_VERSION+%}"
