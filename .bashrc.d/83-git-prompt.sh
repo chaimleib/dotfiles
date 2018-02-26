@@ -173,7 +173,7 @@ __git_ps1_colorize_gitstring ()
   local c_clear=$RESET_COLOR
 
 	local branch_color=""
-	if [ $detached = no ]; then
+	if [[ "$detached" == no ]]; then
 		branch_color="$ok_color"
 	else
 		branch_color="$bad_color"
@@ -181,16 +181,16 @@ __git_ps1_colorize_gitstring ()
 	c="$branch_color$c"
 
 	z="$c_clear$z"
-	if [ "$w" = "*" ]; then
+	if [[ "$w" = "*" ]]; then
 		w="$bad_color$w"
 	fi
-	if [ -n "$i" ]; then
+	if [[ -n "$i" ]]; then
 		i="$ok_color$i"
 	fi
-	if [ -n "$s" ]; then
+	if [[ -n "$s" ]]; then
 		s="$flags_color$s"
 	fi
-	if [ -n "$u" ]; then
+	if [[ -n "$u" ]]; then
 		u="$bad_color$u"
 	fi
 	r="$c_clear$r"
@@ -254,10 +254,10 @@ __git_ps1 ()
 		--short HEAD 2>/dev/null)"
 	rev_parse_exit_code="$?"
 
-	[ -z "$repo_info" ] && return
+	[[ -z "$repo_info" ]] && return
 
 	local short_sha
-	if [ "$rev_parse_exit_code" = "0" ]; then
+	if [[ "$rev_parse_exit_code" -eq 0 ]]; then
 		short_sha="${repo_info##*$'\n'}"           # --short HEAD
 		repo_info="${repo_info%$'\n'*}"
 	fi
@@ -272,40 +272,40 @@ __git_ps1 ()
 	local b=""     # head-name
 	local step=""  # current step
 	local total="" # total steps
-	if [ -d "$g/rebase-merge" ]; then
+	if [[ -d "$g/rebase-merge" ]]; then
 		__git_eread "$g/rebase-merge/head-name" b
 		__git_eread "$g/rebase-merge/msgnum" step
 		__git_eread "$g/rebase-merge/end" total
-		if [ -f "$g/rebase-merge/interactive" ]; then
+		if [[ -f "$g/rebase-merge/interactive" ]]; then
 			r="|REBASE-i"
 		else
 			r="|REBASE-m"
 		fi
 	else
-		if [ -d "$g/rebase-apply" ]; then
+		if [[ -d "$g/rebase-apply" ]]; then
 			__git_eread "$g/rebase-apply/next" step
 			__git_eread "$g/rebase-apply/last" total
-			if [ -f "$g/rebase-apply/rebasing" ]; then
+			if [[ -f "$g/rebase-apply/rebasing" ]]; then
 				__git_eread "$g/rebase-apply/head-name" b
 				r="|REBASE"
-			elif [ -f "$g/rebase-apply/applying" ]; then
+			elif [[ -f "$g/rebase-apply/applying" ]]; then
 				r="|AM"
 			else
 				r="|AM/REBASE"
 			fi
-		elif [ -f "$g/MERGE_HEAD" ]; then
+		elif [[ -f "$g/MERGE_HEAD" ]]; then
 			r="|MERGING"
-		elif [ -f "$g/CHERRY_PICK_HEAD" ]; then
+		elif [[ -f "$g/CHERRY_PICK_HEAD" ]]; then
 			r="|CHERRY-PICKING"
-		elif [ -f "$g/REVERT_HEAD" ]; then
+		elif [[ -f "$g/REVERT_HEAD" ]]; then
 			r="|REVERTING"
-		elif [ -f "$g/BISECT_LOG" ]; then
+		elif [[ -f "$g/BISECT_LOG" ]]; then
 			r="|BISECTING"
 		fi
 
-		if [ -n "$b" ]; then
+		if [[ -n "$b" ]]; then
 			:
-		elif [ -h "$g/HEAD" ]; then
+		elif [[ -h "$g/HEAD" ]]; then
 			# symlink symbolic ref
 			b="$(git symbolic-ref HEAD 2>/dev/null)"
 		else
@@ -313,7 +313,7 @@ __git_ps1 ()
 			__git_eread "$g/HEAD" head || return
 			# is it a symbolic ref?
 			b="${head#ref: }"
-			if [ "$head" = "$b" ]; then
+			if [[ "$head" == "$b" ]]; then
 				detached=yes
 				b="$(
 				case "${GIT_PS1_DESCRIBE_STYLE-}" in
@@ -333,7 +333,7 @@ __git_ps1 ()
 		fi
 	fi
 
-	if [ -n "$step" ] && [ -n "$total" ]; then
+	if [[ -n "$step" ]] && [[ -n "$total" ]]; then
 		r="$r $step/$total"
 	fi
 
@@ -344,29 +344,29 @@ __git_ps1 ()
 	local c="" # bare?
   local p="" # upstream sync (set by __git_ps1_show_upstream)
 
-	if [ "true" = "$inside_gitdir" ]; then
-		if [ "true" = "$bare_repo" ]; then
+	if [[ "true" == "$inside_gitdir" ]]; then
+		if [[ "true" == "$bare_repo" ]]; then
 			c="BARE:"
 		else
 			b="GIT_DIR!"
 		fi
-	elif [ "true" = "$inside_worktree" ]; then
-		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]
+	elif [[ "true" == "$inside_worktree" ]]; then
+		if [[ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]]
 		then
 			git diff --no-ext-diff --quiet --exit-code || w="*"
-			if [ -n "$short_sha" ]; then
+			if [[ -n "$short_sha" ]]; then
 				git diff-index --cached --quiet HEAD -- || i="+"
 			else
 				i="#"
 			fi
 		fi
-		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
+		if [[ -n "${GIT_PS1_SHOWSTASHSTATE-}" ]] &&
 		   git rev-parse --verify --quiet refs/stash >/dev/null
 		then
 			s="$"
 		fi
 
-		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
+		if [[ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ]] &&
 		   git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null
 		then
 			u="%${ZSH_VERSION+%}"
