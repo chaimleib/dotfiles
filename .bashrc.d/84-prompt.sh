@@ -90,19 +90,20 @@ elif [[ -n "$ZSH_NAME" ]]; then
     p_prompt='%#'
 fi
 function ps1_func() {
-    local preps1
-    preps1+="$(exit_indicator)"
-    preps1+=$p_user
-    preps1+=@
-    preps1+="${RED}${p_host}${RESET_COLOR}"
-    preps1+=:
-    preps1+="${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
-    preps1+=$p_nl
-    preps1+="$(prompt_configs)"
-    local posts1
-    posts1+=$p_prompt
-    posts1+=' '
-    __git_ps1 "$preps1" "$posts1" "(%s) "
+    local ps1
+    ps1+="$(exit_indicator)"
+    ps1+=$p_user
+    ps1+=@
+    ps1+="${RED}${p_host}${RESET_COLOR}"
+    ps1+=:
+    ps1+="${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
+    ps1+=$p_nl
+    ps1+="$(prompt_configs)"
+    local g=$(__git_ps1)
+    ps1+="${g:+$g }"
+    ps1+=$p_prompt
+    ps1+=' '
+    PS1=$ps1
 }
 if [[ "$0" == *bash ]]; then
     export -f ps1_func
