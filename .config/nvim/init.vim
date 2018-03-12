@@ -96,6 +96,8 @@ tnoremap <leader><leader> <C-\><C-n>
 
 "Copy-paste modes
 set pastetoggle=<F1>
+"Pass clipboard through to tmux (see .tmux.conf)
+set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 let infocols=1
