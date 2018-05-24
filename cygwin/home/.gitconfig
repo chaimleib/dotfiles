@@ -3,9 +3,12 @@
 [user]
 	name = Chaim-Leib Halbert
 	email = chaim.leib.halbert@gmail.com
+	signingkey = FAD749FFE56596A7906A6D4A873238FC4B6D04F0
 [core]
 	editor = vim
 [color]
 	ui = auto
-[url "git@github.com:chaimleib/"]
-	insteadOf = https://github.com/chaimleib/
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[var]
+	projectsDirectory = /Users/chaimleib/projects/evernote
