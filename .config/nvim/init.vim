@@ -106,10 +106,12 @@ function! ToggleInfoCols()
         let g:infocols=0
         set nonumber
         set foldcolumn=0
+        :GitGutterDisable
     else
         let g:infocols=1
         set number
         set foldcolumn=3
+        :GitGutterEnable
     endif
 endfunction
 
@@ -168,10 +170,55 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'artur-shaik/vim-javacomplete2'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 call plug#end()
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
+
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+" Default javacomplete2 bindings
+"  nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+"  nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+"  nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+"  nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+"
+"  imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+"  imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+"  imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+"  imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+"
+"  nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+"
+"  imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+"
+"  nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+"  nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+"  nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+"  nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+"  nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+"  nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+"  nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+"  nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+"
+"  imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+"  imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+"  imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+"
+"  vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+"  vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+"  vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+"
+"  nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
+"  nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
 
