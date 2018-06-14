@@ -59,15 +59,10 @@
 # behaviour by setting GIT_PS1_SHOWUPSTREAM to a space-separated list
 # of values:
 #
-#     verbose       show number of commits ahead/behind (+/-) upstream
-#     name          if verbose, then also show the upstream abbrev name
-#     legacy        don't use the '--count' option available in recent
-#                   versions of git-rev-list
+#     name          show the upstream abbrev name
 #     git           always compare HEAD to @{upstream}
-#     svn           always compare HEAD to your SVN upstream
 #
-# By default, __git_ps1 will compare HEAD to your SVN upstream if it can
-# find one, or @{upstream} otherwise.  Once you have set
+# By default, __git_ps1 will compare HEAD to @{upstream}. Once you have set
 # GIT_PS1_SHOWUPSTREAM, you can override it on a per-repository basis by
 # setting the bash.showUpstream config variable.
 #
@@ -87,18 +82,12 @@
 
 [[ -z "$PS1" ]] && return
 
-# check whether printf supports -v
-__git_printf_supports_v=
-printf -v __git_printf_supports_v -- '%s' yes >/dev/null 2>&1
-
-# stores the divergence from upstream in $p
 # used by GIT_PS1_SHOWUPSTREAM
 __git_ps1_show_upstream ()
 {
-  local p
-	local key value
-	local count n
-	local legacy="" verbose="" name=""
+  local p # divergence from upstream
+	local count
+	local name=""
 
 	# get some config options from git-config
   [[ -z "${GIT_PS1_SHOWUPSTREAM}" ]] && return
@@ -106,33 +95,12 @@ __git_ps1_show_upstream ()
 	# parse configuration values
 	for option in ${GIT_PS1_SHOWUPSTREAM}; do
 		case "$option" in
-		verbose) verbose=1 ;;
-		legacy)  legacy=1  ;;
 		name)    name=1 ;;
 		esac
 	done
 
 	# Find how many commits we are ahead/behind our upstream
-	if [[ -z "$legacy" ]]; then
-		count="$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)"
-	else
-		# produce equivalent output to --count for older versions of git
-		local commits
-		if commits="$(git rev-list --left-right @{upstream}...HEAD 2>/dev/null)"
-		then
-			local commit behind=0 ahead=0
-			for commit in $commits
-			do
-				case "$commit" in
-				"<"*) ((behind++)) ;;
-				*)    ((ahead++))  ;;
-				esac
-			done
-			count="$behind	$ahead"
-		else
-			count=""
-		fi
-	fi
+  count="$(git rev-list --count --left-right '@{upstream}...HEAD' 2>/dev/null)"
 
 	# calculate the result
   case "$count" in
@@ -148,8 +116,9 @@ __git_ps1_show_upstream ()
     p=" u+${count#*	}-${count%	*}" ;;
   esac
   if [[ -n "$count" && -n "$name" ]]; then
-    __git_ps1_upstream_name=$(git rev-parse \
-      --abbrev-ref "$upstream" 2>/dev/null)
+    __git_ps1_upstream_name=$(
+      git rev-parse --abbrev-ref '@{upstream}' 2>/dev/null
+    )
     if [[ "$ps1_expanded" == yes ]]; then
       p="$p \${__git_ps1_upstream_name}"
     else
@@ -200,7 +169,7 @@ __git_eread ()
 {
 	f="$1"
 	shift
-	test -r "$f" && read "$@" <"$f"
+	[ -r "$f" ] && read -r "$@" <"$f"
 }
 
 # Colored hints: GIT_PS1_SHOWCOLORHINTS=true
@@ -323,7 +292,7 @@ __git_ps1 ()
 					git describe --contains --all HEAD ;;
 				(describe)
 					git describe HEAD ;;
-				(* | default)
+				(*)
 					git describe --tags --exact-match HEAD ;;
 				esac 2>/dev/null)" ||
 
