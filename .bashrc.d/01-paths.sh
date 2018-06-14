@@ -45,15 +45,8 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
   [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
-# ruby and sass
-ruby_dir="/usr/local/Cellar/ruby"
-if [[ -d "$ruby_dir" ]]; then
-    prependPath "${ruby_dir}/$(ls "$ruby_dir" | sort -r | head -1)/bin"
-fi
-appendPath "$HOME/.rvm/bin"   # Add RVM to PATH for scripting
-
 # node
 prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
-prependPath "$HOME/.yarn/bind"
+prependPath "$HOME/.yarn/bin"
 
