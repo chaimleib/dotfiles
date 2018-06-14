@@ -1,10 +1,8 @@
 #!/bin/bash
 
-if [[ -d /usr/local/Cellar/tomcat ]]; then
-    TOMCAT_HOME="$(brew --prefix tomcat)"
-    [ -L "$TOMCAT_HOME" ] && TOMCAT_HOME="$(resolve $(dirname $TOMCAT_HOME) $(readlink $TOMCAT_HOME))/libexec"
+TOMCAT_HOME='/usr/local/opt/tomcat/libexec'
+if [[ -d "$TOMCAT_HOME" ]]; then
     export TOMCAT_HOME
-
     export JAVA_OPTS="-Xms512m -Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=2048m"
 fi
 
