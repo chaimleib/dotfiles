@@ -48,5 +48,4 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
 # node
 prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
-prependPath "$HOME/.yarn/bin"
 
