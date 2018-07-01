@@ -170,6 +170,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 if has('nvim')
@@ -181,6 +182,11 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
+let g:python3_host_prog = '/Users/chaimleib/.pyenv/versions/neovim3/bin/python'
+let g:deoplete#enable_debug = 1
+let g:deoplete#enable_profile = 1
+"call deoplete#enable_logging('DEBUG', '/Users/chaimleib/Desktop/deoplete.log')
+Plug 'mhartington/nvim-typescript'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
