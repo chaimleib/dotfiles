@@ -188,6 +188,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
+"https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
 let g:python3_host_prog = '/Users/chaimleib/.pyenv/versions/neovim3/bin/python'
 let g:deoplete#enable_debug = 1
 let g:deoplete#enable_profile = 1
