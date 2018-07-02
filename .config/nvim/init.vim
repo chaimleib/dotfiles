@@ -177,8 +177,11 @@ Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'sebdah/vim-delve'
+endif
+"All this if is for deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
