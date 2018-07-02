@@ -20,7 +20,7 @@ nnoremap o ox<BS>
 nnoremap O Ox<BS>
 
 " Folding
-set foldlevelstart=0
+set nofoldenable
 set foldmethod=syntax
 set foldcolumn=3
 nnoremap zZ za
@@ -155,13 +155,14 @@ let g:tex_flavor='latex'
 let g:pep8_map = ':pep'
 
 autocmd Filetype python   setlocal tabstop=4 softtabstop=4 shiftwidth=4 foldmethod=indent 
-autocmd Filetype sh       setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd Filetype sh       setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype makefile setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
 autocmd Filetype ruby     setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype haml     setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 filetype plugin indent on
 
+autocmd BufNewFile,BufRead *.js.flow set syntax=javascript
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
@@ -171,6 +172,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
+Plug 'pangloss/vim-javascript'
+Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 if has('nvim')
@@ -191,6 +194,8 @@ call plug#end()
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
+
+let g:flow#autoclose = 1
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 " Default javacomplete2 bindings
