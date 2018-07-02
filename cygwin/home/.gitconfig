@@ -12,3 +12,5 @@
 	insteadOf = https://github.com/
 [var]
 	projectsDirectory = /Users/chaimleib/projects/evernote
+[rerere]
+	enabled = true
