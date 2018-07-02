@@ -31,8 +31,8 @@ neovim
 node
 pandoc
 pyenv
+python@2
 python
-python3
 readline
 chaimleib/formulae/repoactions
 chaimleib/formulae/resolve
