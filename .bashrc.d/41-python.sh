@@ -2,9 +2,11 @@
 
 [[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
-# bash completion for pyenv
-# disabled, since it pushes the rvm path from first position and causes warnings.
-#if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+[ -f /usr/local/bin/virtualenvwrapper.sh ] &&
+    . /usr/local/bin/virtualenvwrapper.sh
+if have pyenv; then
+    # https://medium.com/@henriquebastos/the-definitive-guide-to-setup-my-python-workspace-628d68552e14
+    eval "$(pyenv init -)"
+    pyenv virtualenvwrapper_lazy
+fi
 
