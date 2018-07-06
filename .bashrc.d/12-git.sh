@@ -10,7 +10,7 @@ fi
 
 # Non-modifying commands
 alias gis='git status -sb'
-alias gil='git log --date=local --pretty=format:"%C(bold blue)%h %C(green)%an %C(yellow)%ad%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) : %s"'
+alias gil='git log --date="format:%a %Y-%m-%d %H:%M" --pretty="format:%C(bold blue)%h %C(yellow)%ad %C(green)%an%C(reset) : %s"'
 [[ "$0" == *bash ]] && __git_complete gil _git_log
 alias gid='git diff HEAD'
 [[ "$0" == *bash ]] && __git_complete gid _git_diff
