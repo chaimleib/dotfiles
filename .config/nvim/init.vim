@@ -173,27 +173,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'pangloss/vim-javascript'
-Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
-Plug 'artur-shaik/vim-javacomplete2'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 if has('nvim')
   Plug 'sebdah/vim-delve'
 endif
-"All this if is for deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-"https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
-let g:python3_host_prog = '/Users/chaimleib/.pyenv/versions/neovim3/bin/python'
-let g:deoplete#enable_debug = 1
-let g:deoplete#enable_profile = 1
-"call deoplete#enable_logging('DEBUG', '/Users/chaimleib/Desktop/deoplete.log')
-Plug 'mhartington/nvim-typescript'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
