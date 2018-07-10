@@ -172,6 +172,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
+let g:javascript_plugin_flow = 1
 Plug 'pangloss/vim-javascript'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 if has('nvim')
