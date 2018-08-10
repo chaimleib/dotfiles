@@ -10,12 +10,8 @@ defaults write com.apple.dock persistent-apps -array
 
 echo Setting the dock\'s apps
 for item in \
-    /Applications/ControllerMate.app \
     /Applications/Google\ Chrome.app \
     /Applications/Airmail.app \
-    /Applications/Address\ Book.app \
-    /Applications/Contacts.app \
-    /Applications/iCal.app \
     /Applications/Calendar.app \
     /Applications/iTerm.app \
 ; do
