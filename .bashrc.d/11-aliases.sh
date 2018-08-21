@@ -82,7 +82,7 @@ darwin*)
 
     have brew && alias brup='echo "Updating..." && brew update -v &&
         echo "Upgrading..." && brew upgrade &&
-        echo "Cleaning..." && brew cleanup && brew cask cleanup'
+        echo "Cleaning..." && brew cleanup'
 ;;
 esac
 
