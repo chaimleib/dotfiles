@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export EDITOR="$(command -v vim)"
+export EDITOR='vim'
 export VISUAL="$EDITOR"
 
 # Perl
