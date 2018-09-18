@@ -45,6 +45,8 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
   [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
+prependPath "/usr/local/opt/mysql@5.7/bin"
+
 # node
 prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
