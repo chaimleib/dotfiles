@@ -28,6 +28,7 @@ function winhome() {
     .bash_completion.d \
     .bash_logout \
     .gitconfig \
+    .gitconfig-en \
     .vimrc \
     .vim \
     .zshrc \
