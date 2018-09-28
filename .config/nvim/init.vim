@@ -2,8 +2,8 @@
 set ignorecase
 set smartcase
 
-set background=dark
 colorscheme desert
+set background=dark
 set scrolloff=2
 set wildmode=list:longest
 
@@ -102,29 +102,29 @@ set clipboard=unnamed
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 let infocols=1
 function! ToggleInfoCols()
-    if g:infocols
-        let g:infocols=0
-        set nonumber
-        set foldcolumn=0
-        :GitGutterDisable
-    else
-        let g:infocols=1
-        set number
-        set foldcolumn=3
-        :GitGutterEnable
-    endif
+  if g:infocols
+    let g:infocols=0
+    set nonumber
+    set foldcolumn=0
+    :GitGutterDisable
+  else
+    let g:infocols=1
+    set number
+    set foldcolumn=3
+    :GitGutterEnable
+  endif
 endfunction
 
 inoremap <F3> <c-o>:call ToggleHebrew()<CR>
 nnoremap <F3> :call ToggleHebrew()<CR>
 function! ToggleHebrew()
-    if &rl
-        set norl
-        set keymap=
-    else
-        set rl
-        set keymap=hebrew
-    end
+  if &rl
+    set norl
+    set keymap=
+  else
+    set rl
+    set keymap=hebrew
+  end
 endfunc
 
 "Show syntax highlighting group name
@@ -168,6 +168,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
@@ -179,6 +180,10 @@ if has('nvim')
   Plug 'sebdah/vim-delve'
 endif
 call plug#end()
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
@@ -228,4 +233,8 @@ hi DiffAdd     ctermbg=22 guibg=#2E5815
 hi DiffDelete  ctermbg=88 guibg=#771C12
 hi DiffChange  ctermbg=19 guibg=#0138A7
 hi DiffText    ctermbg=none guibg=none
+
+"Indent guides colors
+hi IndentGuidesOdd  ctermbg=grey
+hi IndentGuidesEven ctermbg=darkgrey
 
