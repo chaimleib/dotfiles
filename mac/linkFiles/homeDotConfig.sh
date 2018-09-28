@@ -5,7 +5,7 @@
 pushd "$common_dir" >/dev/null
 mkdir -p "${HOME}/.config/nvim"
 _lnargs \
-    .config/nvim/init.vim \
-    .config/nvim/autoload
+  .config/nvim/init.vim \
+  .config/nvim/autoload
 popd >/dev/null
 

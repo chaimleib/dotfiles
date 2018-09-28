@@ -4,11 +4,11 @@ echo
 echo "## System ##"
 
 if false; then
-    echo Disable the boot chime
-    sudo nvram SystemAudioVolume=" "
+  echo Disable the boot chime
+  sudo nvram SystemAudioVolume=" "
 else
-    echo Re-enable the boot chime
-    sudo nvram -d SystemAudioVolume
+  echo Re-enable the boot chime
+  sudo nvram -d SystemAudioVolume
 fi
 
 echo Don\'t create .DS_Store on network volumes

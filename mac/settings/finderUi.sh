@@ -12,8 +12,8 @@ defaults write NSGlobalDomain AppleEnableMeuBarTransparency -bool false
 
 echo Hide menu extras I don\'t like
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-    defaults write "${domain}" dontAutoLoad -array \
-        "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" #\
+  defaults write "${domain}" dontAutoLoad -array \
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" #\
 #        "/System/Library/CoreServices/Menu Extras/User.menu"
 done
 

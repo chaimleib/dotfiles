@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function do_install() {
-    [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
-    
-    $INSTALL xsel
+  [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
+
+  $INSTALL xsel
 }
 
 do_install

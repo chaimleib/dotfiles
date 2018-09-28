@@ -10,14 +10,14 @@ defaults write com.apple.dock persistent-apps -array
 
 echo Setting the dock\'s apps
 for item in \
-    /Applications/Google\ Chrome.app \
-    /Applications/Airmail.app \
-    /Applications/Calendar.app \
-    /Applications/iTerm.app \
+  /Applications/Google\ Chrome.app \
+  /Applications/Airmail.app \
+  /Applications/Calendar.app \
+  /Applications/iTerm.app \
 ; do
-    if [[ -d "$item" ]]; then
-        addDockApp "$item"
-    fi
+  if [[ -d "$item" ]]; then
+    addDockApp "$item"
+  fi
 done
 
 

@@ -1,15 +1,15 @@
 #!/bin/bash
 if xsel --version &>/dev/null; then
-    xsel --clipboard --input
+  xsel --clipboard --input
 elif xclip --version &>/dev/null; then
-    xclip -selection clipboard
+  xclip -selection clipboard
 else
-    name=$(basename "$0")
-    (
-    echo "$name depends on xsel or xclip. Install them with"
-    echo "  sudo apt-get install xsel"
-    echo "or"
-    echo "  sudo apt-get install xclip"
-    ) >&2
+  name=$(basename "$0")
+  (
+  echo "$name depends on xsel or xclip. Install them with"
+  echo "  sudo apt-get install xsel"
+  echo "or"
+  echo "  sudo apt-get install xclip"
+  ) >&2
 fi
 
