@@ -1,7 +1,0 @@
-[push]
-	default = matching
-[user]
-	name = Chaim-Leib Halbert
-	email = chaim.leib.halbert@gmail.com
-[core]
-	editor = vim

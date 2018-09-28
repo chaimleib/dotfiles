@@ -28,6 +28,8 @@ function commonhome() {
         .bash_completion \
         .bash_completion.d \
         .bash_logout \
+        .gitconfig \
+        .gitconfig-en \
         .vimrc \
         .vim \
         local \
@@ -36,8 +38,6 @@ function commonhome() {
         .phy.bcrc \
         .profile \
         .tmux.conf
-    
-    "$this_dir"/linkFiles/linkGit.sh
 
     popd >/dev/null
 }

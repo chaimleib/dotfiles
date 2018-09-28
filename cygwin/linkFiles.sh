@@ -27,6 +27,7 @@ function winhome() {
         .bash_completion \
         .bash_completion.d \
         .bash_logout \
+        .gitconfig \
         .vimrc \
         .vim \
         .zshrc \
@@ -37,8 +38,6 @@ function winhome() {
         .profile \
         .tmux.conf
     
-    "$this_dir"/../common/linkFiles/linkGit.sh
-
     popd >/dev/null
 }
 

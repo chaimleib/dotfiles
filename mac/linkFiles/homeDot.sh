@@ -9,6 +9,8 @@ _lnargs \
     .bash_completion \
     .bash_completion.d \
     .bash_logout \
+    .gitconfig \
+    .gitconfig-en \
     .vimrc \
     .vim \
     .zshrc \
@@ -19,15 +21,6 @@ _lnargs \
     .profile \
     .pythonrc.py \
     .tmux.conf
-
-gitver="$(git --version | grep -o [0-9]\+\.[0-9\.]\+[0-9])"
-if [[ "$gitver" > '2.' ]]; then
-    _lnargs .gitconfig
-else
-    pushd cygwin/home >/dev/null
-    _lnargs .gitconfig
-    popd >/dev/null
-fi
 
 popd >/dev/null
 

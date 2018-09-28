@@ -1,22 +1,17 @@
 [push]
 	default = simple
 [user]
-	name = Chaim-Leib Halbert
+	name = Chaim Halbert
 	email = chaim.leib.halbert@gmail.com
-[branch "master"]
-	rebase = true
+[includeIf "gitdir:~/projects/evernote/**"]
+  path = ~/.gitconfig-en
 [core]
 	editor = vim
-[alias]
-	co = checkout
 [color]
 	ui = auto
-[url "git@github.com:chaimleib/"]
-	insteadOf = https://github.com/chaimleib/
-[merge]
-	tool = p4mergetool
-[mergetool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = false
-[mergetool]
-	keepBackup = false
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[var]
+	projectsDirectory = /Users/chalbert/projects/evernote
+[rerere]
+	enabled = true
