@@ -64,9 +64,13 @@ let mapleader = ","
 
 "Move by display lines
 noremap <A-j>	gj
+noremap ∆ gj
 noremap <A-k>	gk
+noremap ˚ gk
 noremap <A-h>	g0
+noremap ˙ g0
 noremap <A-l>	g$
+noremap ¬ g$
 
 "Split view manipulation
 inoremap <C-h>	<C-\><C-n><C-w>h
@@ -172,6 +176,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'AndrewRadev/sideways.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 let g:javascript_plugin_flow = 1
 Plug 'pangloss/vim-javascript'
@@ -181,12 +186,17 @@ if has('nvim')
 endif
 call plug#end()
 
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
+
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
+nnoremap <A-,> :SidewaysLeft<cr>
+nnoremap ≤ :SidewaysLeft<cr>
+nnoremap <A-.> :SidewaysRight<cr>
+nnoremap ≥ :SidewaysRight<cr>
 
 let g:flow#autoclose = 1
 

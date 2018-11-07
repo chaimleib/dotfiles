@@ -172,6 +172,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'AndrewRadev/sideways.vim'
 call plug#end()
 
 let g:airline_powerline_fonts = 1
