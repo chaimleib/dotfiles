@@ -46,7 +46,7 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 
 "Show the current command in the lower right corner
 set showcmd
-set timeoutlen=200 ttimeoutlen=0
+set timeoutlen=300 ttimeoutlen=0
 let mapleader = ","
 
 " #### Key mappings ####
@@ -176,15 +176,21 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 let g:javascript_plugin_flow = 1
 Plug 'pangloss/vim-javascript'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'easymotion/vim-easymotion'
 if has('nvim')
   Plug 'sebdah/vim-delve'
 endif
 call plug#end()
+
+" Default gitgutter update is 4s, make it 100ms
+set updatetime=100
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
