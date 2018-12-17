@@ -7,16 +7,15 @@ set incsearch
 set ignorecase
 set smartcase
 
+colorscheme desert
 set t_Co=256        "tell vim that we have a 256-color terminal
 set background=dark
-colorscheme desert
 syntax on
 set scrolloff=2
 set wildmenu
 set wildmode=list:longest
 
 "Indent handling
-set autoindent
 set smartindent
 set tabstop=2       "tabs 2 spaces wide
 set softtabstop=2   "delete whole tabs at a time
@@ -30,7 +29,7 @@ nnoremap O Ox<BS>
 set backspace=indent,eol,start
 
 " Folding
-set foldlevelstart=0
+set nofoldenable
 set foldmethod=syntax
 set foldcolumn=3
 nnoremap zZ za
@@ -57,7 +56,7 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 
 "Show the current command in the lower right corner
 set showcmd
-set timeoutlen=200 ttimeoutlen=0
+set timeoutlen=300 ttimeoutlen=0
 let mapleader = ","
 
 " #### Key mappings ####
@@ -75,15 +74,19 @@ let mapleader = ","
 
 "Move by display lines
 noremap <A-j>	gj
+noremap ∆ gj
 noremap <A-k>	gk
+noremap ˚ gk
 noremap <A-h>	g0
+noremap ˙ g0
 noremap <A-l>	g$
+noremap ¬ g$
 
 "Split view manipulation
-inoremap <C-h>	<C-w>h
-inoremap <C-l>	<C-w>l
-inoremap <C-j>	<C-w>j
-inoremap <C-k>	<C-w>k
+inoremap <C-h>	<C-\><C-n><C-w>h
+inoremap <C-l>	<C-\><C-n><C-w>l
+inoremap <C-j>	<C-\><C-n><C-w>j
+inoremap <C-k>	<C-\><C-n><C-w>k
 nnoremap <C-h>	<C-w>h
 nnoremap <C-l>	<C-w>l
 nnoremap <C-j>	<C-w>j
@@ -98,35 +101,37 @@ noremap =		<C-W>>
 " Mode toggling
 
 "Exit insert mode easily
-inoremap ,, <Esc>
+inoremap <leader><leader> <Esc>
 
 "Copy-paste modes
 set pastetoggle=<F1>
+"Pass clipboard through to tmux (see .tmux.conf)
+set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 let infocols=1
 function! ToggleInfoCols()
-    if g:infocols
-        let g:infocols=0
-        set nonumber
-        set foldcolumn=0
-    else
-        let g:infocols=1
-        set number
-        set foldcolumn=3
-    endif
+  if g:infocols
+    let g:infocols=0
+    set nonumber
+    set foldcolumn=0
+  else
+    let g:infocols=1
+    set number
+    set foldcolumn=3
+  endif
 endfunction
 
 inoremap <F3> <c-o>:call ToggleHebrew()<CR>
 nnoremap <F3> :call ToggleHebrew()<CR>
 function! ToggleHebrew()
-    if &rl
-        set norl
-        set keymap=
-    else
-        set rl
-        set keymap=hebrew
-    end
+  if &rl
+    set norl
+    set keymap=
+  else
+    set rl
+    set keymap=hebrew
+  end
 endfunc
 
 "Show syntax highlighting group name
@@ -157,26 +162,49 @@ let g:tex_flavor='latex'
 let g:pep8_map = ':pep'
 
 autocmd Filetype python   setlocal tabstop=4 softtabstop=4 shiftwidth=4 foldmethod=indent 
-autocmd Filetype sh       setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd Filetype sh       setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype makefile setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
 autocmd Filetype ruby     setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype haml     setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 filetype plugin indent on
 
+autocmd BufNewFile,BufRead *.js.flow set syntax=javascript
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/sideways.vim'
+Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
+let g:javascript_plugin_flow = 1
+Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'easymotion/vim-easymotion'
 call plug#end()
+
+" Default gitgutter update is 4s, make it 100ms
+set updatetime=100
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
+
+hi Search ctermbg=lightred ctermfg=black cterm=NONE
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+nnoremap <A-,> :SidewaysLeft<cr>
+nnoremap ≤ :SidewaysLeft<cr>
+nnoremap <A-.> :SidewaysRight<cr>
+nnoremap ≥ :SidewaysRight<cr>
+
+let g:flow#autoclose = 1
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
 
@@ -184,5 +212,9 @@ hi Search ctermbg=lightred ctermfg=black cterm=none
 hi DiffAdd     ctermbg=22 guibg=#2E5815
 hi DiffDelete  ctermbg=88 guibg=#771C12
 hi DiffChange  ctermbg=19 guibg=#0138A7
-hi DiffText    ctermbg=none guibg=none
+hi DiffText    ctermbg=NONE guibg=NONE
+
+"Indent guides colors
+hi IndentGuidesOdd  ctermbg=grey
+hi IndentGuidesEven ctermbg=darkgrey
 

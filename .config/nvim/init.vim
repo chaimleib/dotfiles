@@ -248,7 +248,7 @@ hi Search ctermbg=lightred ctermfg=black cterm=none
 hi DiffAdd     ctermbg=22 guibg=#2E5815
 hi DiffDelete  ctermbg=88 guibg=#771C12
 hi DiffChange  ctermbg=19 guibg=#0138A7
-hi DiffText    ctermbg=none guibg=none
+hi DiffText    ctermbg=NONE guibg=NONE
 
 "Indent guides colors
 hi IndentGuidesOdd  ctermbg=grey
