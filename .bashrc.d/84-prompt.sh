@@ -4,7 +4,7 @@ function exit_indicator() {
   local exit_indicator
   exit_indicator='$('
   exit_indicator+='[[ "$?" -eq 0 ]] &&'
-  exit_indicator+=' echo "'${BOLD_GREEN}'✔︎ " ||'
+  exit_indicator+=' echo "'${BOLD_GREEN}'✔ " ||'
   exit_indicator+=' echo "'${BOLD_RED}'✘ "'
   exit_indicator+=')'
   exit_indicator+=$RESET_COLOR
