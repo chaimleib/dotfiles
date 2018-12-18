@@ -1,14 +1,10 @@
 #!/bin/bash
-
 removePath .
 
 appendPath /sbin
 appendPath /usr/sbin
 
 #prependPath /opt/local/bin
-# Setting PATH for MacPython 2.6
-#prependPath /Library/Frameworks/Python.framework/Versions/2.6/bin
-
 #prependPath ~/.bin
 
 # Stellarpad binaries
@@ -21,16 +17,6 @@ prependPath /usr/local/bin
 appendPath /usr/local/lib PKG_CONFIG_PATH
 appendPath /usr/X11/lib/pkgconfig PKG_CONFIG_PATH
 
-# Django/Liespotter stuff
-#prependPath /home2/truthspo/boost/lib LD_LIBRARY_PATH
-#prependPath /home2/truthspo/boost/lib DYLD_LIBRARY_PATH
-
-#prependPath /home2/truthspo/django/django_src/django/bin
-#prependPath /home2/truthspo/django/django_src PYTHONPATH
-#prependPath /home2/truthspo/django/django_projects PYTHONPATH
-
-#prependPath /home2/truthspo/python/bin
-
 # Haskell
 prependPath ~/.cabal/bin
 
@@ -39,11 +25,11 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
 
 # Google Cloud SDK
 [[ "$0" == *bash ]] &&
-  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ] &&
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
+  [[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ]] &&
+  . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 [[ -n "$ZSH_NAME" ]] &&
-  [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+  [[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]] &&
+  . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 
 prependPath "/usr/local/opt/mysql@5.7/bin"
 
