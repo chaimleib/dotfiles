@@ -1,7 +1,7 @@
 # bash alias completion
 #
 #
-(( $BASHRC_debug >= 2 )) && echo 'bash-builtins'
+[[ "$BASHRC_debug" -ge 2 ]] && echo 'bash-builtins'
 
 _alias()
 {
