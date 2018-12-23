@@ -32,7 +32,7 @@ if ! (unset BASH_COMPLETION_COMPAT_DIR 2>/dev/null); then
     return
 fi
 
-[[ "$BASHRC_debug" -ge 1 ]] && echo '~/.bash_completion'
+[[ "$BASHRC_debug" -ge 2 ]] && echo '~/.bash_completion'
 
 if [[ $- == *v* ]]; then
     BASH_COMPLETION_ORIGINAL_V_VALUE="-v"
