@@ -92,16 +92,18 @@ elif [[ -n "$ZSH_NAME" ]]; then
 fi
 function ps1_func() {
     local ps1
-    ps1+="$(exit_indicator)"
-    ps1+=$p_user
-    ps1+=@
-    ps1+="${RED}${p_host}${RESET_COLOR}"
-    ps1+=:
-    ps1+="${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
-    ps1+=$p_nl
-    ps1+="$(prompt_configs)"
-    local g=$(__git_ps1)
-    ps1+="${g:+$g }"
+    if [[ -z "$NOPS" ]]; then
+      ps1+="$(exit_indicator)"
+      ps1+=$p_user
+      ps1+=@
+      ps1+="${RED}${p_host}${RESET_COLOR}"
+      ps1+=:
+      ps1+="${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
+      ps1+=$p_nl
+      ps1+="$(prompt_configs)"
+      local g=$(__git_ps1)
+      ps1+="${g:+$g }"
+    fi
     ps1+=$p_prompt
     ps1+=' '
     PS1=$ps1
