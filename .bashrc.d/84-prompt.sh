@@ -13,27 +13,28 @@ function exit_indicator() {
 
 # Kubernetes context
 function kube_prompt_info() {
-have kubectl || return
-local active_context="$(kubectl config current-context)"
-case "$active_context" in
-  *development*) echo -n "k8s:${GREEN}dev${RESET_COLOR}" ;;
-  *testing*) echo -n "k8s:${YELLOW}test${RESET_COLOR}" ;;
-  *production*) echo -n "k8s:${RED}prod${RESET_COLOR}" ;;
-  *) echo -n "k8s:${active_context}" ;;
-esac
+  have kubectl || return
+  local active_context="$(kubectl config current-context)"
+  case "$active_context" in
+    *development*) echo -n "k8s:${GREEN}dev${RESET_COLOR}" ;;
+    *testing*) echo -n "k8s:${YELLOW}test${RESET_COLOR}" ;;
+    *production*) echo -n "k8s:${RED}prod${RESET_COLOR}" ;;
+    *) echo -n "k8s:${active_context}" ;;
+  esac
 }
 
 # GCP context
 function gcp_prompt_info() {
-local config_file="$HOME/.config/gcloud/active_config"
-[[ -e "$config_file" ]] || return
-local active_config="$(cat "$config_file")"
-case "$active_config" in
-  *development*) echo -n "gcp:${GREEN}dev${RESET_COLOR}" ;;
-  *testing*) echo -n "gcp:${YELLOW}test${RESET_COLOR}" ;;
-  *production*) echo -n "gcp:${RED}prod${RESET_COLOR}" ;;
-  *) echo -n "gcp:${active_config}" ;;
-esac
+  local config_file="$HOME/.config/gcloud/active_config"
+  [[ -e "$config_file" ]] || return
+  local active_config="$(cat "$config_file")"
+  case "$active_config" in
+    *development*) echo -n "gcp:${GREEN}dev${RESET_COLOR}" ;;
+    *testing*) echo -n "gcp:${YELLOW}test${RESET_COLOR}" ;;
+    *production*) echo -n "gcp:${RED}prod${RESET_COLOR}" ;;
+    default) ;;
+    *) echo -n "gcp:${active_config}" ;;
+  esac
 }
 function prompt_configs() {
   local kube="$(kube_prompt_info)"
