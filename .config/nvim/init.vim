@@ -35,9 +35,6 @@ set title
 auto BufEnter * let &titlestring = hostname() . ":" . expand("%:p")
 auto BufEnter * let &titleold = hostname() . ":" . getcwd()
 
-set ruler
-set number
-
 "Status line:
 " %F full file path
 " %r read only status, appears as [RO]
@@ -109,18 +106,29 @@ set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 let infocols=1
+set number
+set relativenumber
+set foldcolumn=3
 function! ToggleInfoCols()
   if g:infocols
-    let g:infocols=0
-    set nonumber
-    set foldcolumn=0
-    :GitGutterDisable
+    :call NoInfoCols()
   else
+    :call InfoCols()
+  endif
+endfunction
+function! InfoCols()
     let g:infocols=1
     set number
+    set relativenumber
     set foldcolumn=3
     :GitGutterEnable
-  endif
+endfunction
+function! NoInfoCols()
+    let g:infocols=0
+    set nonumber
+    set norelativenumber
+    set foldcolumn=0
+    :GitGutterDisable
 endfunction
 
 inoremap <F3> <c-o>:call ToggleHebrew()<CR>
@@ -172,6 +180,7 @@ autocmd BufNewFile,BufRead *.js.flow set syntax=javascript
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nathanaelkane/vim-indent-guides'
