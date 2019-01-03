@@ -30,10 +30,46 @@ set foldcolumn=3
 nnoremap zZ za
 nnoremap zz zR
 
+" Actions when switching to and from terminal
+function! s:getExitStatus() abort
+  let ln = line('$')
+  " The terminal buffer includes several empty lines after the 'Process exited'
+  " line that need to be skipped over.
+  while ln >= 1
+    let l = getline(ln)
+    let ln -= 1
+    let exitCode = substitute(l, '^\[Process exited \([0-9]\+\)\]$', '\1', '')
+    if l != '' && l == exitCode
+      " The pattern did not match, and the line was not empty. It looks like
+      " there is no process exit message in this buffer.
+      break
+    elseif exitCode != ''
+      return str2nr(exitCode)
+    endif
+  endwhile
+  throw 'Could not determine exit status for buffer, ' . expand('%')
+endfunc
+function! s:afterTermClose() abort
+  if s:getExitStatus() == 0
+    bdelete!
+  endif
+endfunc
+augroup terminal
+  auto!
+  auto TermOpen * startinsert
+  auto TermOpen * :call NoInfoCols()
+  auto BufEnter,BufWinEnter,WinEnter term://* startinsert
+  auto BufEnter,BufWinEnter,WinEnter term://* :call NoInfoCols()
+  auto TermClose * call timer_start(20, { -> s:afterTermClose() })
+augroup end
+
 " Title
 set title
-auto BufEnter * let &titlestring = hostname() . ":" . expand("%:p")
-auto BufEnter * let &titleold = hostname() . ":" . getcwd()
+augroup titlebar
+  auto!
+  auto BufEnter * let &titlestring = hostname() . ":" . expand("%:p")
+  auto BufEnter * let &titleold = hostname() . ":" . getcwd()
+augroup end
 
 "Status line:
 " %F full file path
@@ -105,7 +141,10 @@ set pastetoggle=<F1>
 set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
-autocmd BufReadPost * :call InfoCols()
+augroup bootstrapcols
+  auto!
+  auto BufReadPost * :call InfoCols()
+augroup end
 function! ToggleInfoCols()
   if g:infocols
     :call NoInfoCols()
@@ -165,15 +204,16 @@ let g:tex_flavor='latex'
 "Python style settings
 let g:pep8_map = ':pep'
 
-autocmd Filetype python   setlocal tabstop=4 softtabstop=4 shiftwidth=4 foldmethod=indent 
-autocmd Filetype sh       setlocal tabstop=2 softtabstop=2 shiftwidth=2
-autocmd Filetype makefile setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
-autocmd Filetype ruby     setlocal tabstop=2 softtabstop=2 shiftwidth=2
-autocmd Filetype haml     setlocal tabstop=2 softtabstop=2 shiftwidth=2
-
-filetype plugin indent on
-
-autocmd BufNewFile,BufRead *.js.flow set syntax=javascript
+augroup inittabs
+  auto!
+  auto BufNewFile,BufRead *.js.flow set syntax=javascript
+  auto Filetype python   setlocal tabstop=4 softtabstop=4 shiftwidth=4 foldmethod=indent
+  auto Filetype sh       setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  auto Filetype makefile setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+  auto Filetype ruby     setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  auto Filetype haml     setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  filetype plugin indent on
+augroup end
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
@@ -213,42 +253,6 @@ nnoremap <A-.> :SidewaysRight<cr>
 nnoremap ≥ :SidewaysRight<cr>
 
 let g:flow#autoclose = 1
-
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-" Default javacomplete2 bindings
-"  nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
-"  nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
-"  nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
-"  nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
-"
-"  imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
-"  imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
-"  imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
-"  imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
-"
-"  nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-"
-"  imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
-"
-"  nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
-"  nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-"  nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-"  nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-"  nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
-"  nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
-"  nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
-"  nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
-"
-"  imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
-"  imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
-"  imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-"
-"  vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
-"  vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
-"  vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
-"
-"  nmap <silent> <buffer> <leader>jn <Plug>(JavaComplete-Generate-NewClass)
-"  nmap <silent> <buffer> <leader>jN <Plug>(JavaComplete-Generate-ClassInFile)
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
 
