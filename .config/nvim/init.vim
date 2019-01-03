@@ -105,10 +105,7 @@ set pastetoggle=<F1>
 set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
-let infocols=1
-set number
-set relativenumber
-set foldcolumn=3
+autocmd BufReadPost * :call InfoCols()
 function! ToggleInfoCols()
   if g:infocols
     :call NoInfoCols()
