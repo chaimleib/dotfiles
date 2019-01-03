@@ -5,7 +5,11 @@ set smartcase
 colorscheme desert
 set background=dark
 set scrolloff=2
-set wildmode=list:longest
+set mouse=a
+set wildmode=list:longest,full
+set wildignore+=*.log,*.xml,doc/**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=node_modules/**,.git/**
 
 "Indent handling
 set smartindent
@@ -146,8 +150,6 @@ noremap <F10> :echo "hi<"
 "map <leader>x :silent 1,$!xmllint --format --maxmem 1000000000 --recover - 2>/dev/null <CR>
 
 set backupskip=/tmp/*,/private/tmp/*
-" Used by CommandT - ignores files and directories when fuzzy finding
-set wildignore+=*.log,*.xml,doc/**
 
 "Makes vim invoke latex-suite when a .tex file is opened.
 filetype plugin on
