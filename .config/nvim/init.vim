@@ -9,7 +9,7 @@ set mouse=a
 set wildmode=list:longest,full
 set wildignore+=*.log,*.xml,doc/**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=node_modules/**,.git/**
+set wildignore+=*/node_modules/**,*/.git/**
 
 "Indent handling
 set smartindent
@@ -228,7 +228,6 @@ Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
-let g:javascript_plugin_flow = 1
 Plug 'pangloss/vim-javascript'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'easymotion/vim-easymotion'
@@ -243,9 +242,13 @@ set updatetime=100
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 
+let g:ctrlp_working_path_mode = 'ra'
+
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
+
+let g:javascript_plugin_flow = 1
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
