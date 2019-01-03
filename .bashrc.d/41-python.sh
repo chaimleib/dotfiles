@@ -2,3 +2,5 @@
 
 [[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
+eval "$(pyenv init -)"
+
