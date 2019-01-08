@@ -7,9 +7,20 @@ set background=dark
 set scrolloff=2
 set mouse=a
 set wildmode=list:longest,full
+set wildmenu
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
+set wildignore+=*.pdf,*.psd
 set wildignore+=*.log,*.xml,doc/**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=*/node_modules/**,*/.git/**
+set wildignore+=node_modules/*,bower_components/*,*/.git/**
+
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 "Indent handling
 set smartindent
@@ -48,12 +59,12 @@ function! s:getExitStatus() abort
     endif
   endwhile
   throw 'Could not determine exit status for buffer, ' . expand('%')
-endfunc
+endfunction
 function! s:afterTermClose() abort
   if s:getExitStatus() == 0
     bdelete!
   endif
-endfunc
+endfunction
 augroup terminal
   auto!
   auto TermOpen * startinsert
@@ -177,7 +188,7 @@ function! ToggleHebrew()
     set rl
     set keymap=hebrew
   end
-endfunc
+endfunction
 
 "Show syntax highlighting group name
 noremap <F10> :echo "hi<"
