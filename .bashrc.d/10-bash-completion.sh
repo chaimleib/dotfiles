@@ -1,21 +1,15 @@
 #!/bin/bash
 
 [[ -z "$PS1" ]] && return
-[[ -n "$BASH_COMPLETION_COMPAT_DIR" ]] && return
 
-if [[ "$0" == *bash ]]; then
-    bash_completion_candidates=(
-        ~/.bash_completion
-    )
-
-    for f in ${bash_completion_candidates[*]}; do
-        [[ -f "$f" ]] || continue
-        [[ "$BASHRC_debug" -ge 2 ]] && echo "Sourcing $f ..."
-        BASH_COMPLETION="$f"
-        BASH_COMPLETION_DIR="${f}.d"
-        BASH_COMPLETION_COMPAT_DIR="$BASH_COMPLETION_DIR"
-        source "$f"
-    done
+if [[ "$0" == *bash ]] && [[ -z "$BASH_COMPLETION_COMPAT_DIR" ]]; then
+  f=~/.bash_completion
+  [[ -f "$f" ]] || return
+  [[ "$BASHRC_debug" -ge 2 ]] && echo "Sourcing $f ..."
+  BASH_COMPLETION="$f"
+  BASH_COMPLETION_DIR="${f}.d"
+  BASH_COMPLETION_COMPAT_DIR="$BASH_COMPLETION_DIR"
+  source "$f"
 fi
 
 # Google Cloud SDK
