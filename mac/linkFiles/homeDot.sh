@@ -11,6 +11,7 @@ _lnargs \
   .bash_logout \
   .gitconfig \
   .gitconfig-en \
+  .inputrc \
   .vimrc \
   .vim \
   .zshrc \
