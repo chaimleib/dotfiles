@@ -1,9 +1,6 @@
-caskroom/cask
 caskroom/fonts
 caskroom/versions
 chaimleib/formulae
 homebrew/core
-homebrew/php
 homebrew/services
 homebrew/bundle
-neovim/neovim
