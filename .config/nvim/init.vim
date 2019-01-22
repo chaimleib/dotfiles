@@ -11,6 +11,7 @@ set wildmenu
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
 set wildignore+=*.pdf,*.psd
 set wildignore+=*.log,*.xml,doc/**
+set wildignore+=*.class
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=node_modules/*,bower_components/*,*/.git/**
 
@@ -228,20 +229,20 @@ augroup end
 
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'AndrewRadev/sideways.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'AndrewRadev/sideways.vim'
-Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
-Plug 'pangloss/vim-javascript'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'easymotion/vim-easymotion'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 if has('nvim')
   Plug 'sebdah/vim-delve'
 endif
