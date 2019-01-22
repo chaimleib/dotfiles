@@ -227,16 +227,28 @@ augroup inittabs
   filetype plugin indent on
 augroup end
 
+if ! empty($NEOVIM_PYTHON3_HOST_PROG)
+  let g:python3_host_prog = $NEOVIM_PYTHON3_HOST_PROG
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \'do': 'bash install.sh',
+      \ }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
+Plug 'junegunn/fzf'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ncm2/ncm2'
 Plug 'pangloss/vim-javascript'
+Plug 'roxma/nvim-yarp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
@@ -260,12 +272,33 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 
+" pangloss/vim-javascript highlights on flow syntax
 let g:javascript_plugin_flow = 1
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
 nnoremap <A-.> :SidewaysRight<cr>
 nnoremap ≥ :SidewaysRight<cr>
+
+augroup langClient
+  let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_serverCommands = {}
+  if executable('javascript-typescript-stdio')
+    " yarn global add javascript-typescript-langserver
+    let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+    auto FileType javascript setlocal omnifunc=LanguageClient#complete
+  else
+    echo "Missing tool:\n"
+    echo "  yarn global add javascript-typescript-stdio\n"
+    :cq
+  endif
+
+  "all languages
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> <F4> :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <silent> <leader>lf :call LanguageClient#textDocument_documentSymbol()<CR>
+augroup end
 
 let g:flow#autoclose = 1
 

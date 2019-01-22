@@ -12,6 +12,7 @@ neovim
 node
 pandoc
 pyenv
+pyenv-virtualenv
 python@2
 python
 readline
