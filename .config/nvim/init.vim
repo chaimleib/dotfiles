@@ -288,8 +288,8 @@ augroup langClient
     let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
     auto FileType javascript setlocal omnifunc=LanguageClient#complete
   else
-    echo "Missing tool:"
-    echo "  yarn global add javascript-typescript-stdio\n"
+    echo "Missing language server:"
+    echo "  yarn global add javascript-typescript-langserver\n"
   endif
 
   if filereadable(
@@ -298,7 +298,7 @@ augroup langClient
     let g:LanguageClient_serverCommands.java = ['jdtls']
     auto FileType java setlocal omnifunc=LanguageClient#complete
   else
-    echo "Missing tool:"
+    echo "Missing language server:"
     echo "  cd ~/projects/github"
     echo "  git clone https://github.com/eclipse/eclipse.jdt.ls"
     echo "  eclipse.jdt.ls/mvnw clean verify\n"
