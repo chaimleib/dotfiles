@@ -2,6 +2,7 @@ autoconf
 automake
 bash-completion
 fswatch
+fzf
 git
 go
 chaimleib/formulae/haveinet

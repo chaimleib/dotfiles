@@ -13,8 +13,8 @@ require pyenv
 require pyenv-virtualenv
 
 ve3=neovim-py3
-if pyenv virtualenvs | grep "^  $ve3"; then
-  echo "Already installed virtualenv $ve3"
+if pyenv virtualenvs | grep "^  $ve3" >/dev/null; then
+  echo "Already installed"
   exit
 fi
 
@@ -34,7 +34,7 @@ get_version() {
 latestPy3=$(get_version '3\.')
 
 CONFIGURE_OPTS="--enable-optimizations" pyenv install "$latestPy3" &&
-  pyenv virtualenv "$latestPy3" "$ve3" &&
+  pyenv virtualenv "$latestPy3" "$ve3" >/dev/null &&
   pyenv activate "$ve3" || exit 1
 
 pkg=neovim

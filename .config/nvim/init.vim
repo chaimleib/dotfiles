@@ -15,14 +15,6 @@ set wildignore+=*.class
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=node_modules/*,bower_components/*,*/.git/**
 
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
 "Indent handling
 set smartindent
 set tabstop=2       "tabs 2 spaces wide
@@ -59,7 +51,8 @@ function! s:getExitStatus() abort
       return str2nr(exitCode)
     endif
   endwhile
-  throw 'Could not determine exit status for buffer, ' . expand('%')
+  return -1
+  "throw 'Could not determine exit status for buffer, ' . expand('%')
 endfunction
 function! s:afterTermClose() abort
   if s:getExitStatus() == 0
@@ -110,6 +103,11 @@ let mapleader = ","
 "noremap j <NOP>
 "noremap k <NOP>
 "noremap l <NOP>
+
+"Borrowing some shortcuts from macOS
+inoremap <C-a> <Esc>0i
+inoremap <C-e> <Esc>A
+inoremap <M-BS> <Esc>cb
 
 "Move by display lines
 noremap <A-j>	gj
@@ -236,13 +234,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
-      \'do': 'bash install.sh',
+      \ 'do': 'bash install.sh',
       \ }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ncm2/ncm2'
@@ -266,7 +264,9 @@ set updatetime=100
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 
-let g:ctrlp_working_path_mode = 'ra'
+" fzf
+inoremap <C-p> <Esc>:Files<CR>
+nnoremap <C-p> :Files<CR>
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
@@ -288,9 +288,20 @@ augroup langClient
     let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
     auto FileType javascript setlocal omnifunc=LanguageClient#complete
   else
-    echo "Missing tool:\n"
+    echo "Missing tool:"
     echo "  yarn global add javascript-typescript-stdio\n"
-    :cq
+  endif
+
+  if filereadable(
+        \ $HOME . "/projects/github" .
+        \ "/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml")
+    let g:LanguageClient_serverCommands.java = ['jdtls']
+    auto FileType java setlocal omnifunc=LanguageClient#complete
+  else
+    echo "Missing tool:"
+    echo "  cd ~/projects/github"
+    echo "  git clone https://github.com/eclipse/eclipse.jdt.ls"
+    echo "  eclipse.jdt.ls/mvnw clean verify\n"
   endif
 
   "all languages
