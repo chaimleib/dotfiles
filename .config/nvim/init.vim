@@ -72,7 +72,7 @@ augroup end
 set title
 augroup titlebar
   auto!
-  auto BufEnter * let &titlestring = hostname() . ":" . expand("%:p")
+  auto BufEnter * let &titlestring = hostname() . ":" . expand("%")
   auto BufEnter * let &titleold = hostname() . ":" . getcwd()
 augroup end
 
@@ -90,6 +90,8 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 set showcmd
 set timeoutlen=300 ttimeoutlen=0
 let mapleader = ","
+nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'path copied'<CR>
+nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'abspath copied'<CR>
 
 " #### Key mappings ####
 "Break the arrow key habit
