@@ -2,6 +2,7 @@
 
 export EDITOR='vim'
 export VISUAL="$EDITOR"
+export TIMEFORMAT='%3lR'
 
 # Perl
 if [[ -d "${HOME}/.perl5" ]]; then
