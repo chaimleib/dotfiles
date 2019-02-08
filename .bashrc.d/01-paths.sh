@@ -17,6 +17,9 @@ prependPath /usr/local/bin
 appendPath /usr/local/lib PKG_CONFIG_PATH
 appendPath /usr/X11/lib/pkgconfig PKG_CONFIG_PATH
 
+# Go
+prependPath ~/go/bin
+
 # Haskell
 prependPath ~/.cabal/bin
 
