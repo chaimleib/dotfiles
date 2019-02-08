@@ -13,3 +13,5 @@
 	projectsDirectory = /Users/chalbert/projects/evernote
 [rerere]
 	enabled = true
+[credential]
+	helper = osxkeychain
