@@ -1,20 +1,8 @@
-set editing-mode vi
-set show-mode-in-prompt on
-
 "<M-BS>": backward-kill-word
 
-$if mode=vi
-  set keymap vi-command
-  "\C-a": beginning-of-line
-  "\C-e": end-of-line
-  "\C-k": kill-line
-  "\C-y": yank
+$if mode=emacs
   "\C-x\C-e": edit-and-execute-command
   "\C-x\C-r": re-read-init-file
   "<M-BS>": backward-kill-word
 $endif
-$if mode=emacs
-  "<M-BS>": backward-kill-word
-$endif
-  
 
