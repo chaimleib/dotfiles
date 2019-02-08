@@ -90,8 +90,8 @@ set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 set showcmd
 set timeoutlen=300 ttimeoutlen=0
 let mapleader = ","
-nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'path copied'<CR>
-nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'abspath copied'<CR>
+nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'copied: '@*<CR>
+nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'copied: '@*<CR>
 
 " #### Key mappings ####
 "Break the arrow key habit
@@ -107,9 +107,7 @@ nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'abspath copied'<CR>
 "noremap l <NOP>
 
 "Borrowing some shortcuts from macOS
-inoremap <C-a> <Esc>0i
-inoremap <C-e> <Esc>A
-inoremap <M-BS> <Esc>cb
+inoremap <silent> <M-BS> <Esc><Space>cb
 
 "Move by display lines
 noremap <A-j>	gj
@@ -232,6 +230,21 @@ if ! empty($NEOVIM_PYTHON3_HOST_PROG)
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+" Default gitgutter update is 4s, make it 100ms
+set updatetime=100
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+let g:sneak#label = 1
+
+" pangloss/vim-javascript highlights on flow syntax
+" let g:javascript_plugin_flow = 1
+
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'autozimu/LanguageClient-neovim', {
@@ -244,11 +257,13 @@ Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'mxw/vim-jsx' "combo with pangloss/vim-javascript
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ncm2/ncm2'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-yarp'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
@@ -256,26 +271,13 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 if has('nvim')
-  Plug 'sebdah/vim-delve'
+  Plug 'sebdah/vim-delve' "go debugger
 endif
 call plug#end()
 
-" Default gitgutter update is 4s, make it 100ms
-set updatetime=100
-
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
-
 " fzf
-inoremap <C-p> <Esc>:Files<CR>
-nnoremap <C-p> :Files<CR>
-
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-
-" pangloss/vim-javascript highlights on flow syntax
-let g:javascript_plugin_flow = 1
+inoremap <leader>z <Esc>:Files<CR>
+nnoremap <leader>z :Files<CR>
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
@@ -284,33 +286,80 @@ nnoremap ≥ :SidewaysRight<cr>
 
 augroup langClient
   let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_selectionUI = 'fzf'
+  let g:LanguageClient_waitOutputTimeout = 60
+
+  let g:LanguageClient_loggingLevel = 'INFO'
+  let g:LanguageClient_loggingFile = '/tmp/lsp-client.log'
+  let g:LanguageClient_serverStderr = '/tmp/lsp-server.log'
+
+  let g:LanguageClient_rootMarkers = ['pom.xml', '.git']
   let g:LanguageClient_serverCommands = {}
-  if executable('javascript-typescript-stdio')
-    " yarn global add javascript-typescript-langserver
-    let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+
+  if executable('flow')
+    let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
     auto FileType javascript setlocal omnifunc=LanguageClient#complete
+    let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
+    auto FileType javascript.jsx setlocal omnifunc=LanguageClient#complete
   else
-    echo "Missing language server:"
-    echo "  yarn global add javascript-typescript-langserver\n"
+    echo 'Missing language server:'
+    echo '  yarn global add flow-bin'
   endif
 
+  if executable('typescript-language-server')
+    let g:LanguageClient_serverCommands.typescript = ['typescript-language-server', '--stdio']
+    let g:LanguageClient_serverCommands.tsx = ['typescript-language-server', '--stdio']
+    auto FileType typescript setlocal omnifunc=LanguageClient#complete
+    auto FileType tsx setlocal omnifunc=LanguageClient#complete
+  else
+    echo 'Missing language server:'
+    echo '  yarn global add typescript-language-server'
+  endif
+
+  "has jdt.ls been compiled?
   if filereadable(
-        \ $HOME . "/projects/github" .
-        \ "/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml")
+        \ $HOME . '/projects/github' .
+        \ '/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml')
     let g:LanguageClient_serverCommands.java = ['jdtls']
+    let g:LanguageClient_serverCommands.jsp = ['jdtls']
     auto FileType java setlocal omnifunc=LanguageClient#complete
   else
-    echo "Missing language server:"
-    echo "  cd ~/projects/github"
-    echo "  git clone https://github.com/eclipse/eclipse.jdt.ls"
-    echo "  eclipse.jdt.ls/mvnw clean verify\n"
+    echo 'Missing language server:'
+    echo '  cd ~/projects/github'
+    echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
+    echo '  eclipse.jdt.ls/mvnw clean verify'
+  " jdtls already created in ~/local/provide
+  endif
+
+  if executable('bingo')
+    let g:LanguageClient_serverCommands.go = ['bingo']
+    auto FileType go setlocal omnifunc=LanguageClient#complete
+  else
+    echo 'Missing language server:'
+    echo '  cd ~/projects/github'
+    echo '  git clone https://github.com/saibing/bingo'
+    echo '  cd bingo'
+    echo '  GO111MODULE=on go install\n'
   endif
 
   "all languages
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> <F4> :call LanguageClient#textDocument_rename()<CR>
-  nnoremap <silent> <leader>lf :call LanguageClient#textDocument_documentSymbol()<CR>
+  nnoremap <silent> g<space> :call LanguageClient_contextMenu()<CR>
+  nnoremap <silent> g<tab> :call LanguageClient_#textDocument_codeAction()<CR>
+  nnoremap <silent> gv :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> g] :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> g} :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+  "gu = go Usages
+  nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
+  " nnoremap <silent> ?? :call LanguageClient#textDocument_documentHighlight()<CR>
+  " nnoremap <silent> ?? :call LanguageClient#clearDocumentHighlight()<CR>
+  " nnoremap <silent> ?? :call LanguageClient#textDocument_documentSymbol()<CR>
+  nnoremap <silent> gR :call LanguageClient#workspace_symbol()<CR>
+  nnoremap <silent> g[ :call LanguageClient#textDocument_implementation()<CR>
+  nnoremap <silent> gqg :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <silent> gs :call LanguageClient#serverStatusMessage()<CR>
+  nnoremap <silent> gi :call LanguageClient#debugInfo()<CR>
+  " nnoremap <silent> ?? :call LanguageClient#explainErrorAtPoint()<CR>
 augroup end
 
 let g:flow#autoclose = 1
@@ -327,3 +376,10 @@ hi DiffText    ctermbg=NONE guibg=NONE
 hi IndentGuidesOdd  ctermbg=grey
 hi IndentGuidesEven ctermbg=darkgrey
 
+"Trailing spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()

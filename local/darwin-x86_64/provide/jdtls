@@ -9,6 +9,7 @@ java \
     -noverify \
     -Xms1G \
     -jar $gits/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.*.jar \
-    -configuration $gits/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux/ \
+    -configuration $gits/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac/ \
+    -data "$HOME"/workspace \
     "$@"
 
