@@ -392,7 +392,7 @@ augroup langClient
     echo '  cd ~/projects/github'
     echo '  git clone https://github.com/saibing/bingo'
     echo '  cd bingo'
-    echo '  GO111MODULE=on go install\n'
+    echo '  GO111MODULE=on go install'
   endif
 
   "all languages
