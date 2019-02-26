@@ -278,6 +278,8 @@ call plug#end()
 " fzf
 inoremap <leader>z <Esc>:Files<CR>
 nnoremap <leader>z :Files<CR>
+inoremap <leader>Z <Esc>:Ag<Space>
+nnoremap <leader>Z :Ag<Space>
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
