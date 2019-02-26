@@ -37,11 +37,8 @@ function gcp_prompt_info() {
   esac
 }
 function prompt_configs() {
-  local kube="$(kube_prompt_info)"
   local gcp="$(gcp_prompt_info)"
-  [[ -z "$kube$gcp" ]] && return
-  [[ -n "$kube" ]] && printf '%s' "$kube"
-  [[ -n "$kube" ]] && [[ -n "$gcp" ]] && printf '|'
+  [[ -z "$gcp" ]] && return
   [[ -n "$gcp" ]] && printf '%s' "$gcp" 
   printf ' '
 }
