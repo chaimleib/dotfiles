@@ -1,6 +1,8 @@
 "Search options
 set ignorecase
 set smartcase
+set nohlsearch
+set incsearch "incsearch.vim highlights all matches, below
 
 colorscheme desert
 set background=dark
@@ -31,7 +33,7 @@ nnoremap O Ox<BS>
 set nofoldenable
 set foldmethod=syntax
 set foldcolumn=3
-nnoremap zZ za
+nnoremap zZ zmzv
 nnoremap zz zR
 
 " Actions when switching to and from terminal
@@ -139,10 +141,25 @@ noremap _		<C-W>-
 noremap -		<C-W><
 noremap =		<C-W>>
 
+"Buffer navigation
+nnoremap <leader>b :ls<cr>:b<space>
+nnoremap <tab> :b#<cr>
+nnoremap <s-tab> :b#<cr>:bd #<cr>
+
+"Reload vimrc
+augroup vimrcReload
+  au!
+  autocmd bufwritepost .vimrc source ~/.vimrc
+augroup end
+command! Rc source ~/.config/nvim/init.vim
+
+
 " Mode toggling
 
 "Exit insert mode easily
 inoremap <leader><leader> <Esc>
+nnoremap <leader><leader> <Esc>
+vnoremap <leader><leader> <Esc>
 tnoremap <leader><leader> <C-\><C-n>
 
 "Copy-paste modes
@@ -153,6 +170,7 @@ set clipboard=unnamed
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
 augroup bootstrapcols
   auto!
+  let g:infocols=0
   auto BufReadPost * :call InfoCols()
 augroup end
 function! ToggleInfoCols()
@@ -165,7 +183,7 @@ endfunction
 function! InfoCols()
     let g:infocols=1
     set number
-    set relativenumber
+    " set relativenumber
     set foldcolumn=3
     :GitGutterEnable
 endfunction
@@ -253,6 +271,9 @@ Plug 'autozimu/LanguageClient-neovim', {
       \ }
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'FooSoft/vim-argwrap'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -263,11 +284,13 @@ Plug 'ncm2/ncm2'
 Plug 'pangloss/vim-javascript'
 Plug 'roxma/nvim-yarp'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'solarnz/thrift.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'tpope/vim-commentary'
+Plug 'udalov/javap-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 if has('nvim')
@@ -275,11 +298,36 @@ if has('nvim')
 endif
 call plug#end()
 
+" argwrap
+nnoremap <silent> <leader>a :ArgWrap<CR>
+
+" easymotion/incsearch
+nmap <leader>f <Plug>(easymotion-bd-f)
+vmap <leader>f <Plug>(easymotion-bd-f)
+
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+    \ 'keymap': {
+    \   "\<CR>": '<Over>(easymotion)'
+    \ },
+    \ 'is_expr': 0
+    \ }), get(a:, 1, {}))
+    endfunction
+
+noremap ?/  <Plug>(incsearch-stay)
+noremap //  <Plug>(incsearch-easymotion-/)
+noremap ??  <Plug>(incsearch-easymotion-?)
+noremap /?  <Plug>(incsearch-easymotion-stay)
+
 " fzf
-inoremap <leader>z <Esc>:Files<CR>
-nnoremap <leader>z :Files<CR>
+inoremap <leader>z <Esc>:GFiles<CR>
+nnoremap <leader>z :GFiles<CR>
 inoremap <leader>Z <Esc>:Ag<Space>
 nnoremap <leader>Z :Ag<Space>
+inoremap <leader><leader>z <Esc>:Buffers<CR>
+nnoremap <leader><leader>z :Buffers<CR>
+inoremap <leader><leader>Z <Esc>:GFiles?<CR>
+nnoremap <leader><leader>Z :GFiles?<CR>
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
@@ -321,13 +369,18 @@ augroup langClient
   "has jdt.ls been compiled?
   if filereadable(
         \ $HOME . '/projects/github' .
-        \ '/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml')
+        \ '/java-language-server/dist/mac/bin/launcher')
+        " \ '/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml')
     let g:LanguageClient_serverCommands.java = ['jdtls']
     let g:LanguageClient_serverCommands.jsp = ['jdtls']
     auto FileType java setlocal omnifunc=LanguageClient#complete
   else
     echo 'Missing language server:'
     echo '  cd ~/projects/github'
+    " echo '  git clone https://github.com/georgewfraser/java-language-server'
+    " echo '  cd java-language-server'
+    " echo '  JAVA_HOME=$(ls -td /Library/Java/JavaVirtualMachines/*jdk-11.*.*.jdk | head -n1)/Contents/Home \'
+    " echo '    scripts/link_mac.sh'
     echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
     echo '  eclipse.jdt.ls/mvnw clean verify'
   " jdtls already created in ~/local/provide
@@ -345,17 +398,17 @@ augroup langClient
   endif
 
   "all languages
-  nnoremap <silent> g<space> :call LanguageClient_contextMenu()<CR>
-  nnoremap <silent> g<tab> :call LanguageClient_#textDocument_codeAction()<CR>
-  nnoremap <silent> gv :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> g] :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> g} :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <silent> g<tab> :call LanguageClient_contextMenu()<CR>
+  nnoremap <silent> g<S-tab> :call LanguageClient_#textDocument_codeAction()<CR>
+  nnoremap <silent> g<space> :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> ## :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> #t :call LanguageClient#textDocument_typeDefinition()<CR>
   nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
   "gu = go Usages
-  nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
+  nnoremap <silent> g/ :call LanguageClient#textDocument_references()<CR>
   " nnoremap <silent> ?? :call LanguageClient#textDocument_documentHighlight()<CR>
   " nnoremap <silent> ?? :call LanguageClient#clearDocumentHighlight()<CR>
-  " nnoremap <silent> ?? :call LanguageClient#textDocument_documentSymbol()<CR>
+  nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
   nnoremap <silent> gR :call LanguageClient#workspace_symbol()<CR>
   nnoremap <silent> g[ :call LanguageClient#textDocument_implementation()<CR>
   nnoremap <silent> gqg :call LanguageClient#textDocument_formatting()<CR>
@@ -377,6 +430,10 @@ hi DiffText    ctermbg=NONE guibg=NONE
 "Indent guides colors
 hi IndentGuidesOdd  ctermbg=grey
 hi IndentGuidesEven ctermbg=darkgrey
+
+"Current line
+set cursorline
+hi CursorLine term=NONE cterm=NONE ctermbg=234 guibg=Grey20
 
 "Trailing spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
