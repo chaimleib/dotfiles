@@ -25,7 +25,14 @@ alias llla='ls -CFA --color=always | more'
 alias ll='ls -lh'
 alias la='ls -ACF'
 
-alias more='less -R --hilite-search --status-column'
+function sw() {
+  tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
+  mv "$1" "$tmpfile"
+  mv "$2" "$1"
+  mv "$tmpfile" "$2"
+}
+
+alias more='less -R --SILENT --hilite-search --status-column'
 alias search-content='grep --color=always -n'
 function agm() {
   ag --color "$@" | cut -c1-500 | more
