@@ -424,16 +424,16 @@ hi Search ctermbg=lightred ctermfg=black cterm=none
 "Diff mode color customizations
 hi DiffAdd     ctermbg=22 guibg=#2E5815
 hi DiffDelete  ctermbg=88 guibg=#771C12
-hi DiffChange  ctermbg=19 guibg=#0138A7
-hi DiffText    ctermbg=NONE guibg=NONE
+hi DiffChange  ctermbg=22 guibg=#2E5815
+hi DiffText    ctermbg=28 guibg=#50A31F
 
 "Indent guides colors
-hi IndentGuidesOdd  ctermbg=grey
-hi IndentGuidesEven ctermbg=darkgrey
+hi IndentGuidesOdd  ctermbg=236
+hi IndentGuidesEven ctermbg=234
 
 "Current line
 set cursorline
-hi CursorLine term=NONE cterm=NONE ctermbg=234 guibg=Grey20
+hi CursorLine term=NONE cterm=NONE ctermbg=236 guibg=Grey30
 
 "Trailing spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
