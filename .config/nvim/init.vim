@@ -78,16 +78,6 @@ augroup titlebar
   auto BufEnter * let &titleold = hostname() . ":" . getcwd()
 augroup end
 
-"Status line:
-" %F full file path
-" %r read only status, appears as [RO]
-" %w preview window flag, appears as [Preview]
-" %y file type/syntax language
-" %p vertical position as percent of file
-" %l/%L line number/total lines
-" %v column number
-set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
-
 "Show the current command in the lower right corner
 set showcmd
 set timeoutlen=300 ttimeoutlen=0
@@ -239,8 +229,26 @@ call plug#begin('~/.config/nvim/plugged')
 " Default gitgutter update is 4s, make it 100ms
 set updatetime=100
 
+"Status line:
+" %F full file path
+" %r read only status, appears as [RO]
+" %w preview window flag, appears as [Preview]
+" %y file type/syntax language
+" %p vertical position as percent of file
+" %l/%L line number/total lines
+" %v column number
+if !exists('g:airline_section_a')
+  set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
+endif
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline_section_c = '%{airline#extensions#fugitiveline#bufname()}%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+let g:airline_section_c = ''
+"%{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
+let g:airline_section_x = ''
+let g:airline_section_y = '%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
+let g:airline_section_z = '%3p%% %4l%#__restore__#%#__accent_bold#/%L%#__restore__# :%3v'
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
