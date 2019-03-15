@@ -312,8 +312,8 @@ inoremap <leader>e <Esc>:Files<CR>
 nnoremap <leader>e :Files<CR>
 inoremap <leader>g <Esc>:GFiles<CR>
 nnoremap <leader>g :GFiles<CR>
-inoremap <leader>a <Esc>:Ag<Space>
-nnoremap <leader>a :Ag<Space>
+inoremap <leader><leader>a <Esc>:Ag<Space>
+nnoremap <leader><leader>a :Ag<Space>
 inoremap <leader>b :Buffers<CR>
 nnoremap <leader>b :Buffers<CR>
 inoremap <leader><leader>g <Esc>:GFiles?<CR>
