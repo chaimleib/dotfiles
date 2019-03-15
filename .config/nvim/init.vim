@@ -95,19 +95,6 @@ let mapleader = ","
 nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'copied: '@*<CR>
 nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'copied: '@*<CR>
 
-" #### Key mappings ####
-"Break the arrow key habit
-"noremap <Up> <NOP>
-"noremap <Down> <NOP>
-"noremap <Left> <NOP>
-"noremap <Right> <NOP>
-"
-""Break the hjkl anti-patterns
-"noremap h <NOP>
-"noremap j <NOP>
-"noremap k <NOP>
-"noremap l <NOP>
-
 "Borrowing some shortcuts from macOS
 inoremap <silent> <M-BS> <Esc><Space>cb
 
@@ -134,15 +121,14 @@ tnoremap <C-h>	<C-\><C-n><C-w>h
 tnoremap <C-l>	<C-\><C-n><C-w>l
 tnoremap <C-j>	<C-\><C-n><C-w>j
 tnoremap <C-k>	<C-\><C-n><C-w>k
-"Resize vertically with shift:
-noremap +		<C-W>+
-noremap _		<C-W>-
-"Resize horizontally without shift:
-noremap -		<C-W><
-noremap =		<C-W>>
+""Resize vertically with shift:
+"noremap +		<C-W>+
+"noremap _		<C-W>-
+""Resize horizontally without shift:
+"noremap -		<C-W><
+"noremap =		<C-W>>
 
 "Buffer navigation
-nnoremap <leader>b :ls<cr>:b<space>
 nnoremap <tab> :b#<cr>
 nnoremap <s-tab> :b#<cr>:bd #<cr>
 
@@ -195,17 +181,19 @@ function! NoInfoCols()
     :GitGutterDisable
 endfunction
 
-inoremap <F3> <c-o>:call ToggleHebrew()<CR>
-nnoremap <F3> :call ToggleHebrew()<CR>
-function! ToggleHebrew()
-  if &rl
-    set norl
-    set keymap=
-  else
-    set rl
-    set keymap=hebrew
-  end
-endfunction
+"Hebrew rtl mode during insert with <C-_>
+set allowrevins
+" inoremap <F3> <c-o>:call ToggleHebrew()<CR>
+" nnoremap <F3> :call ToggleHebrew()<CR>
+" function! ToggleHebrew()
+"   if &rl
+"     set norl
+"     set keymap=
+"   else
+"     set rl
+"     set keymap=hebrew
+"   end
+" endfunction
 
 "Show syntax highlighting group name
 noremap <F10> :echo "hi<"
@@ -320,14 +308,16 @@ noremap ??  <Plug>(incsearch-easymotion-?)
 noremap /?  <Plug>(incsearch-easymotion-stay)
 
 " fzf
-inoremap <leader>z <Esc>:GFiles<CR>
-nnoremap <leader>z :GFiles<CR>
-inoremap <leader>Z <Esc>:Ag<Space>
-nnoremap <leader>Z :Ag<Space>
-inoremap <leader><leader>z <Esc>:Buffers<CR>
-nnoremap <leader><leader>z :Buffers<CR>
-inoremap <leader><leader>Z <Esc>:GFiles?<CR>
-nnoremap <leader><leader>Z :GFiles?<CR>
+inoremap <leader>e <Esc>:Files<CR>
+nnoremap <leader>e :Files<CR>
+inoremap <leader>g <Esc>:GFiles<CR>
+nnoremap <leader>g :GFiles<CR>
+inoremap <leader>a <Esc>:Ag<Space>
+nnoremap <leader>a :Ag<Space>
+inoremap <leader>b :Buffers<CR>
+nnoremap <leader>b :Buffers<CR>
+inoremap <leader><leader>g <Esc>:GFiles?<CR>
+nnoremap <leader><leader>g :GFiles?<CR>
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
