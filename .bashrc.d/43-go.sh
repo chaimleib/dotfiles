@@ -1,4 +1,4 @@
 #!/bin/bash
 
-prependPath "$HOME"/.gopath GOPATH
+prependPath "$HOME"/go GOPATH
 

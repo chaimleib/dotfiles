@@ -40,3 +40,5 @@ prependPath "/usr/local/opt/mysql@5.7/bin"
 prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
 
+# use mysql 5.7
+prependPath /usr/local/opt/mysql@5.7/bin

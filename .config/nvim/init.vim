@@ -265,6 +265,7 @@ Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
       \ }
+Plug 'cespare/vim-toml'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'FooSoft/vim-argwrap'
@@ -273,6 +274,7 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'maralla/vim-toml-enhance'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mxw/vim-jsx' "combo with pangloss/vim-javascript
 Plug 'nathanaelkane/vim-indent-guides'
@@ -341,7 +343,7 @@ augroup langClient
   let g:LanguageClient_loggingFile = '/tmp/lsp-client.log'
   let g:LanguageClient_serverStderr = '/tmp/lsp-server.log'
 
-  let g:LanguageClient_rootMarkers = ['pom.xml', '.git']
+  let g:LanguageClient_rootMarkers = ['pom.xml', 'settings.gradle', 'Cargo.toml', '.git']
   let g:LanguageClient_serverCommands = {}
 
   if executable('flow')
@@ -349,9 +351,21 @@ augroup langClient
     auto FileType javascript setlocal omnifunc=LanguageClient#complete
     let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
     auto FileType javascript.jsx setlocal omnifunc=LanguageClient#complete
-  else
+  elseif !exists('g:warnedMissingFlow')
     echo 'Missing language server:'
     echo '  yarn global add flow-bin'
+    let g:warnedMissingFlow = 1
+  endif
+
+  if executable('rls')
+    let g:LanguageClient_serverCommands.rust = ['rls']
+    auto FileType rust setlocal omnifunc=LanguageClient#complete
+  elseif !exists('g:warnedMissingRustLS')
+    echo 'Missing language server:'
+    echo '  brew install rustup'
+    echo '  rustup-init'
+    echo '  rustup component add rls rust-analysis rust-src'
+    let g:warnedMissingRustLS = 1
   endif
 
   if executable('typescript-language-server')
@@ -359,20 +373,22 @@ augroup langClient
     let g:LanguageClient_serverCommands.tsx = ['typescript-language-server', '--stdio']
     auto FileType typescript setlocal omnifunc=LanguageClient#complete
     auto FileType tsx setlocal omnifunc=LanguageClient#complete
-  else
+  elseif !exists('g:warnedMissingTSLS')
     echo 'Missing language server:'
     echo '  yarn global add typescript-language-server'
+    let g:warnedMissingTSLS = 1
   endif
 
   "has jdt.ls been compiled?
   if filereadable(
         \ $HOME . '/projects/github' .
-        \ '/java-language-server/dist/mac/bin/launcher')
-        " \ '/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml')
+        \ '/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/content.xml')
+        " \ '/java-language-server/dist/mac/bin/launcher')
     let g:LanguageClient_serverCommands.java = ['jdtls']
     let g:LanguageClient_serverCommands.jsp = ['jdtls']
     auto FileType java setlocal omnifunc=LanguageClient#complete
-  else
+    auto FileType jsp setlocal omnifunc=LanguageClient#complete
+  elseif !exists('g:warnedMissingJLS')
     echo 'Missing language server:'
     echo '  cd ~/projects/github'
     " echo '  git clone https://github.com/georgewfraser/java-language-server'
@@ -382,17 +398,19 @@ augroup langClient
     echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
     echo '  eclipse.jdt.ls/mvnw clean verify'
   " jdtls already created in ~/local/provide
+    let g:warnedMissingJLS = 1
   endif
 
   if executable('bingo')
     let g:LanguageClient_serverCommands.go = ['bingo']
     auto FileType go setlocal omnifunc=LanguageClient#complete
-  else
+  elseif !exists('g:warnedMissingBingo')
     echo 'Missing language server:'
     echo '  cd ~/projects/github'
     echo '  git clone https://github.com/saibing/bingo'
     echo '  cd bingo'
-    echo '  GO111MODULE=on go install\n'
+    echo '  GO111MODULE=on go install'
+    let g:warnedMissingBingo = 1
   endif
 
   "all languages
