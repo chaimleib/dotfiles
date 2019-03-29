@@ -3,6 +3,6 @@
 TOMCAT_HOME='/usr/local/opt/tomcat@8/libexec'
 if [[ -d "$TOMCAT_HOME" ]]; then
     export TOMCAT_HOME
-    export JAVA_OPTS="-Xms512m -Xmx1024m"
+    alias catalina=$TOMCAT_HOME/bin/catalina.sh
 fi
 
