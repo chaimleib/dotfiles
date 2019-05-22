@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+gits="$HOME"/projects/github/
+JAVA_HOME=$(ls -td /Library/Java/JavaVirtualMachines/*jdk-11.*.*.jdk | head -n1)/Contents/Home \
+  $gits/java-language-server/dist/mac/bin/launcher "$@"
