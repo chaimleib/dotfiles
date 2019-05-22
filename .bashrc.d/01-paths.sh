@@ -23,9 +23,6 @@ prependPath ~/go/bin
 # Haskell
 prependPath ~/.cabal/bin
 
-# Inkscape
-appendPath /Applications/Inkscape.app/Contents/Resources/bin
-
 # Google Cloud SDK
 [[ "$0" == *bash ]] &&
   [[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ]] &&
@@ -33,8 +30,6 @@ appendPath /Applications/Inkscape.app/Contents/Resources/bin
 [[ -n "$ZSH_NAME" ]] &&
   [[ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]] &&
   . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-
-prependPath "/usr/local/opt/mysql@5.7/bin"
 
 # node
 prependPath "/usr/local/share/npm/bin"
