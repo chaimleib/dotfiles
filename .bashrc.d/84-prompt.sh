@@ -2,13 +2,16 @@
 
 function exit_indicator() {
   local exit_indicator
-  exit_indicator='$('
-  exit_indicator+='[[ "$?" -eq 0 ]] &&'
+  exit_indicator='$([[ "'"$1"'"'
+  exit_indicator+=' == 0 ]] &&'
   exit_indicator+=' echo "'${BOLD_GREEN}'✔ " ||'
   exit_indicator+=' echo "'${BOLD_RED}'✘ "'
   exit_indicator+=')'
   exit_indicator+=$RESET_COLOR
-  echo "$exit_indicator"
+  case "$SHELL" in
+    *bash) echo "$exit_indicator" ;;
+    *zsh) eval print -P "$exit_indicator" ;;
+  esac
 }
 
 # Kubernetes context
@@ -39,7 +42,7 @@ function gcp_prompt_info() {
 function prompt_configs() {
   local gcp="$(gcp_prompt_info)"
   [[ -z "$gcp" ]] && return
-  [[ -n "$gcp" ]] && printf '%s' "$gcp" 
+  [[ -n "$gcp" ]] && printf '%s' "$gcp"
   printf ' '
 }
 
@@ -88,9 +91,10 @@ elif [[ -n "$ZSH_NAME" ]]; then
     p_prompt='%#'
 fi
 function ps1_func() {
+  local last_exit=$?
     local ps1
     if [[ -z "$NOPS" ]]; then
-      ps1+="$(exit_indicator)"
+      ps1+="$(exit_indicator "$last_exit")"
       ps1+=$p_user
       ps1+=@
       ps1+="${RED}${p_host}${RESET_COLOR}"
@@ -105,11 +109,14 @@ function ps1_func() {
     ps1+=' '
     PS1=$ps1
 }
-if [[ "$0" == *bash ]]; then
+case "$SHELL" in
+  */bash)
     export -f ps1_func
     PROMPT_COMMAND='ps1_func'
     export PROMPT_COMMAND
-elif [[ -n "$ZSH_NAME" ]]; then
-    precmd_functions+=( ps1_func )
-fi
+    ;;
+  */zsh)
+    precmd_functions=( ps1_func $precmd_functions )
+    ;;
+esac
 

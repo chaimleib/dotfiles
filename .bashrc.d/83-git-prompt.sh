@@ -307,7 +307,7 @@ __git_ps1 ()
 	fi
 
 	local w="" # working dir state
-	local i="" # index state 
+	local i="" # index state
 	local s="" # stash state
 	local u="" # untracked files
 	local c="" # bare?

@@ -16,19 +16,19 @@ if [[ "$0" == *bash ]]; then
   BOLD_MAGENTA='\[\e[35;1m\]'
   BOLD_CYAN='\[\e[36;1m\]'
 elif [[ -n "$ZSH_NAME" ]]; then
-  RESET_COLOR="%{$reset_color%}"
-  RED="%{$fg[red]%}"
-  GREEN="%{$fg[green]%}"
-  YELLOW="%{$fg[yellow]%}"
-  BLUE="%{$fg[blue]%}"
-  MAGENTA="%{$fg[magenta]%}"
-  CYAN="%{$fg[cyan]%}"
-  BOLD_RED="%{$fg_bold[red]%}"
-  BOLD_GREEN="%{$fg_bold[green]%}"
-  BOLD_YELLOW="%{$fg_bold[yellow]%}"
-  BOLD_BLUE="%{$fg_bold[blue]%}"
-  BOLD_MAGENTA="%{$fg_bold[magenta]%}"
-  BOLD_CYAN="%{$fg_bold[cyan]%}"
+  RESET_COLOR="%f%b"
+  RED="%F{red}"
+  GREEN="%F{green}"
+  YELLOW="%F{yellow}"
+  BLUE="%F{blue}"
+  MAGENTA="%F{magenta}"
+  CYAN="%F{cyan}"
+  BOLD_RED="%B%F{red}"
+  BOLD_GREEN="%B%F{green}"
+  BOLD_YELLOW="%B%F{yellow}"
+  BOLD_BLUE="%B%F{blue}"
+  BOLD_MAGENTA="%B%F{magenta}"
+  BOLD_CYAN="%B%F{cyan}"
 fi
 
 export RESET_COLOR
