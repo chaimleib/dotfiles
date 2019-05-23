@@ -30,9 +30,10 @@ nnoremap o ox<BS>
 nnoremap O Ox<BS>
 
 " Folding
-set nofoldenable
 set foldmethod=syntax
-set foldcolumn=3
+" Setting fold column stuff in the InfoCols funcs
+" set nofoldenable
+" set foldcolumn=3
 nnoremap zZ zmzv
 nnoremap zz zR
 
@@ -111,24 +112,28 @@ tnoremap <C-h>	<C-\><C-n><C-w>h
 tnoremap <C-l>	<C-\><C-n><C-w>l
 tnoremap <C-j>	<C-\><C-n><C-w>j
 tnoremap <C-k>	<C-\><C-n><C-w>k
-""Resize vertically with shift:
-"noremap +		<C-W>+
-"noremap _		<C-W>-
-""Resize horizontally without shift:
-"noremap -		<C-W><
-"noremap =		<C-W>>
+"Resize vertically with shift:
+noremap +		<C-W>+
+noremap _		<C-W>-
+"Resize horizontally without shift:
+noremap -		<C-W><
+noremap =		<C-W>>
 
 "Buffer navigation
 nnoremap <tab> :b#<cr>
 nnoremap <s-tab> :b#<cr>:bd #<cr>
 
 "Reload vimrc
-augroup vimrcReload
+augroup vimrcReloadOnSave
   au!
-  autocmd bufwritepost .vimrc source ~/.vimrc
+  if has('nvim')
+    autocmd bufwritepost init.vim source ~/.config/nvim/init.vim  "if current nvim has vimrc
+    command! Rc source ~/.config/nvim/init.vim  "in other nvim instances, with  :Rc
+  else
+    autocmd bufwritepost .vimrc source ~/.vimrc
+    command! Rc source ~/.vimrc
+  endif
 augroup end
-command! Rc source ~/.config/nvim/init.vim
-
 
 " Mode toggling
 
@@ -157,18 +162,18 @@ function! ToggleInfoCols()
   endif
 endfunction
 function! InfoCols()
-    let g:infocols=1
-    set number
-    " set relativenumber
-    set foldcolumn=3
-    :GitGutterEnable
+  set number
+  " set relativenumber
+  set foldcolumn=3
+  :GitGutterEnable
+  let g:infocols=1
 endfunction
 function! NoInfoCols()
-    let g:infocols=0
-    set nonumber
-    set norelativenumber
-    set foldcolumn=0
-    :GitGutterDisable
+  set nonumber
+  " set norelativenumber
+  set foldcolumn=0
+  :GitGutterDisable
+  let g:infocols=0
 endfunction
 
 "Hebrew rtl mode during insert with <C-_>
@@ -204,7 +209,7 @@ set backupskip=/tmp/*,/private/tmp/*
 "Makes vim invoke latex-suite when a .tex file is opened.
 filetype plugin on
 set shellslash
-set grepprg="grep -nH $*"
+set grepprg="ag --vimgrep"
 let g:tex_flavor='latex'
 
 "Python style settings
