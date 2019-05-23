@@ -2,4 +2,5 @@
 *.swp
 .vim/.*
 repos/
+.bashrc.d/*-work-aliases.sh
 
