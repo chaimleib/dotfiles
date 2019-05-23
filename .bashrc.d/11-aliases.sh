@@ -139,7 +139,8 @@ cdalias cdu    /usr
 cdalias cdul   /usr/local
 cdalias cdv    /Volumes
 
-cdalias cdp    ~/Documents/Programming
+cdalias cdp    ~/projects
+cdalias cdpg   ~/projects/github
 cdalias cdpp   ~/Documents/Programming/Python
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 
