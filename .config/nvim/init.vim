@@ -244,7 +244,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 " let g:airline_section_c = '%{airline#extensions#fugitiveline#bufname()}%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
-let g:airline_section_c = ''
+" let g:airline_section_c = ''
 "%{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
 let g:airline_section_x = ''
 let g:airline_section_y = '%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
@@ -401,16 +401,16 @@ augroup langClient
     let g:warnedMissingJLS = 1
   endif
 
-  if executable('bingo')
-    let g:LanguageClient_serverCommands.go = ['bingo']
+  if executable('gopls')
+    let g:LanguageClient_serverCommands.go = ['gopls']
     auto FileType go setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingBingo')
+  elseif !exists('g:warnedMissingGopls')
     echo 'Missing language server:'
     echo '  cd ~/projects/github'
-    echo '  git clone https://github.com/saibing/bingo'
-    echo '  cd bingo'
-    echo '  GO111MODULE=on go install'
-    let g:warnedMissingBingo = 1
+    echo '  git clone -b bingo https://github.com/saibing/tools.git'
+    echo '  cd tools/cmd/gopls'
+    echo '  go install'
+    let g:warnedMissingGopls = 1
   endif
 
   "all languages
