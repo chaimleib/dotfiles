@@ -13,6 +13,7 @@ nvm_rcs=(
 for rc in "${nvm_rcs[@]}"; do
   [ -f "$rc" ] || continue
   source "$rc"
+  break
 done
 
 # Detect node version from noderc
