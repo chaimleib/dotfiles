@@ -13,6 +13,7 @@ nvm_rcs=(
 for rc in "${nvm_rcs[@]}"; do
   [ -f "$rc" ] || continue
   source "$rc"
+  break
 done
 
 # disabled: load .nvmrc on cd
