@@ -31,9 +31,8 @@ nnoremap O Ox<BS>
 
 " Folding
 set foldmethod=syntax
-" Setting fold column stuff in the InfoCols funcs
-" set nofoldenable
-" set foldcolumn=3
+"set nofoldenable
+set foldlevelstart=5
 nnoremap zZ zmzv
 nnoremap zz zR
 
@@ -323,16 +322,19 @@ noremap ??  <Plug>(incsearch-easymotion-?)
 noremap /?  <Plug>(incsearch-easymotion-stay)
 
 " fzf
-inoremap <leader>e <Esc>:Files<CR>
-nnoremap <leader>e :Files<CR>
-inoremap <leader>g <Esc>:GFiles<CR>
-nnoremap <leader>g :GFiles<CR>
-inoremap <leader><leader>a <Esc>:Ag<Space>
-nnoremap <leader><leader>a :Ag<Space>
-inoremap <leader>b :Buffers<CR>
-nnoremap <leader>b :Buffers<CR>
-inoremap <leader><leader>g <Esc>:GFiles?<CR>
-nnoremap <leader><leader>g :GFiles?<CR>
+let g:fzf_command_prefix = 'Fzf'
+inoremap <leader>e <Esc>:FzfFiles<CR>
+nnoremap <leader>e :FzfFiles<CR>
+inoremap <leader>E <Esc>:FzfFiles?<CR>
+nnoremap <leader>E :FzfFiles?<CR>
+inoremap <leader>g <Esc>:FzfGFiles<CR>
+nnoremap <leader>g :FzfGFiles<CR>
+inoremap <leader><leader>a <Esc>:FzfAg<Space>
+nnoremap <leader><leader>a :FzfAg<Space>
+inoremap <leader>b :FzfBuffers<CR>
+nnoremap <leader>b :FzfBuffers<CR>
+inoremap <leader><leader>g <Esc>:FzfGFiles?<CR>
+nnoremap <leader><leader>g :FzfGFiles?<CR>
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
