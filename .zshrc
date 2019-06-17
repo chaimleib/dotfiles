@@ -108,11 +108,6 @@ HIST_STAMPS="yyyy-mm-dd"
 ## Settings prelude...
 [[ -z $BASHRC_debug ]] && export BASHRC_debug=1
 
-## Google GCP
-if [ -f "/google/devshell/zshrc.google" ]; then
-  source "/google/devshell/zshrc.google"
-fi
-
 ## Set up local settings
 (( $BASHRC_debug >= 1 )) && echo ">> Loading local rc's..."
 if [[ -d ~/.bashrc.d ]]; then
