@@ -9,13 +9,14 @@
 #######################################################################
 
 ## Run only once
-[[ -n "$CHAIMLEIBSDOTFILES" ]] && return
+[ -n "$CHAIMLEIBSDOTFILES" ] && return
+[ -z "$PS1" ] && return
 
 ## Settings prelude...
-[[ -z $BASHRC_debug ]] && export BASHRC_debug=1
+[ -z $BASHRC_debug ] && export BASHRC_debug=1
 
 ## Meat
-[[ "$BASHRC_debug" -ge 2 ]] && echo "Running ~/.bashrc ..."
+[ "$BASHRC_debug" -ge 2 ] && echo "Running ~/.bashrc ..."
 
 ## Google GCP
 if [ -f "/google/devshell/bashrc.google" ]; then
@@ -23,14 +24,14 @@ if [ -f "/google/devshell/bashrc.google" ]; then
 fi
 
 ## Set up local settings
-[[ "$BASHRC_debug" -ge 1 ]] && echo ">> Loading local rc's..."
-if [[ -d ~/.bashrc.d ]]; then
-    for file in ~/.bashrc.d/* ; do
-        if [[ -x ${file} ]] && [[ -f ${file} ]]; then
-            [[ "$BASHRC_debug" -ge 3 ]] && echo "Running ${file} ..."
-            [[ "$BASHRC_debug" -ge 4 ]] &&
+[ "$BASHRC_debug" -ge 1 ] && echo ">> Loading local rc's..."
+if [ -d ~/.bashrc.d ]; then
+    for file in ~/.bashrc.d/*.sh ; do
+        if [ -x ${file} ]; then
+            [ "$BASHRC_debug" -ge 3 ] && echo "Running ${file} ..."
+            [ "$BASHRC_debug" -ge 4 ] &&
                 time . "$file" ||
-                . "${file}"
+                source "${file}" # zsh likes source instead of . ?
         fi
     done
 fi
