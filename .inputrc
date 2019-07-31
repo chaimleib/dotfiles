@@ -1,5 +1,8 @@
 "<M-BS>": backward-kill-word
 
+set show-all-if-ambiguous on
+set bell-style none
+
 $if mode=emacs
   "\C-x\C-e": edit-and-execute-command
   "\C-x\C-r": re-read-init-file
