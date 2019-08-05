@@ -185,7 +185,9 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 let g:javascript_plugin_flow = 1
 Plug 'pangloss/vim-javascript'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+if has('patch-7-4-2009')
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+end
 Plug 'easymotion/vim-easymotion'
 call plug#end()
 
