@@ -1,6 +1,8 @@
 #!/bin/bash
 
-have op && have jq || return
+if ! have op || ! have jq; then
+  return
+fi
 function opp() {
     local item="$1"
     if ! op get account &>/dev/null; then
