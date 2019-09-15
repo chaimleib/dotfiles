@@ -26,17 +26,20 @@ fi
 ## Set up local settings
 [ "$BASHRC_debug" -ge 1 ] && echo ">> Loading local rc's..."
 if [ -d ~/.bashrc.d ]; then
-    for file in ~/.bashrc.d/*.sh ; do
-        if [ -x ${file} ]; then
-            [ "$BASHRC_debug" -ge 3 ] && echo "Running ${file} ..."
-            [ "$BASHRC_debug" -ge 4 ] &&
-                time . "$file" ||
-                source "${file}" # zsh likes source instead of . ?
-        fi
-    done
+  for file in ~/.bashrc.d/*.sh ; do
+    if [ -x ${file} ]; then
+      if [ "$BASHRC_debug" -ge 3 ]; then
+        echo "Running ${file} ..."
+      fi
+      if [ "$BASHRC_debug" -ge 4 ]; then
+        time . "$file"
+      else
+        source "${file}" # zsh likes source instead of . ?
+      fi
+    fi
+  done
 fi
 
 ## Settings finale...
 unset BASHRC_debug
 CHAIMLEIBSDOTFILES=1
-
