@@ -144,10 +144,6 @@ cdalias cdpg   ~/projects/github
 cdalias cdpp   ~/Documents/Programming/Python
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 
-cdg() {
-  cd "${GOPATH}/$1"
-}
-
 cdi() {
   cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"$1"
 }
