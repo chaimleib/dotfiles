@@ -19,8 +19,8 @@ python
 readline
 chaimleib/formulae/repoactions
 chaimleib/formulae/resolve
+ripgrep
 sqlite
-the_silver_searcher
 unar
 unrar
 watch

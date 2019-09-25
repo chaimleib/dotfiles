@@ -34,11 +34,11 @@ function sw() {
 
 alias more='less -R --SILENT --hilite-search --status-column'
 alias search-content='grep --color=always -n'
-function agm() {
-  ag --color "$@" | cut -c1-500 | more
+function rgm() {
+  rg --color=always "$@" | cut -c1-500 | more
 }
-function agc() {
-  ag --color "$@" | cut -c1-500
+function rgc() {
+  rg --color=always "$@" | cut -c1-500
 }
 
 
