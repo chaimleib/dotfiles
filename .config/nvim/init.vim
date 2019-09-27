@@ -208,7 +208,7 @@ set backupskip=/tmp/*,/private/tmp/*
 "Makes vim invoke latex-suite when a .tex file is opened.
 filetype plugin on
 set shellslash
-set grepprg="ag --vimgrep"
+set grepprg="rg --vimgrep"
 let g:tex_flavor='latex'
 
 "Python style settings
