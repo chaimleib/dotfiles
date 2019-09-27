@@ -34,11 +34,11 @@ function sw() {
 
 alias more='less -R --SILENT --hilite-search --status-column'
 alias search-content='grep --color=always -n'
-function agm() {
-  ag --color "$@" | cut -c1-500 | more
+function rgm() {
+  rg --color=always "$@" | cut -c1-500 | more
 }
-function agc() {
-  ag --color "$@" | cut -c1-500
+function rgc() {
+  rg --color=always "$@" | cut -c1-500
 }
 
 
@@ -143,10 +143,6 @@ cdalias cdp    ~/projects
 cdalias cdpg   ~/projects/github
 cdalias cdpp   ~/Documents/Programming/Python
 cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
-
-cdg() {
-  cd "${GOPATH}/$1"
-}
 
 cdi() {
   cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"$1"
