@@ -1,7 +1,8 @@
 #!/bin/bash
 
 [[ -z "$PS1" ]] && return
-if [[ "$0" == *bash ]]; then
+case "$SHELL" in
+  *bash)
   RESET_COLOR='\[\e[0m\]'
   RED='\[\e[31m\]'
   GREEN='\[\e[32m\]'
@@ -15,7 +16,8 @@ if [[ "$0" == *bash ]]; then
   BOLD_BLUE='\[\e[34;1m\]'
   BOLD_MAGENTA='\[\e[35;1m\]'
   BOLD_CYAN='\[\e[36;1m\]'
-elif [[ -n "$ZSH_NAME" ]]; then
+  ;;
+  *zsh)
   RESET_COLOR="%f%b"
   RED="%F{red}"
   GREEN="%F{green}"
@@ -29,7 +31,8 @@ elif [[ -n "$ZSH_NAME" ]]; then
   BOLD_BLUE="%B%F{blue}"
   BOLD_MAGENTA="%B%F{magenta}"
   BOLD_CYAN="%B%F{cyan}"
-fi
+  ;;
+esac
 
 export RESET_COLOR
 export RED
@@ -45,3 +48,10 @@ export BOLD_BLUE
 export BOLD_MAGENTA
 export BOLD_CYAN
 
+case "$SHELL" in
+  *zsh)
+    if [ -e /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+      source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    fi
+    ;;
+esac
