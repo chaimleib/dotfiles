@@ -3,6 +3,7 @@
 export EDITOR='vim'
 export VISUAL="$EDITOR"
 export TIMEFORMAT='%3lR'
+export RIPGREP_CONFIG_PATH=~/.config/rg/rgrc
 
 # By default, SHELL gets set to the user's preferred shell (set via chsh),
 # regardless of the shell currently running. I always want new shells to be
