@@ -329,8 +329,8 @@ inoremap <leader>E <Esc>:FzfFiles?<CR>
 nnoremap <leader>E :FzfFiles?<CR>
 inoremap <leader>g <Esc>:FzfGFiles<CR>
 nnoremap <leader>g :FzfGFiles<CR>
-inoremap <leader><leader>a <Esc>:FzfAg<Space>
-nnoremap <leader><leader>a :FzfAg<Space>
+inoremap <leader>r <Esc>:FzfRg<Space>
+nnoremap <leader>r :FzfRg<Space>
 inoremap <leader>b :FzfBuffers<CR>
 nnoremap <leader>b :FzfBuffers<CR>
 inoremap <leader><leader>g <Esc>:FzfGFiles?<CR>
@@ -403,7 +403,9 @@ augroup langClient
     " echo '  JAVA_HOME=$(ls -td /Library/Java/JavaVirtualMachines/*jdk-11.*.*.jdk | head -n1)/Contents/Home \'
     " echo '    scripts/link_mac.sh'
     echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
-    echo '  eclipse.jdt.ls/mvnw clean verify'
+    echo '  cd eclipse.jdt.ls'
+    echo '  git checkout $(git tag | sort -V | tail -1)'
+    echo '  ./mvnw clean verify'
   " jdtls already created in ~/local/provide
     let g:warnedMissingJLS = 1
   endif
