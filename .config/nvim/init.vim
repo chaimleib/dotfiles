@@ -225,6 +225,14 @@ augroup inittabs
   filetype plugin indent on
 augroup end
 
+augroup xml
+  auto!
+  auto FileType html,xhtml,xml let g:xml_syntax_folding=1
+  auto FileType html,xhtml,xml setlocal foldmethod=syntax
+  auto FileType html,xhtml,xml :syntax on
+  auto FileType html,xhtml,xml :%foldopen!
+augroup end
+
 if ! empty($NEOVIM_PYTHON3_HOST_PROG)
   let g:python3_host_prog = $NEOVIM_PYTHON3_HOST_PROG
 endif
