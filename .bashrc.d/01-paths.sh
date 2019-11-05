@@ -11,7 +11,7 @@ removePath .
 # appendPath /Applications/Energia.app/Contents/Resources/Java/hardware/tools/lm4f/bin
 
 # Override default binaries with usr binaries
-# prependPath /usr/local/sbin
+prependPath /usr/local/sbin
 prependPath /usr/local/bin
 
 appendPath /usr/local/lib PKG_CONFIG_PATH
