@@ -112,6 +112,8 @@ alias svim='sudo -E vim'
 # copy SSH key
 alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(printf " $USER") | pbcopy'
 
+alias brew='PATH=${PATH//$(pyenv root)\/shims:/} brew'
+
 ## Directory shortcuts
 function cdalias() {
   # alias maker for cd <dir>
