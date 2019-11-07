@@ -16,7 +16,7 @@
                 },
                 "rules": [
                     {
-                        "description": "G600:1 -> cmd-[  2 -> cmd-]",
+                        "description": "G600:1 -> cmd-[ 2 -> cmd-]",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -104,7 +104,7 @@
                         ]
                     },
                     {
-                        "description": "G600:4 -> ctrl-left  5 -> ctrl-right",
+                        "description": "G600:4 -> ctrl-left 5 -> ctrl-right",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -189,7 +189,7 @@
                         ]
                     },
                     {
-                        "description": "G600:7 -> volume-  8 -> volume+  9 -> mute",
+                        "description": "G600:7 -> volume- 8 -> volume+ 9 -> mute",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -318,6 +318,40 @@
                                 "to": [
                                     {
                                         "key_code": "q",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "G600:shift-G7 -> cmd-H",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "conditions": [
+                                    {
+                                        "type": "device_if",
+                                        "identifiers": [
+                                            {
+                                                "product_id": 49738,
+                                                "vendor_id": 1133,
+                                                "description": "Logitech Gaming Mouse G600"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": {
+                                        "mandatory": "left_shift"
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "h",
                                         "modifiers": [
                                             "left_command"
                                         ]
