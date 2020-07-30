@@ -423,10 +423,7 @@ augroup langClient
     auto FileType go setlocal omnifunc=LanguageClient#complete
   elseif !exists('g:warnedMissingGopls')
     echo 'Missing language server:'
-    echo '  cd ~/projects/github'
-    echo '  git clone -b bingo https://github.com/saibing/tools.git'
-    echo '  cd tools/cmd/gopls'
-    echo '  go install'
+    echo '  :GoInstallBinaries'
     let g:warnedMissingGopls = 1
   endif
 
