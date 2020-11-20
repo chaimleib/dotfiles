@@ -225,6 +225,9 @@ augroup inittabs
   filetype plugin indent on
 augroup end
 
+auto BufNewFile,BufRead *.neomuttrc set syntax=neomuttrc
+auto BufNewFile,BufRead *.muttrc set syntax=muttrc
+
 augroup xml
   auto!
   auto FileType html,xhtml,xml let g:xml_syntax_folding=1

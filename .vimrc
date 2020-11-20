@@ -171,6 +171,9 @@ filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.js.flow set syntax=javascript
 
+auto BufNewFile,BufRead *.neomuttrc set syntax=neomuttrc
+auto BufNewFile,BufRead *.muttrc set syntax=muttrc
+
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
