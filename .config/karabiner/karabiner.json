@@ -16,20 +16,46 @@
                 },
                 "rules": [
                     {
+                        "description": "Caps lock -> Esc (alone) / Ctrl (in combo)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape",
+                                        "modifiers": "any"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "G600:1 -> cmd-[ 2 -> cmd-]",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -42,20 +68,20 @@
                                             "left_command"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             },
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -68,7 +94,8 @@
                                             "left_command"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -76,17 +103,16 @@
                         "description": "G600:3 -> cmd-W",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -99,7 +125,8 @@
                                             "left_command"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -107,17 +134,16 @@
                         "description": "G600:4 -> ctrl-left 5 -> ctrl-right",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -130,20 +156,20 @@
                                             "left_control"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             },
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -156,7 +182,8 @@
                                             "left_control"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -164,17 +191,16 @@
                         "description": "G600:6 -> cmd",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -184,7 +210,8 @@
                                     {
                                         "key_code": "left_command"
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -192,17 +219,16 @@
                         "description": "G600:7 -> volume- 8 -> volume+ 9 -> mute",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -212,20 +238,20 @@
                                     {
                                         "key_code": "volume_decrement"
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             },
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -235,20 +261,20 @@
                                     {
                                         "key_code": "volume_increment"
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             },
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -258,7 +284,8 @@
                                     {
                                         "key_code": "mute"
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -266,17 +293,16 @@
                         "description": "G600:= -> System Preferences",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -286,7 +312,8 @@
                                     {
                                         "shell_command": "open /System/Applications/System\\ Preferences.app"
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -294,17 +321,16 @@
                         "description": "G600:shift-3 -> cmd-Q",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -322,7 +348,8 @@
                                             "left_command"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     },
@@ -330,17 +357,16 @@
                         "description": "G600:shift-G7 -> cmd-H",
                         "manipulators": [
                             {
-                                "type": "basic",
                                 "conditions": [
                                     {
-                                        "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "description": "Logitech Gaming Mouse G600",
                                                 "product_id": 49738,
-                                                "vendor_id": 1133,
-                                                "description": "Logitech Gaming Mouse G600"
+                                                "vendor_id": 1133
                                             }
-                                        ]
+                                        ],
+                                        "type": "device_if"
                                     }
                                 ],
                                 "from": {
@@ -356,7 +382,8 @@
                                             "left_command"
                                         ]
                                     }
-                                ]
+                                ],
+                                "type": "basic"
                             }
                         ]
                     }
@@ -390,22 +417,6 @@
                     "simple_modifications": [
                         {
                             "from": {
-                                "key_code": "left_option"
-                            },
-                            "to": {
-                                "key_code": "left_command"
-                            }
-                        },
-                        {
-                            "from": {
-                                "key_code": "right_option"
-                            },
-                            "to": {
-                                "key_code": "right_command"
-                            }
-                        },
-                        {
-                            "from": {
                                 "key_code": "left_command"
                             },
                             "to": {
@@ -414,10 +425,10 @@
                         },
                         {
                             "from": {
-                                "key_code": "right_command"
+                                "key_code": "left_option"
                             },
                             "to": {
-                                "key_code": "right_option"
+                                "key_code": "left_command"
                             }
                         },
                         {
@@ -426,6 +437,22 @@
                             },
                             "to": {
                                 "key_code": "escape"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_command"
+                            },
+                            "to": {
+                                "key_code": "right_option"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_option"
+                            },
+                            "to": {
+                                "key_code": "right_command"
                             }
                         }
                     ]
@@ -440,7 +467,7 @@
                         "vendor_id": 1452
                     },
                     "ignore": false,
-                    "manipulate_caps_lock_led": true,
+                    "manipulate_caps_lock_led": false,
                     "simple_modifications": []
                 }
             ],
@@ -547,16 +574,7 @@
                 "delay_milliseconds_before_open_device": 1000
             },
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": {
-                        "key_code": "caps_lock"
-                    },
-                    "to": {
-                        "key_code": "left_control"
-                    }
-                }
-            ],
+            "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "country_code": 0,
                 "mouse_key_xy_scale": 100
