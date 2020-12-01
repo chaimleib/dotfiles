@@ -14,5 +14,6 @@ if have pyenv; then
       )
     fi
   fi
+  pyenv global 2.7.17 3.8.5
 fi
 
