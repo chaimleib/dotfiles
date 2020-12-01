@@ -12,19 +12,26 @@ if [[ "$SHELL" == *bash ]] && [[ -z "$BASH_COMPLETION_COMPAT_DIR" ]]; then
   source "$f"
 fi
 
-# Google Cloud SDK
 case "$SHELL" in
 *bash)
-  if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc' ]; then
-    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+  if have brew; then
+    if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc' ]; then
+      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+    fi
   fi
   ;;
 *zsh)
   if [ -d /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
   fi
-  if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then
-    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+  if have brew; then
+    brewprefix=$(brew --prefix)
+    if [ -d "$brewprefix"/share/zsh/site-functions ]; then
+      fpath=("$brewprefix"/share/zsh/site-functions $fpath)
+    fi
+    if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then
+      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+    fi
   fi
 
   # The following lines were added by compinstall
@@ -41,11 +48,10 @@ case "$SHELL" in
   zstyle ':completion:*' original true
   zstyle ':completion:*' preserve-prefix '//[^/]##/'
   zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-  zstyle :compinstall filename '/Users/chaimleib/.zshrc'
+  zstyle :compinstall filename "/Users/$USER/.zshrc"
 
   autoload -Uz compinit
   compinit
   # End of lines added by compinstall
   ;;
 esac
-
