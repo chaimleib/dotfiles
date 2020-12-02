@@ -7,6 +7,7 @@ mkdir -p "${HOME}/.config/nvim"
 _lnargs \
   .config/karabiner \
   .config/nvim/init.vim \
-  .config/nvim/autoload
+  .config/nvim/autoload \
+  .config/rg
 popd >/dev/null
 
