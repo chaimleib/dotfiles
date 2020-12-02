@@ -25,8 +25,6 @@ function linhome() {
   _lnargs \
     .bashrc \
     .bashrc.d \
-    .bash_completion \
-    .bash_completion.d \
     .bash_logout \
     .gitconfig \
     .gitconfig-en \
