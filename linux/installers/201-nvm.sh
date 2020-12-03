@@ -8,6 +8,8 @@ function do_install() {
     echo "$0: raw.githubusercontent.com unreachable"
     exit 1
   fi
+  # nvm install depends on python3 and python3-distutils, and npm
+  $INSTALL nodejs npm
 }
 
 do_install
