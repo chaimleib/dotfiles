@@ -23,6 +23,9 @@ prependPath ~/go/bin
 # Haskell
 # prependPath ~/.cabal/bin
 
+# Rust
+prependPath ~/.cargo/bin
+
 # Google Cloud SDK
 case "$0" in
   *bash)
