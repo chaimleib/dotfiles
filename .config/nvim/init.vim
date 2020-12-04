@@ -176,7 +176,7 @@ function! NoInfoCols()
 endfunction
 
 "Hebrew rtl mode during insert with <C-_>
-set allowrevins
+" set allowrevins
 " inoremap <F3> <c-o>:call ToggleHebrew()<CR>
 " nnoremap <F3> :call ToggleHebrew()<CR>
 " function! ToggleHebrew()
