@@ -5,13 +5,14 @@ function setup_ids() {
         mkdir "$HOME"/.ssh
     fi
 
-    if [[ -e "$HOME"/.ssh/id_rsa && -e "$HOME"/.ssh/id_rsa.pub ]]; then
+    local out="$HOME"/.ssh/id_rsa
+    if [[ -e "$out" && -e "$out".pub ]]; then
         return
     fi
 
-    ssh-keygen -t rsa -C "chaim.leib.halbert@gmail.com"
+    ssh-keygen -t rsa -C "chaim.leib.halbert@gmail.com" -N '' -f "$out"
     eval "$(ssh-agent -s)"
-    ssh-add "$HOME"/.ssh/id_rsa
+    ssh-add "$out"
 }
 
 setup_ids
