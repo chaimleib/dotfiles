@@ -1,7 +1,9 @@
 #!/bin/bash
 
 function do_install() {
-  curl https://sh.rustup.rs -sSf | sh
+  # accept all defaults with yes
+  yes '' |
+    sh <(curl https://sh.rustup.rs -sSf)
   ~/.cargo/bin/rustup component add rls rust-analysis rust-src
 }
 

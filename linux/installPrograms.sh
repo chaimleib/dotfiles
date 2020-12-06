@@ -20,4 +20,4 @@ for file in $(ls "$this_dir"/installers/*.sh); do
   [[ -x "$file" ]] && "$file"
 done
 unset INSTALL
-
+git reset --hard  # undo changes to rc files
