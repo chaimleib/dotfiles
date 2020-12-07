@@ -12,6 +12,8 @@ function do_install() {
   # open browser to add ssh key to github and allow git cloning in later steps
   w3m https://github.com/settings/ssh/new
 
+  mv ~/.gitconfig{,.aside}
+
   # install rust for vim :PlugUpdate
   # Otherwise, will get bogged down from Language Server Client
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
@@ -29,6 +31,8 @@ function do_install() {
     echo "$0: raw.githubusercontent.com unreachable" >&2
     exit 1
   fi
+
+  mv ~/.gitconfig{.aside,}
 }
 
 do_install
