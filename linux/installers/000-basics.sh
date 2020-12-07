@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 function do_install() {
   [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
@@ -6,6 +7,7 @@ function do_install() {
   $INSTALL build-essential \
     w3m w3m-img  \
     vim \
+    ripgrep \
     python python3 python3-distutils python-distutils-extra \
     nodejs npm
 
@@ -21,15 +23,15 @@ function do_install() {
 
   . ~/.bashrc
 
-  # Install plugins and quit
-  vim -c :PlugUpdate -c :q -c :q
+  # Install plugins
+  vim -c :PlugUpdate
 
   if ping -c1 raw.githubusercontent.com >/dev/null; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh |
       bash
   else
     echo "$0: raw.githubusercontent.com unreachable" >&2
-    exit 1
+    return 1
   fi
 
   mv ~/.gitconfig{.aside,}
