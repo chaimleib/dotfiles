@@ -12,6 +12,13 @@ function do_install() {
   # open browser to add ssh key to github and allow git cloning in later steps
   w3m https://github.com/settings/ssh/new
 
+  # install rust for vim :PlugUpdate
+  # Otherwise, will get bogged down from Language Server Client
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  ~/.cargo/bin/rustup component add rls rust-analysis rust-src
+
+  . ~/.bashrc
+
   # Install plugins and quit
   vim -c :PlugUpdate -c :q -c :q
 
