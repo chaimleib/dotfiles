@@ -38,6 +38,7 @@ function do_install() {
   mv ~/.gitconfig{.aside,}
 
   sudo chmod u+s /usr/bin/fbterm
+  sudo setcap 'cap_sys_tty_config+ep' $(command -v fbterm)
   cat << EOF | sudo tee -a /etc/profile > /dev/null
 [ "\$TERM" = 'linux' ] && command -v fbterm >/dev/null && FBTERM=1 exec fbterm
 EOF
