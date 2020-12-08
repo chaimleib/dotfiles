@@ -8,7 +8,7 @@ if [ -f /etc/default/keyboard ]; then
 XKBMODEL="pc104"
 XKBLAYOUT="us"
 XKBVARIANT=""
-XBKOPTIONS="ctrl:nocaps"
+XKBOPTIONS="ctrl:nocaps"
 
 BACKSPACE="guess"
 EOF
