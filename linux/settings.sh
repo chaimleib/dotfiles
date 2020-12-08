@@ -5,6 +5,9 @@ if [[ "$0" == "-bash" ]]; then
   exit 1
 fi
 
+this_dir="$(dirname "$0")"
+. "$this_dir"/../install_common.sh
+
 this_dir=$(abspath "$(dirname "$0")")
 
 for file in $(ls "$this_dir"/settings/*.sh); do
