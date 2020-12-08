@@ -29,11 +29,11 @@ fi
 
 export INSTALL='sudo apt install -y'
 for file in $(ls "$this_dir"/installers/*.sh); do
+  [ -x "$file" ] && "$file"
   if [ -n "$http_proxy" ]; then
-    echo "http_proxy has been unexpectedly set before executing $file"
+    echo "http_proxy has been unexpectedly set after executing $file"
     exit 1
   fi
-  [ -x "$file" ] && "$file"
 done
 unset INSTALL
 git reset --hard  # undo changes to rc files
