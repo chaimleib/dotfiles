@@ -9,7 +9,8 @@ function do_install() {
     vim \
     ripgrep \
     python python3 python3-distutils python-distutils-extra \
-    nodejs npm
+    nodejs npm \
+    fbterm
 
   # open browser to add ssh key to github and allow git cloning in later steps
   w3m https://github.com/settings/ssh/new
@@ -35,6 +36,10 @@ function do_install() {
   fi
 
   mv ~/.gitconfig{.aside,}
+
+  cat << EOF | sudo tee -a /etc/profile > /dev/null
+[ "\$TERM" = 'linux' ] && command -v fbterm >/dev/null && FBTERM=1 exec fbterm
+EOF
 }
 
 do_install
