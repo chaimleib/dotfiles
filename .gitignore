@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 .vim/.*
+.vim/plugged/
 repos/
 .bashrc.d/*-work-aliases.sh
 

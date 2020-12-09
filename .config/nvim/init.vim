@@ -70,20 +70,17 @@ augroup terminal
   auto TermClose * call timer_start(20, { -> s:afterTermClose() })
 augroup end
 
-" Title
-set title
-augroup titlebar
-  auto!
-  auto BufEnter * let &titlestring = hostname() . ":" . expand("%")
-  auto BufEnter * let &titleold = hostname() . ":" . getcwd()
-augroup end
-
 "Show the current command in the lower right corner
 set showcmd
 set timeoutlen=300 ttimeoutlen=0
 let mapleader = ","
-nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'copied: '@*<CR>
-nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'copied: '@*<CR>
+if has('clipboard')
+  nnoremap <silent> <leader>h :let @*=expand('%')<CR>:echo 'copied: '@*<CR>
+  nnoremap <silent> <leader>H :let @*=expand('%:p')<CR>:echo 'copied: '@*<CR>
+else
+  nnoremap <silent> <leader>h :let @"=expand('%')<CR>:echo 'copied: '@"<CR>
+  nnoremap <silent> <leader>H :let @"=expand('%:p')<CR>:echo 'copied: '@"<CR>
+endif
 
 "Borrowing some shortcuts from macOS
 inoremap <silent> <M-BS> <Esc><Space>cb
@@ -125,13 +122,8 @@ nnoremap <s-tab> :b#<cr>:bd #<cr>
 "Reload vimrc
 augroup vimrcReloadOnSave
   au!
-  if has('nvim')
-    autocmd bufwritepost init.vim source ~/.config/nvim/init.vim  "if current nvim has vimrc
-    command! Rc source ~/.config/nvim/init.vim  "in other nvim instances, with  :Rc
-  else
-    autocmd bufwritepost .vimrc source ~/.vimrc
-    command! Rc source ~/.vimrc
-  endif
+  autocmd bufwritepost init.vim source ~/.config/nvim/init.vim  "if current nvim has vimrc
+  command! Rc source ~/.config/nvim/init.vim  "in other nvim instances, with  :Rc
 augroup end
 
 " Mode toggling
@@ -148,31 +140,20 @@ set pastetoggle=<F1>
 set clipboard=unnamed
 
 nnoremap <silent> <F2> :call ToggleInfoCols()<CR>
-augroup bootstrapcols
-  auto!
-  let g:infocols=0
-  auto BufReadPost * :call InfoCols()
-augroup end
+let g:infocols=1
+set number
 function! ToggleInfoCols()
   if g:infocols
-    :call NoInfoCols()
+    let g:infocols=0
+    set nonumber
+    :GitGutterDisable
+    set foldcolumn=0
   else
-    :call InfoCols()
+    let g:infocols=1
+    set number
+    :GitGutterEnable
+    set foldcolumn=3
   endif
-endfunction
-function! InfoCols()
-  set number
-  " set relativenumber
-  set foldcolumn=3
-  :GitGutterEnable
-  let g:infocols=1
-endfunction
-function! NoInfoCols()
-  set nonumber
-  " set norelativenumber
-  set foldcolumn=0
-  :GitGutterDisable
-  let g:infocols=0
 endfunction
 
 "Hebrew rtl mode during insert with <C-_>
@@ -190,13 +171,13 @@ endfunction
 " endfunction
 
 "Show syntax highlighting group name
-noremap <F10> :echo "hi<"
-\ . synIDattr(synID(line("."),col("."),1),"name")
-\ . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name")
-\ . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
-\ . ">"<CR>
+" noremap <F10> :echo 'hi<'
+" \ . synIDattr(synID(line('.'),col('.'),1),'name')
+" \ . '> trans<'
+" \ . synIDattr(synID(line('.'),col('.'),0),'name')
+" \ . '> lo<'
+" \ . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')
+" \ . '>'<CR>
 
 
 "XML tidying
@@ -208,7 +189,11 @@ set backupskip=/tmp/*,/private/tmp/*
 "Makes vim invoke latex-suite when a .tex file is opened.
 filetype plugin on
 set shellslash
-set grepprg="rg --vimgrep"
+if executable('rg')
+  set grepprg="rg --vimgrep"
+else
+  set grepprg='grep -n -R --exclude=' . shellescape(&wildignore) . ' $*'
+endif
 let g:tex_flavor='latex'
 
 "Python style settings
@@ -236,14 +221,11 @@ augroup xml
   auto FileType html,xhtml,xml :%foldopen!
 augroup end
 
-if ! empty($NEOVIM_PYTHON3_HOST_PROG)
-  let g:python3_host_prog = $NEOVIM_PYTHON3_HOST_PROG
-endif
+" Default gitgutter update is 4s, make it 1000ms
+set updatetime=1000
 
-call plug#begin('~/.config/nvim/plugged')
-" Default gitgutter update is 4s, make it 100ms
-set updatetime=100
-
+set ruler
+set laststatus=2
 "Status line:
 " %F full file path
 " %r read only status, appears as [RO]
@@ -255,61 +237,88 @@ set updatetime=100
 if !exists('g:airline_section_a')
   set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
 endif
+
+hi Search ctermbg=lightred ctermfg=black cterm=none
+
+"Diff mode color customizations
+hi DiffAdd     ctermbg=22 guibg=#2E5815
+hi DiffDelete  ctermbg=88 guibg=#771C12
+hi DiffChange  ctermbg=22 guibg=#2E5815
+hi DiffText    ctermbg=28 guibg=#50A31F
+
+"Indent guides colors
+hi IndentGuidesOdd  ctermbg=236
+hi IndentGuidesEven ctermbg=234
+
+"Current line
+set cursorline
+hi CursorLine term=NONE cterm=NONE ctermbg=236 guibg=Grey30
+hi CursorLineNr term=bold cterm=bold ctermfg=11 guifg=yellow ctermbg=236 guibg=Grey30
+
+"Trailing spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+
+" PLUGINS
+
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" let g:airline_section_c = '%{airline#extensions#fugitiveline#bufname()}%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
-" let g:airline_section_c = ''
-"%{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
-let g:airline_section_x = ''
-let g:airline_section_y = '%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#wrap(airline#parts#filetype(),0)}'
-let g:airline_section_z = '%3p%% %4l%#__restore__#%#__accent_bold#/%L%#__restore__# :%3v'
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 
-let g:sneak#label = 1
 
 " pangloss/vim-javascript highlights on flow syntax
-" let g:javascript_plugin_flow = 1
+let g:javascript_plugin_flow = 1
 
+call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
 Plug 'cespare/vim-toml'
 Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+if executable('go')
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+endif
 Plug 'FooSoft/vim-argwrap'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+if executable('fzf')
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
+endif
 Plug 'maralla/vim-toml-enhance'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mxw/vim-jsx' "combo with pangloss/vim-javascript
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'ncm2/ncm2'
+if executable('python3')
+  if executable('cargo')
+    Plug 'autozimu/languageclient-neovim', {
+          \ 'branch': 'next',
+          \ 'do': 'bash install.sh',
+          \ }
+  endif
+  Plug 'ncm2/ncm2'
+  Plug 'roxma/nvim-yarp'
+endif
 Plug 'pangloss/vim-javascript'
-Plug 'roxma/nvim-yarp'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'solarnz/thrift.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'udalov/javap-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-if has('nvim')
-  Plug 'sebdah/vim-delve' "go debugger
-endif
 call plug#end()
+
+let g:flow#autoclose = 1
 
 " argwrap
 nnoremap <silent> <leader>a :ArgWrap<CR>
@@ -333,19 +342,21 @@ noremap ??  <Plug>(incsearch-easymotion-?)
 noremap /?  <Plug>(incsearch-easymotion-stay)
 
 " fzf
-let g:fzf_command_prefix = 'Fzf'
-inoremap <leader>e <Esc>:FzfFiles<CR>
-nnoremap <leader>e :FzfFiles<CR>
-inoremap <leader>E <Esc>:FzfFiles?<CR>
-nnoremap <leader>E :FzfFiles?<CR>
-inoremap <leader>g <Esc>:FzfGFiles<CR>
-nnoremap <leader>g :FzfGFiles<CR>
-inoremap <leader>r <Esc>:FzfRg<Space>
-nnoremap <leader>r :FzfRg<Space>
-inoremap <leader>b :FzfBuffers<CR>
-nnoremap <leader>b :FzfBuffers<CR>
-inoremap <leader><leader>g <Esc>:FzfGFiles?<CR>
-nnoremap <leader><leader>g :FzfGFiles?<CR>
+if executable('fzf')
+  let g:fzf_command_prefix = 'Fzf'
+  inoremap <leader>e <Esc>:FzfFiles<CR>
+  nnoremap <leader>e :FzfFiles<CR>
+  inoremap <leader>E <Esc>:FzfFiles?<CR>
+  nnoremap <leader>E :FzfFiles?<CR>
+  inoremap <leader>g <Esc>:FzfGFiles<CR>
+  nnoremap <leader>g :FzfGFiles<CR>
+  inoremap <leader>r <Esc>:FzfRg<Space>
+  nnoremap <leader>r :FzfRg<Space>
+  inoremap <leader>b :FzfBuffers<CR>
+  nnoremap <leader>b :FzfBuffers<CR>
+  inoremap <leader><leader>g <Esc>:FzfGFiles?<CR>
+  nnoremap <leader><leader>g :FzfGFiles?<CR>
+endif
 
 nnoremap <A-,> :SidewaysLeft<cr>
 nnoremap ≤ :SidewaysLeft<cr>
@@ -353,8 +364,11 @@ nnoremap <A-.> :SidewaysRight<cr>
 nnoremap ≥ :SidewaysRight<cr>
 
 augroup langClient
+  au!
   let g:LanguageClient_autoStart = 1
-  let g:LanguageClient_selectionUI = 'fzf'
+  if executable('fzf')
+    let g:LanguageClient_selectionUI = 'fzf'
+  endif
   let g:LanguageClient_waitOutputTimeout = 60
 
   let g:LanguageClient_loggingLevel = 'INFO'
@@ -369,21 +383,21 @@ augroup langClient
     auto FileType javascript setlocal omnifunc=LanguageClient#complete
     let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
     auto FileType javascript.jsx setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingFlow')
-    echo 'Missing language server:'
-    echo '  yarn global add flow-bin'
-    let g:warnedMissingFlow = 1
+  " elseif !exists('g:warnedMissingFlow')
+  "   echo 'Missing language server:'
+  "   echo '  yarn global add flow-bin'
+  "   let g:warnedMissingFlow = 1
   endif
 
   if executable('rls')
     let g:LanguageClient_serverCommands.rust = ['rls']
     auto FileType rust setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingRustLS')
-    echo 'Missing language server:'
-    echo '  brew install rustup'
-    echo '  rustup-init'
-    echo '  rustup component add rls rust-analysis rust-src'
-    let g:warnedMissingRustLS = 1
+  " elseif !exists('g:warnedMissingRustLS')
+  "   echo 'Missing language server:'
+  "   echo '  brew install rustup'
+  "   echo '  rustup-init'
+  "   echo '  rustup component add rls rust-analysis rust-src'
+  "   let g:warnedMissingRustLS = 1
   endif
 
   if executable('typescript-language-server')
@@ -391,10 +405,10 @@ augroup langClient
     let g:LanguageClient_serverCommands.tsx = ['typescript-language-server', '--stdio']
     auto FileType typescript setlocal omnifunc=LanguageClient#complete
     auto FileType tsx setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingTSLS')
-    echo 'Missing language server:'
-    echo '  yarn global add typescript-language-server'
-    let g:warnedMissingTSLS = 1
+  " elseif !exists('g:warnedMissingTSLS')
+  "   echo 'Missing language server:'
+  "   echo '  yarn global add typescript-language-server'
+  "   let g:warnedMissingTSLS = 1
   endif
 
   "has jdt.ls been compiled?
@@ -406,28 +420,30 @@ augroup langClient
     let g:LanguageClient_serverCommands.jsp = ['jdtls']
     auto FileType java setlocal omnifunc=LanguageClient#complete
     auto FileType jsp setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingJLS')
-    echo 'Missing language server:'
-    echo '  cd ~/projects/github'
-    " echo '  git clone https://github.com/georgewfraser/java-language-server'
-    " echo '  cd java-language-server'
-    " echo '  JAVA_HOME=$(ls -td /Library/Java/JavaVirtualMachines/*jdk-11.*.*.jdk | head -n1)/Contents/Home \'
-    " echo '    scripts/link_mac.sh'
-    echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
-    echo '  cd eclipse.jdt.ls'
-    echo '  git checkout $(git tag | sort -V | tail -1)'
-    echo '  ./mvnw clean verify'
+  " elseif !exists('g:warnedMissingJLS')
+  "   echo 'Missing language server:'
+  "   echo '  cd ~/projects/github'
+
+  "   echo '  git clone https://github.com/georgewfraser/java-language-server'
+  "   echo '  cd java-language-server'
+  "   echo '  JAVA_HOME=$(ls -td /Library/Java/JavaVirtualMachines/*jdk-11.*.*.jdk | head -n1)/Contents/Home \'
+  "   echo '    scripts/link_mac.sh'
+
+  "   echo '  git clone https://github.com/eclipse/eclipse.jdt.ls'
+  "   echo '  cd eclipse.jdt.ls'
+  "   echo '  git checkout $(git tag | sort -V | tail -1)'
+  "   echo '  ./mvnw clean verify'
   " jdtls already created in ~/local/provide
-    let g:warnedMissingJLS = 1
+  "   let g:warnedMissingJLS = 1
   endif
 
   if executable('gopls')
     let g:LanguageClient_serverCommands.go = ['gopls']
     auto FileType go setlocal omnifunc=LanguageClient#complete
-  elseif !exists('g:warnedMissingGopls')
-    echo 'Missing language server:'
-    echo '  :GoInstallBinaries'
-    let g:warnedMissingGopls = 1
+  " elseif !exists('g:warnedMissingGopls')
+  "   echo 'Missing language server:'
+  "   echo '  :GoInstallBinaries'
+  "   let g:warnedMissingGopls = 1
   endif
 
   "all languages
@@ -449,29 +465,3 @@ augroup langClient
   nnoremap <silent> gi :call LanguageClient#debugInfo()<CR>
   " nnoremap <silent> ?? :call LanguageClient#explainErrorAtPoint()<CR>
 augroup end
-
-let g:flow#autoclose = 1
-
-hi Search ctermbg=lightred ctermfg=black cterm=none
-
-"Diff mode color customizations
-hi DiffAdd     ctermbg=22 guibg=#2E5815
-hi DiffDelete  ctermbg=88 guibg=#771C12
-hi DiffChange  ctermbg=22 guibg=#2E5815
-hi DiffText    ctermbg=28 guibg=#50A31F
-
-"Indent guides colors
-hi IndentGuidesOdd  ctermbg=236
-hi IndentGuidesEven ctermbg=234
-
-"Current line
-set cursorline
-hi CursorLine term=NONE cterm=NONE ctermbg=236 guibg=Grey30
-
-"Trailing spaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
