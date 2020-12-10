@@ -9,8 +9,7 @@ function do_install() {
     vim \
     ripgrep \
     python python3 python3-distutils python-distutils-extra \
-    nodejs npm \
-    fbterm
+    nodejs npm
 
   # open browser to add ssh key to github and allow git cloning in later steps
   w3m https://github.com/settings/ssh/new
@@ -38,12 +37,6 @@ function do_install() {
   fi
 
   mv ~/.gitconfig{.aside,}
-
-  sudo chmod u+s /usr/bin/fbterm
-  sudo setcap 'cap_sys_tty_config+ep' $(command -v fbterm)
-  cat << EOF | sudo tee -a /etc/profile > /dev/null
-[ "\$TERM" = 'linux' ] && command -v fbterm >/dev/null && FBTERM=1 exec fbterm
-EOF
 }
 
 do_install
