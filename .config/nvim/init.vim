@@ -1,4 +1,5 @@
 "Search options
+au!
 set ignorecase
 set smartcase
 set nohlsearch
@@ -235,8 +236,12 @@ set laststatus=2
 " %l/%L line number/total lines
 " %v column number
 if !exists('g:airline_section_a')
-  set statusline=%F%r%w%y[%p%%\ %l/%L,%v]
+  set statusline=%F%r%w%=%y\ %p%%\ %l/%L,%v
 endif
+
+let g:airline_section_a = ''
+let g:airline_section_y = ''
+let g:airline_section_z = '%p%% %l/%L,%v'
 
 hi Search ctermbg=lightred ctermfg=black cterm=none
 
@@ -265,9 +270,6 @@ autocmd BufWinLeave * call clearmatches()
 
 
 " PLUGINS
-
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
@@ -334,7 +336,7 @@ function! s:incsearch_config(...) abort
     \ },
     \ 'is_expr': 0
     \ }), get(a:, 1, {}))
-    endfunction
+endfunction
 
 noremap ?/  <Plug>(incsearch-stay)
 noremap //  <Plug>(incsearch-easymotion-/)
