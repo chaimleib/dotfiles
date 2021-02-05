@@ -19,5 +19,6 @@ else
   cd eclipse.jdt.ls
 fi
 
+source ~/.bashrc.d/*-java.sh  # set JAVA_HOME, JAVA_OPTS
 ./mvnw clean verify
 
