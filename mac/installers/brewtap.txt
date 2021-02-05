@@ -1,6 +1,0 @@
-caskroom/fonts
-caskroom/versions
-chaimleib/formulae
-homebrew/core
-homebrew/services
-homebrew/bundle

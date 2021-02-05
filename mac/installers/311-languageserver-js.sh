@@ -4,7 +4,7 @@ printf "%-30s %s..." Installing "JS/TypeScript Language Server"
 
 library="$HOME"/projects/github
 
-if have javascript-typescript-stdio; then
+if command -v javascript-typescript-stdio >/dev/null; then
   echo "Already installed"
   exit
 fi

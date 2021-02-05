@@ -15,12 +15,6 @@ else
   echo "Installed $version"
 fi
 
-echo "Setting up taps..."
-while read tap; do
- echo "  Tapping $tap..."
- brew tap "$tap"
-done < "${this_dir}/brewtap.txt"
-
 brew update
 brew upgrade
 
