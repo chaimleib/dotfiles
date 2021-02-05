@@ -159,7 +159,7 @@ set shellslash
 if executable('rg')
   set grepprg="rg --vimgrep"
 else
-  set grepprg='grep -n -R --exclude=' . shellescape(&wildignore) . ' $*'
+  set grepprg="grep -n -R --exclude=" . shellescape(&wildignore) . " $*"
 endif
 let g:tex_flavor='latex'
 
