@@ -455,8 +455,7 @@ augroup langClient
   nnoremap <silent> ## :call LanguageClient#textDocument_definition()<CR>
   nnoremap <silent> #t :call LanguageClient#textDocument_typeDefinition()<CR>
   nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
-  "gu = go Usages
-  nnoremap <silent> g/ :call LanguageClient#textDocument_references()<CR>
+  nnoremap <silent> ** :call LanguageClient#textDocument_references()<CR>
   " nnoremap <silent> ?? :call LanguageClient#textDocument_documentHighlight()<CR>
   " nnoremap <silent> ?? :call LanguageClient#clearDocumentHighlight()<CR>
   nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
