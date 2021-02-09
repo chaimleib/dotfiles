@@ -65,9 +65,7 @@ endfunction
 augroup terminal
   auto!
   auto TermOpen * startinsert
-  auto TermOpen * :call NoInfoCols()
   auto BufEnter,BufWinEnter,WinEnter term://* startinsert
-  auto BufEnter,BufWinEnter,WinEnter term://* :call NoInfoCols()
   auto TermClose * call timer_start(20, { -> s:afterTermClose() })
 augroup end
 
