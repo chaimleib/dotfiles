@@ -43,5 +43,9 @@ esac
 # prependPath "/usr/local/share/npm/bin"
 prependPath "$HOME/.node_modules_global/bin"
 
+# python
+export PYENV_ROOT="$HOME/.pyenv"
+prependPath "$PYENV_ROOT/bin"
+
 # use mysql 5.7
 prependPath /usr/local/opt/mysql@5.7/bin

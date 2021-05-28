@@ -3,6 +3,7 @@
 [[ -f "$HOME/.pythonrc.py" ]] && export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
 if have pyenv; then
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
   if have pyenv-virtualenv-init; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
