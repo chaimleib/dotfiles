@@ -45,7 +45,7 @@ function rgc() {
 ## Meta shortcuts
 alias reinit='export CHAIMLEIBSDOTFILES= ;source ~/.profile'
 if ! have vim && have vi; then
-  if vi -h | grep VIM &>/dev/null ; then
+  if vi -h 2>&1 | grep VIM &>/dev/null ; then
     alias vim='vi --cmd "set nocompat" -u ~/.vimrc'
   else
     alias vim='vi'
