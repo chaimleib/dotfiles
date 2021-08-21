@@ -9,14 +9,19 @@
 #######################################################################
 
 ## Run only once
-[ -n "$CHAIMLEIBSDOTFILES" ] && return
-[ -z "$PS1" ] && return
+if [ -n "$CHAIMLEIBSDOTFILES" ] || [ -z "$PS1" ]; then
+  return
+fi
 
 ## Settings prelude...
-[ -z $BASHRC_debug ] && export BASHRC_debug=1
+if [ -z $BASHRC_debug ]; then
+  export BASHRC_debug=1
+fi
 
 ## Meat
-[ "$BASHRC_debug" -ge 2 ] && echo "Running ~/.bashrc ..."
+if [ "$BASHRC_debug" -ge 2 ]; then
+  echo "Running ~/.bashrc ..."
+fi
 
 ## Google GCP
 if [ -f "/google/devshell/bashrc.google" ]; then
@@ -24,7 +29,9 @@ if [ -f "/google/devshell/bashrc.google" ]; then
 fi
 
 ## Set up local settings
-[ "$BASHRC_debug" -ge 1 ] && echo ">> Loading local rc's..."
+if [ "$BASHRC_debug" -ge 1 ]; then
+  echo ">> Loading local rc's..."
+fi
 if [ -d ~/.bashrc.d ]; then
   for file in ~/.bashrc.d/*.sh ; do
     if [ -x ${file} ]; then
