@@ -16,7 +16,9 @@ function exit_indicator() {
 
 # Kubernetes context
 function kube_prompt_info() {
-  have kubectl || return
+  if ! have kubectl; then
+    return
+  fi
   local active_context="$(kubectl config current-context)"
   case "$active_context" in
     *development*) echo -n "k8s:${GREEN}dev${RESET_COLOR}" ;;
@@ -29,7 +31,9 @@ function kube_prompt_info() {
 # GCP context
 function gcp_prompt_info() {
   local config_file="$HOME/.config/gcloud/active_config"
-  [[ -e "$config_file" ]] || return
+  if ! [ -e "$config_file" ]; then
+    return
+  fi
   local active_config="$(cat "$config_file")"
   case "$active_config" in
     *development*) echo -n "gcp:${GREEN}dev${RESET_COLOR}" ;;
@@ -41,12 +45,18 @@ function gcp_prompt_info() {
 }
 function prompt_configs() {
   local gcp="$(gcp_prompt_info)"
-  [[ -z "$gcp" ]] && return
-  [[ -n "$gcp" ]] && printf '%s' "$gcp"
+  if [ -z "$gcp" ]; then
+    return
+  fi
+  if [ -n "$gcp" ]; then
+    printf '%s' "$gcp"
+  fi
   printf ' '
 }
 
-[[ -z "$PS1" ]] && return
+if [ -z "$PS1" ]; then
+  return
+fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUPSTREAM=verbose
@@ -55,7 +65,7 @@ export GIT_PS1_SHOWCOLORHINTS=1
 
 export HISTCONTROL=ignoredups
 if [[ "$0" == *bash ]]; then
-    shopt -s histappend;
+    shopt -s histappend
     # https://tiswww.case.edu/php/chet/bash/bashref.html#Controlling-the-Prompt
     # \u - username
     # \h - hostname, 1st segment
@@ -90,6 +100,7 @@ elif [[ -n "$ZSH_NAME" ]]; then
     p_nl=$'\n'
     p_prompt='%#'
 fi
+
 function ps1_func() {
   local last_exit=$?
   local ps1
