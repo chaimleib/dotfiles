@@ -1,51 +1,29 @@
 #!/bin/bash
 removePath .
 
-# appendPath /sbin
-# appendPath /usr/sbin
+# python
+export PYENV_ROOT="$HOME/.pyenv"
 
-#prependPath /opt/local/bin
-#prependPath ~/.bin
-
-# Stellarpad binaries
-# appendPath /Applications/Energia.app/Contents/Resources/Java/hardware/tools/lm4f/bin
+# java
+if [ -d "/Library/Java/Home" ]; then # Mac
+    JAVA_HOME="/Library/Java/Home"
+elif [ -d /usr/local/Cellar/openjdk@11 ]; then # homebrew
+    JAVA_HOME=$(find “/usr/local/Cellar/openjdk@11” -type d -depth 1|sort|tail -n 1)
+elif [ -d "/usr/local/java-current" ]; then # Linux
+    JAVA_HOME="/usr/local/java-current"
+fi
+if [ "$JAVA_HOME" ]; then
+  export JAVA_HOME
+fi
+export JAVA_OPTS="-Xms512m -Xmx4096m"
 
 # Override default binaries with usr binaries
-prependPath /usr/local/sbin
-prependPath /usr/local/bin
+PATH="$JAVA_HOME"/bin:/usr/local/opt/mysql@5.7/bin:"$PYENV_ROOT"/bin:~/go/bin:/usr/local/bin:/usr/local/sbin:"$PATH"
 
-appendPath /usr/local/lib PKG_CONFIG_PATH
-appendPath /usr/X11/lib/pkgconfig PKG_CONFIG_PATH
-
-# Go
-prependPath ~/go/bin
+PKG_CONFIG_PATH="$PKG_CONFIG_PATH":/usr/local/lib:/usr/X11/lib/pkgconfig
 
 # Haskell
 # prependPath ~/.cabal/bin
 
 # Rust
-prependPath ~/.cargo/bin
-
-# Google Cloud SDK
-case "$0" in
-  *bash)
-    [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc' ] &&
-      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
-    ;;
-  *)
-    [ -n "$ZSH_NAME" ] &&
-      [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ] &&
-      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-    ;;
-esac
-
-# node
-# prependPath "/usr/local/share/npm/bin"
-prependPath "$HOME/.node_modules_global/bin"
-
-# python
-export PYENV_ROOT="$HOME/.pyenv"
-prependPath "$PYENV_ROOT/bin"
-
-# use mysql 5.7
-prependPath /usr/local/opt/mysql@5.7/bin
+# prependPath ~/.cargo/bin

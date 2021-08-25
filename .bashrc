@@ -39,7 +39,7 @@ if [ -d ~/.bashrc.d ]; then
         echo "Running ${file} ..."
       fi
       if [ "$BASHRC_debug" -ge 4 ]; then
-        time . "$file"
+        time . "$file" # timing only possible in bash, not zsh
       else
         source "${file}" # zsh likes source instead of . ?
       fi
