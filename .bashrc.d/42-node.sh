@@ -2,10 +2,14 @@
 
 # Where to store envs
 NVM_DIR="$HOME/.nvm"
-export NVM_DIR
 
-# Initialize nvm shell function
-source "$NVM_DIR"/nvm.sh
+# Initialize shell function/vars
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env)"
+elif [ -f "$NVM_DIR"/nvm.sh ]; then
+  export NVM_DIR
+  source "$NVM_DIR"/nvm.sh
+fi
 
 # disabled: load .nvmrc on cd
 # # Detect node version from noderc

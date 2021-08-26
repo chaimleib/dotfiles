@@ -11,7 +11,11 @@ sudo ln -sfnv \
   /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 source ~/.bashrc.d/*-node.sh
-nvm install node
+if command -v fnm &>/dev/null; then
+  fnm install node
+else if command -v nvm &>/dev/null; then
+  nvm install node
+fi
 npm install -g npm
 npm install -g yarn
 
