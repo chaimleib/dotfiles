@@ -12,7 +12,7 @@ sudo ln -sfnv \
 
 source ~/.bashrc.d/*-node.sh
 if command -v fnm &>/dev/null; then
-  fnm install node
+  fnm install $(fnm list remote | tail -n1)
 else if command -v nvm &>/dev/null; then
   nvm install node
 fi
