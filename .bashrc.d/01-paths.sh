@@ -22,6 +22,18 @@ PATH="$JAVA_HOME"/bin:/usr/local/opt/mysql@5.7/bin:"$PYENV_ROOT"/bin:~/go/bin:/u
 
 PKG_CONFIG_PATH="$PKG_CONFIG_PATH":/usr/local/lib:/usr/X11/lib/pkgconfig
 
+if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
+  case "$SHELL" in
+  *bash)
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
+    ;;
+  *zsh)
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    ;;
+  esac
+fi
 # Haskell
 # prependPath ~/.cabal/bin
 

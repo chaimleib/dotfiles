@@ -13,13 +13,6 @@ if [[ "$SHELL" == *bash ]] && [[ -z "$BASH_COMPLETION_COMPAT_DIR" ]]; then
 fi
 
 case "$SHELL" in
-*bash)
-  if have brew; then
-    if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc' ]; then
-      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
-    fi
-  fi
-  ;;
 *zsh)
   if [ -d /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
@@ -28,9 +21,6 @@ case "$SHELL" in
     brewprefix=$(brew --prefix)
     if [ -d "$brewprefix"/share/zsh/site-functions ]; then
       fpath=("$brewprefix"/share/zsh/site-functions $fpath)
-    fi
-    if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then
-      source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
     fi
   fi
 
