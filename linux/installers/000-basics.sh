@@ -1,12 +1,21 @@
 #!/bin/bash
 set -e
 
+function is_pacman() {
+  case "$INSTALL" in
+    'sudo pacman'*) return 0 ;;
+  esac
+  return 1
+}
+
 function do_install() {
   [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
 
-  $INSTALL build-essential \
-    w3m w3m-img  \
-    vim \
+  $INSTALL \
+    $(is_pacman && echo base-devel || echo build-essential) \
+    w3m $(is_pacman && echo imlib2 || echo w3m-img) \
+    neovim \
+    tree \
     ripgrep \
     python python3 python3-distutils python-distutils-extra \
     nodejs npm
@@ -26,7 +35,7 @@ function do_install() {
   . ~/.bashrc
 
   # Install plugins
-  vim -c :PlugUpdate
+  nvim -c :PlugUpdate
 
   if ping -c1 raw.githubusercontent.com >/dev/null; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh |

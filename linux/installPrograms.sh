@@ -11,29 +11,23 @@ this_dir="$(dirname "$0")"
 
 this_dir="$(abspath "$(dirname "$0")")"
 
-sudo apt update
-if [ -n "$http_proxy" ]; then
-  echo "http_proxy has been unexpectedly set after apt update"
-  exit 1
+if command -v apt &>/dev/null; then
+  sudo apt update
+  sudo apt upgrade -y
+  sudo apt autoremove -y
+  INSTALL='sudo apt install -y'
+elif command -v apk &>/dev/null; then
+  sudo apk update
+  sudo apk upgrade
+  INSTALL='sudo apk add'
+elif command -v pacman &>/dev/null; then
+  sudo pacman -Syu
+  INSTALL='sudo pacman -S --noconfirm'
 fi
-sudo apt upgrade -y
-if [ -n "$http_proxy" ]; then
-  echo "http_proxy has been unexpectedly set after apt upgrade"
-  exit 1
-fi
-sudo apt autoremove -y
-if [ -n "$http_proxy" ]; then
-  echo "http_proxy has been unexpectedly set after apt autoremove"
-  exit 1
-fi
+export INSTALL
 
-export INSTALL='sudo apt install -y'
 for file in $(ls "$this_dir"/installers/*.sh); do
   [ -x "$file" ] && "$file"
-  if [ -n "$http_proxy" ]; then
-    echo "http_proxy has been unexpectedly set after executing $file"
-    exit 1
-  fi
 done
 unset INSTALL
 git reset --hard  # undo changes to rc files
