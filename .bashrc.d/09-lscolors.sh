@@ -46,54 +46,18 @@
 
 case $OSTYPE in
 darwin*)
-    export LSCOLORS=gxfxcxdxbxgeedagacad
-    ;;
-linux*)
-    thisdir="${HOME}/.bashrc.d"
-    conf="${thisdir}/_dircolors.conf"
-    sh="${thisdir}/_dircolors.sh"
-    
-    dircolors_cmd="dircolors ${conf}"
-
-    # Create an empty file if it doesn't exist, for diffing.
-    [[ -e "$sh" ]] || touch "$sh"
-    
-    # Update if out of date
-    if  [[ "`($dircolors_cmd | diff "$sh" -)`" != '' ]]; then
-        #echo "${conf} has changed! Updating..."
-        $dircolors_cmd > "$sh"
-    fi
-    
-    # if our sh is different from the default, run it
-    if [[ "`dircolors | diff "$sh" -`" != '' ]]; then
-        . "$sh"
-    fi
-    ;;
-solaris*)
-    thisdir="${HOME}/.bashrc.d"
-    conf="${thisdir}/_dircolors.conf"
-    sh="${thisdir}/_dircolors.sh"
-
-    if have gdircolors; then
-        dircolors_cmd="gdircolors"
-    else
-        dircolors_cmd="dircolors"
-    fi
-    
-    # Create an empty file if it doesn't exist, for diffing.
-    [[ -e "$sh" ]] || touch "$sh"
-
-    # Update if out of date
-    if  [[ "`($dircolors $conf | diff "$sh" -)`" != '' ]]; then
-        #echo "${conf} has changed! Updating..."
-        $dircolors $conf > "$sh"
-    fi
-
-    # if our sh is different from the default, run it
-    if [[ "`$dircolors | diff "$sh" -`" != '' ]]; then
-        . "$sh"
-    fi
-    ;;
+  export LSCOLORS=gxfxcxdxbxgeedagacad
+  ;;
+linux*|solaris*)
+  if command -v gdircolors &>/dev/null; then
+    dircolors_cmd=gdircolors
+  elif command -v dircolors &>/dev/null; then
+    dircolors_cmd=dircolors
+  else
+    return
+  fi
+  conf="${HOME}/.bashrc.d/_dircolors.conf"
+  eval "$("$dircolors_cmd" "$conf")"
+  ;;
 esac
-
 
