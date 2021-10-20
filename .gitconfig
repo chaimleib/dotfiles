@@ -5,8 +5,6 @@
 	email = chaim.leib.halbert@gmail.com
 [includeIf "gitdir:~/projects/evernote/**"]
   path = ~/.gitconfig-en
-[core]
-	editor = vim
 [color]
 	ui = auto
 [var]
@@ -19,3 +17,5 @@
 	insteadOf = https://github.com/
 [pull]
 	ff = only
+[init]
+	defaultBranch = master
