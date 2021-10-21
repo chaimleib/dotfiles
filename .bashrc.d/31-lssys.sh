@@ -68,18 +68,25 @@ function lssys() {
     darwin*)
         os_arch=$(uname -m)
 
-        profsec=$(system_profiler SPHardwareDataType Hardware SPSoftwareDataType Software)
-        ram=$(echo "$profsec" | grep "^ *Memory" | cut -d: -f2 | xargs)
+        if command -v system_profiler &>/dev/null; then  # macOS
+          profsec=$(system_profiler SPHardwareDataType Hardware SPSoftwareDataType Software)
+          ram=$(echo "$profsec" | grep "^ *Memory" | cut -d: -f2 | xargs)
 
-        cpus=$(echo "$profsec" | grep "Number of Processors" | cut -d: -f2 | xargs)
-        cpu_cores=$(echo "$profsec" | grep "Total Number of Cores:" | cut -d: -f2 | xargs)
-        cpu_cores_per=$(( $cpu_cores / $cpus ))
-        cpu_spd=$(echo "$profsec" | grep "Processor Speed" | cut -d: -f2 | xargs)
-        cpu_brand=$(sysctl -n machdep.cpu.brand_string | cut -d: -f2 | _clean_cpu_brand)
+          cpus=$(echo "$profsec" | grep "Number of Processors" | cut -d: -f2 | xargs)
+          cpu_cores=$(echo "$profsec" | grep "Total Number of Cores:" | cut -d: -f2 | xargs)
+          cpu_cores_per=$(( $cpu_cores / $cpus ))
+          cpu_spd=$(echo "$profsec" | grep "Processor Speed" | cut -d: -f2 | xargs)
+          cpu_brand=$(sysctl -n machdep.cpu.brand_string | cut -d: -f2 | _clean_cpu_brand)
 
-        os_name=$(echo "$profsec" | grep "System Version" | cut -d: -f2 | cut -d'(' -f1 | xargs)
+          os_name=$(echo "$profsec" | grep "System Version" | cut -d: -f2 | cut -d'(' -f1 | xargs)
 
-        kern_name=$(echo "$profsec" | grep "Kernel Version" | cut -d: -f2 | xargs)
+          kern_name=$(echo "$profsec" | grep "Kernel Version" | cut -d: -f2 | xargs)
+
+        else # iOS
+          os_name=$(grep -o '[^"]\+ OS [^"]*' /var/logs/AppleSupport/general.log)
+          kern_name=$(uname -v | sed 's/:.*//')
+          
+        fi
         ;;
     linux*)
         os_arch=$(uname -p)
@@ -165,7 +172,7 @@ function lssys() {
         cpus="`echo "$sysinfosec" | grep -o "CPU[0-9]\+" | wc -l | xargs`"
         cpu_cores="`echo "$sysinfosec" | grep NumberOfCores | cut -d'=' -f2 | xargs`"
         cpu_lcores="`echo "$sysinfosec" | grep NumberOfLogicalProcessors | cut -d'=' -f2 | xargs`"
-        [[ -n $cpus && -n $cpu_cores ]] && 
+        [[ -n $cpus && -n $cpu_cores ]] &&
             cpu_cores_per="$(( $cpu_cores / $cpus ))"
         cpu_spd_mhz="`echo "$sysinfosec" | grep MaxClockSpeed | cut -d'=' -f2 | xargs`"
         cpu_spd="`_mhz2ghz "$cpu_spd_mhz"`"
@@ -240,6 +247,6 @@ function lssys() {
     [[ -n $ram ]]               && machine_info="${machine_info}\n  ${ram} RAM"
     [[ -n $os_arch ]]           && machine_info="${machine_info}\n  ${os_arch} architecture"
 
-    [[ -n "$cpu_info" ]]        && echo -e "This machine:${machine_info}"
+    [[ -n "$machine_info" ]]        && echo -e "This machine:${machine_info}"
 }
 
