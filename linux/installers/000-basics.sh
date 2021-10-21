@@ -46,10 +46,12 @@ function do_install() {
     nodejs npm
 
   # open browser to add ssh key to github and allow git cloning in later steps
+  echo Checking if we need to register pubkey with github.com...
   if ! grep -F github.com ~/.ssh/known_hosts &>/dev/null; then
     w3m https://github.com/settings/ssh/new
   fi
 
+  echo Installing Rust...
   mv ~/.gitconfig ~/.gitconfig.aside
 
   # install rust for vim :PlugUpdate
@@ -57,13 +59,15 @@ function do_install() {
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
   ~/.cargo/bin/rustup component add rls rust-analysis rust-src
 
+  echo Installing pynvim
   sudo pip3 install pynvim  # required for vim plug roxma/nvim-yarp
 
   . ~/.bashrc
 
-  # Install plugins
+  echo Install nvim plugins
   nvim -c :PlugUpdate
 
+  echo Installing fnm...
   if ping -c1 fnm.vercel.app >/dev/null; then
     curl -fsSL https://fnm.vercel.app/install | sh -s -- --skip-shell
   else
