@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 set -e
 
 function is_pacman() {
@@ -8,22 +8,46 @@ function is_pacman() {
   return 1
 }
 
+function is_apk() {
+  case "$INSTALL" in
+    'sudo apk'*) return 0 ;;
+  esac
+  return 1
+}
+
+function is_apt() {
+  case "$INSTALL" in
+    'sudo apt'*) return 0 ;;
+  esac
+  return 1
+}
+
 function do_install() {
-  [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
+  [ -z "$INSTALL" ] && echo "INSTALL not set" && return 1
 
   $INSTALL \
-    $(is_pacman && echo base-devel || echo build-essential) \
-    w3m $(is_pacman && echo imlib2 || echo w3m-img) \
+    `is_pacman && echo base-devel ||
+      is_apk && echo build-base ||
+      is_apt && echo build-essential` \
+      w3m \
+      ` (is_pacman || is_apk) && echo imlib2 ||
+        is_apt && echo w3m-img` \
     neovim \
     tree \
     ripgrep \
-    python python3 python3-distutils python-distutils-extra \
+    git \
+    go \
+    bash zsh \
+    tmux \
+    python3 `is_apt && echo python3-distutils` \
+    `is_pacman && echo python-pip ||
+      is_apk && echo py3-pip` \
     nodejs npm
 
   # open browser to add ssh key to github and allow git cloning in later steps
   w3m https://github.com/settings/ssh/new
 
-  mv ~/.gitconfig{,.aside}
+  mv ~/.gitconfig ~/.gitconfig.aside
 
   # install rust for vim :PlugUpdate
   # Otherwise, will get bogged down from Language Server Client
@@ -37,15 +61,14 @@ function do_install() {
   # Install plugins
   nvim -c :PlugUpdate
 
-  if ping -c1 raw.githubusercontent.com >/dev/null; then
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh |
-      bash
+  if ping -c1 fnm.vercel.app >/dev/null; then
+    curl -fsSL https://fnm.vercel.app/install | sh -s -- --skip-shell
   else
-    echo "$0: raw.githubusercontent.com unreachable" >&2
+    echo "$0: fnm.vercel.app unreachable" >&2
     return 1
   fi
 
-  mv ~/.gitconfig{.aside,}
+  mv ~/.gitconfig.aside ~/.gitconfig
 }
 
 do_install

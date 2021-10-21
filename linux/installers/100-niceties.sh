@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 function do_install() {
-  [[ -z "$INSTALL" ]] && echo "INSTALL not set" && return 1
+  [ -z "$INSTALL" ] && echo "INSTALL not set" && return 1
 
-  $INSTALL imagemagick xsel golang-go zip unzip tmux tree
+  $INSTALL imagemagick xsel zip unzip
 }
 
 do_install
