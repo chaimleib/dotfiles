@@ -26,16 +26,16 @@ function do_install() {
   [ -z "$INSTALL" ] && echo "INSTALL not set" && return 1
 
   $INSTALL \
-    $({ is_pacman && echo base-devel } ||
-      { is_apk && echo build-base } ||
-      { is_apt && echo build-essential }) \
+    $( (is_pacman && echo base-devel) ||
+      (is_apk && echo build-base) ||
+      (is_apt && echo build-essential) ) \
       autoconf automake \
     $(is_apk && echo gcr-dev webkit2gtk-dev) \
       gperf \
       w3m \
-    $({ is_pacman && echo imlib2 } ||
-        { is_apk && echo imlib2 } ||
-        { is_apt && echo w3m-img }) \
+    $( (is_pacman && echo imlib2) ||
+      (is_apk && echo imlib2) ||
+      (is_apt && echo w3m-img) ) \
     neovim \
     tree \
     ripgrep \
@@ -45,8 +45,8 @@ function do_install() {
     tmux \
     $(is_apk && echo man-db) \
     python3 $(is_apt && echo python3-distutils) \
-    $({ is_pacman && echo python-pip } ||
-      { is_apk && echo py3-pip }) \
+    $( (is_pacman && echo python-pip) ||
+      (is_apk && echo py3-pip) ) \
     nodejs npm
 
   # open browser to add ssh key to github and allow git cloning in later steps
