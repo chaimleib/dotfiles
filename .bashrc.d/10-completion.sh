@@ -15,12 +15,12 @@ fi
 case "$SHELL" in
 *zsh)
   if [ -d /usr/local/share/zsh-completions ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
+    fpath+=/usr/local/share/zsh-completions
   fi
   if have brew; then
     brewprefix=$(brew --prefix)
     if [ -d "$brewprefix"/share/zsh/site-functions ]; then
-      fpath=("$brewprefix"/share/zsh/site-functions $fpath)
+      fpath+="$brewprefix"/share/zsh/site-functions
     fi
   fi
 
