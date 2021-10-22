@@ -26,13 +26,16 @@ function do_install() {
   [ -z "$INSTALL" ] && echo "INSTALL not set" && return 1
 
   $INSTALL \
-    `{ is_pacman && echo base-devel } ||
+    $({ is_pacman && echo base-devel } ||
       { is_apk && echo build-base } ||
-      { is_apt && echo build-essential }` \
+      { is_apt && echo build-essential }) \
+      autoconf automake \
+    $(is_apk && echo gcr-dev webkit2gtk-dev) \
+      gperf \
       w3m \
-      `{ is_pacman && echo imlib2 } ||
+    $({ is_pacman && echo imlib2 } ||
         { is_apk && echo imlib2 } ||
-        { is_apt && echo w3m-img }` \
+        { is_apt && echo w3m-img }) \
     neovim \
     tree \
     ripgrep \
@@ -40,9 +43,10 @@ function do_install() {
     go \
     bash zsh \
     tmux \
-    python3 `is_apt && echo python3-distutils` \
-    `{ is_pacman && echo python-pip } ||
-      { is_apk && echo py3-pip }` \
+    $(is_apk && echo man-db) \
+    python3 $(is_apt && echo python3-distutils) \
+    $({ is_pacman && echo python-pip } ||
+      { is_apk && echo py3-pip }) \
     nodejs npm
 
   # open browser to add ssh key to github and allow git cloning in later steps
@@ -69,7 +73,7 @@ function do_install() {
 
   echo Installing fnm...
   if ping -c1 fnm.vercel.app >/dev/null; then
-    curl -fsSL https://fnm.vercel.app/install | sh -s -- --skip-shell
+    curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
   else
     echo "$0: fnm.vercel.app unreachable" >&2
     return 1
