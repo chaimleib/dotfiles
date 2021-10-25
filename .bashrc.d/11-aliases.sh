@@ -87,9 +87,13 @@ darwin*)
   octave $newargs
   }
 
-  have brew && alias brup='echo "Updating..." && brew update -v &&
-  echo "Upgrading..." && brew upgrade &&
-  echo "Cleaning..." && brew cleanup'
+  if have brew; then
+    function brup() {
+      echo "Updating..." && brew update -v &&
+        echo "Upgrading..." && brew upgrade &&
+        echo "Cleaning..." && brew cleanup
+    }
+  fi
 ;;
 esac
 
