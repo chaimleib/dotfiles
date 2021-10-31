@@ -64,60 +64,70 @@ export GIT_PS1_SHOWUPSTREAM=verbose
 export GIT_PS1_SHOWCOLORHINTS=1
 
 export HISTCONTROL=ignoredups
-if [[ "$0" == *bash ]]; then
-    shopt -s histappend
-    # https://tiswww.case.edu/php/chet/bash/bashref.html#Controlling-the-Prompt
-    # \u - username
-    # \h - hostname, 1st segment
-    # \H - hostname
-    # \n - newline
-    # \w - current working directory, tilde-contracted
-    # \W - basename of PWD, tilde-contracted
-    # \$ - # for root user, else $
-    # \[...\] - non-printing characters, for control sequences
-    p_user='\u'
-    p_host='\H'
-    p_cwd='\w'
-    p_nl=$'\n'
-    p_prompt='\$'
-elif [[ -n "$ZSH_NAME" ]]; then
-    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
-    # %n - $USERNAME
-    # %M - full machine hostname
-    # %m - hostname up to the first '.'. Int after % for # components
-    # %# - # for root, % otherwise
-    # %c - trailing component of cwd. Int after % for # components. Tilde
-    #      contraction unless %C. Deprecated, equiv to %1~ and %1/.
-    # %~ - tilde-contracted cwd. Int after % for # components.
-    # %/ - cwd. Int after % for # components.
-    # %{...%} - Include escape sequences; string inside should not change cursor
-    #           position, except if %G included. Nesting allowed.
-    # %G - inside %{...%}, increase string width by 1, or by # after %. Affects
-    #      prompt truncation, when in use.
-    p_user='%n'
-    p_host='%M'
-    p_cwd='%~'
-    p_nl=$'\n'
-    p_prompt='%#'
-fi
+case "$SHELL" in
+  */zsh)
+  # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+  # %n - $USERNAME
+  # %M - full machine hostname
+  # %m - hostname up to the first '.'. Int after % for # components
+  # %# - # for root, % otherwise
+  # %c - trailing component of cwd. Int after % for # components. Tilde
+  #      contraction unless %C. Deprecated, equiv to %1~ and %1/.
+  # %~ - tilde-contracted cwd. Int after % for # components.
+  # %/ - cwd. Int after % for # components.
+  # %{...%} - Include escape sequences; string inside should not change cursor
+  #           position, except if %G included. Nesting allowed.
+  # %G - inside %{...%}, increase string width by 1, or by # after %. Affects
+  #      prompt truncation, when in use.
+  p_user='%n'
+  p_host='%M'
+  p_cwd='%~'
+  p_nl=$'\n'
+  p_prompt='%#'
+  ;;
+  *)
+  case "$SHELL" in
+    *bash) shopt -s histappend ;;
+  esac
+
+  # https://tiswww.case.edu/php/chet/bash/bashref.html#Controlling-the-Prompt
+  # \u - username
+  # \h - hostname, 1st segment
+  # \H - hostname
+  # \n - newline
+  # \w - current working directory, tilde-contracted
+  # \W - basename of PWD, tilde-contracted
+  # \$ - # for root user, else $
+  # \[...\] - non-printing characters, for control sequences
+  p_user='\u'
+  p_host='\H'
+  p_cwd='\w'
+  p_nl=$'\n'
+  p_prompt='\$'
+  ;;
+esac
 
 function ps1_func() {
   local last_exit=$?
   local ps1
   if [[ -z "$NOPS" ]]; then
-    ps1+="$(exit_indicator "$last_exit")"
-    ps1+=$p_user
-    ps1+=@
-    ps1+="${RED}${p_host}${RESET_COLOR}"
-    ps1+=:
-    ps1+="${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
-    ps1+=$p_nl
-    ps1+="$(prompt_configs)"
-    local g=$(__git_ps1)
-    ps1+="${g:+$g }"
+    if [ -z "$NOPS1REFRESH" ]; then
+      ps1="$ps1$(exit_indicator "$last_exit")"
+    fi
+    ps1="$ps1$p_user"
+    ps1="$ps1@"
+    ps1="$ps1${RED}${p_host}${RESET_COLOR}"
+    ps1="${ps1}:"
+    ps1="$ps1${BOLD_GREEN}${p_cwd}${RESET_COLOR}"
+    ps1="$ps1$p_nl"
+    if [ -z "$NOPS1REFRESH" ]; then
+      ps1="$ps1$(prompt_configs)"
+      local g=$(__git_ps1)
+      ps1="$ps1${g:+$g }"
+    fi
   fi
-  ps1+=$p_prompt
-  ps1+=' '
+  ps1="$ps1$p_prompt"
+  ps1="$ps1 "
   PS1=$ps1
 }
 case "$SHELL" in
@@ -127,7 +137,10 @@ case "$SHELL" in
     export PROMPT_COMMAND
     ;;
   */zsh)
-    precmd_functions=( ps1_func $precmd_functions )
+    eval 'precmd_functions=( ps1_func $precmd_functions )'
+    ;;
+  *)
+    NOPS1REFRESH=y
+    ps1_func
     ;;
 esac
-
