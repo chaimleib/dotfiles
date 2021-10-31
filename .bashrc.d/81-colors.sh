@@ -2,21 +2,6 @@
 
 [[ -z "$PS1" ]] && return
 case "$SHELL" in
-  *bash)
-  RESET_COLOR='\[\e[0m\]'
-  RED='\[\e[31m\]'
-  GREEN='\[\e[32m\]'
-  YELLOW='\[\e[33m\]'
-  BLUE='\[\e[34m\]'
-  MAGENTA='\[\e[35m\]'
-  CYAN='\[\e[36m\]'
-  BOLD_RED='\[\e[31;1m\]'
-  BOLD_GREEN='\[\e[32;1m\]'
-  BOLD_YELLOW='\[\e[33;1m\]'
-  BOLD_BLUE='\[\e[34;1m\]'
-  BOLD_MAGENTA='\[\e[35;1m\]'
-  BOLD_CYAN='\[\e[36;1m\]'
-  ;;
   *zsh)
   RESET_COLOR="%f%b"
   RED="%F{red}"
@@ -31,6 +16,21 @@ case "$SHELL" in
   BOLD_BLUE="%B%F{blue}"
   BOLD_MAGENTA="%B%F{magenta}"
   BOLD_CYAN="%B%F{cyan}"
+  ;;
+  *)
+  RESET_COLOR='\[\e[0m\]'
+  RED='\[\e[31m\]'
+  GREEN='\[\e[32m\]'
+  YELLOW='\[\e[33m\]'
+  BLUE='\[\e[34m\]'
+  MAGENTA='\[\e[35m\]'
+  CYAN='\[\e[36m\]'
+  BOLD_RED='\[\e[31;1m\]'
+  BOLD_GREEN='\[\e[32;1m\]'
+  BOLD_YELLOW='\[\e[33;1m\]'
+  BOLD_BLUE='\[\e[34;1m\]'
+  BOLD_MAGENTA='\[\e[35;1m\]'
+  BOLD_CYAN='\[\e[36;1m\]'
   ;;
 esac
 
