@@ -15,41 +15,34 @@ function _round() {
 }
 
 function _mhz2ghz() {
-    # Convert MHz to GHz.
-    # Adds the GHz unit at end. Removes mhz units if present.
-    cpu_spd_mhz="`echo "$1" | tr -d 'mhzMHZ' | xargs`"
-    cpu_spd="`awk -v cpu_spd_mhz=$cpu_spd_mhz "BEGIN { print cpu_spd_mhz/1000 }"`"
-    if [[ "$cpu_spd" == [0,.]* ]]; then
-        echo "$cpu_spd_mhz MHz"
-        return
-    fi
-    cpu_spd="`_round $cpu_spd 1` GHz"
-    echo "$cpu_spd"
+  # Convert MHz to GHz.
+  # Adds the GHz unit at end. Removes mhz units if present.
+  cpu_spd_mhz="`echo "$1" | tr -d 'mhzMHZ' | xargs`"
+  cpu_spd="`awk -v cpu_spd_mhz=$cpu_spd_mhz "BEGIN { print cpu_spd_mhz/1000 }"`"
+  case "$cpu_spd" in
+  0*|.*)
+    echo "$cpu_spd_mhz MHz"
+    return
+    ;;
+  esac
+  cpu_spd="`_round $cpu_spd 1` GHz"
+  echo "$cpu_spd"
 }
 
 function _kb2human() {
     # Convert KB to a more human-readable format.
     # Adds the proper unit at the end. Removes previous units if present.
-    units=(
-        KB
-        MB
-        GB
-        TB
-        PB
-        EB
-        )
-
-    this="`echo "$1" | tr -d 'kbKB' | xargs`"
+    local amt next
+    amt="`echo "$1" | tr -d 'kbKB' | xargs`"
     next=
-    for u in ${units[*]}; do
-        next="`awk -v this=$this "BEGIN { print this/1024 }"`"
-        if [[ "$next" == [0,.]* ]]; then
-            echo "`_round $this 2` $u"
-            return
-        fi
-        this=$next
+    for u in KB MB GB TB PB EB; do
+        next="`awk -v amt=$amt "BEGIN { print amt/1024 }"`"
+        case "$next" in
+          0*|.*) break ;;
+        esac
+        amt=$next
     done
-    echo "`round $this 2` ${units[${#units}]}"
+    echo "`_round $amt 2` $u"
 }
 
 function _clean_cpu_brand() {
@@ -88,74 +81,7 @@ function lssys() {
           
         fi
         ;;
-    linux*)
-        os_arch=$(uname -p)
-        [ $os_arch = unknown ] && os_arch="`uname -m`"
 
-        ram_kb=$(grep MemTotal /proc/meminfo | grep -o '[[:digit:]]\+')
-        ram=$(_kb2human $ram_kb)
-
-        cpusec=$(cat /proc/cpuinfo | sort -u)
-        cpus=$(echo "$cpusec" | grep "physical id" | wc -l | xargs)
-        [ "${cpus:-0}" -eq 0 ] && cpus=1
-        cpu_cores=$(echo "$cpusec" | grep "^processor" | wc -l | xargs)
-        cpu_cores_per=$(echo "$cpusec" | grep "siblings" | cut -d: -f2 | xargs)
-        cpu_spd_mhz=$(echo "$cpusec" | grep "cpu MHz" | cut -d: -f2 | xargs)
-        [ -z "$cpu_spd_mhz" ] && cpu_spd_mhz=$(awk \
-            -v cpu_spd_khz=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq) \
-            'BEGIN { print cpu_spd_khz/1000 }')
-        cpu_spd=$(_mhz2ghz "$cpu_spd_mhz")
-        cpu_brand=$(echo "$cpusec" | grep "model name" | cut -d: -f2 | _clean_cpu_brand)
-
-        sourced_release=n
-        release_source_candidates=(
-            /etc/os-release
-            /etc/lsb-release
-            )
-        release_nonsource_candidates=(
-            /etc/system-release
-            /etc/release
-            /etc/redhat-release
-            /etc/centos-release
-            )
-        for f in ${release_source_candidates[*]}; do
-            if [ -e "$f" ] && grep '=' "$f" &>/dev/null; then
-                source "$f"
-                sourced_release=y
-                break
-            fi
-        done
-
-        if [ "$sourced_release" = y ]; then
-            [ -z "$NAME" ] && [ -n "$DISTRIB_ID" ] &&
-                NAME="$DISTRIB_ID"
-
-            [ -z "$VERSION" ] && [ -n "$DISTRIB_RELEASE" ] &&
-                VERSION="$DISTRIB_RELEASE"
-
-            [ -n "$DISTRIB_CODENAME" ] &&
-                ( ! echo "$VERSION" | grep -ri "$DISTRIB_CODENAME" &>/dev/null ) &&
-                VERSION="${VERSION} (${DISTRIB_CODENAME})"
-
-            if [ -n "$NAME" ] && [ -n "$VERSION" ]; then
-                os_name="${NAME} ${VERSION}"
-            elif [ -n "$PRETTY_NAME" ]; then
-                os_name="$PRETTY_NAME"
-            elif [ -n "$NAME" ] && [ -n "$VERSION_ID" ]; then
-                os_name="${NAME} ${VERSION_ID}"
-            elif [ -n "$NAME" ]; then
-                os_name="$NAME"
-            fi
-        else  # couldn't *source* a release file containing variables
-            for f in ${release_nonsource_candidates[*]}; do
-                if [ -e "$f" ]; then
-                    os_name=$( head -n1 "$f" | xargs )
-                    break
-                fi
-            done
-        fi
-
-        ;;
     cygwin*)
         ram_kb=$(grep MemTotal /proc/meminfo | grep -o '[[:digit:]]\+')
         ram=$(_kb2human "$ram_kb")
@@ -221,6 +147,64 @@ function lssys() {
             ggrep -o '^[^0-9]\+[0-9.]\+' | xargs`"
 
         #os_date="`gtail -n1 /etc/release | xargs`"
+        ;;
+
+    linux*|*)
+        os_arch=$(uname -p)
+        [ $os_arch = unknown ] && os_arch="`uname -m`"
+
+        ram_kb=$(grep MemTotal /proc/meminfo | grep -o '[[:digit:]]\+')
+        ram=$(_kb2human $ram_kb)
+
+        cpusec=$(cat /proc/cpuinfo | sort -u)
+        cpus=$(echo "$cpusec" | grep "physical id" | wc -l | xargs)
+        [ "${cpus:-0}" -eq 0 ] && cpus=1
+        cpu_cores=$(echo "$cpusec" | grep "^processor" | wc -l | xargs)
+        cpu_cores_per=$(echo "$cpusec" | grep "siblings" | cut -d: -f2 | xargs)
+        cpu_spd_mhz=$(echo "$cpusec" | grep "cpu MHz" | cut -d: -f2 | xargs)
+        [ -z "$cpu_spd_mhz" ] && cpu_spd_mhz=$(awk \
+            -v cpu_spd_khz=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq) \
+            'BEGIN { print cpu_spd_khz/1000 }')
+        cpu_spd=$(_mhz2ghz "$cpu_spd_mhz")
+        cpu_brand=$(echo "$cpusec" | grep "model name" | cut -d: -f2 | _clean_cpu_brand)
+
+        sourced_release=n
+        for f in /etc/os-release /etc/lsb-release; do
+            if [ -e "$f" ] && grep '=' "$f" &>/dev/null; then
+                source "$f"
+                sourced_release=y
+                break
+            fi
+        done
+
+        if [ "$sourced_release" = y ]; then
+            [ -z "$NAME" ] && [ -n "$DISTRIB_ID" ] &&
+                NAME="$DISTRIB_ID"
+
+            [ -z "$VERSION" ] && [ -n "$DISTRIB_RELEASE" ] &&
+                VERSION="$DISTRIB_RELEASE"
+
+            [ -n "$DISTRIB_CODENAME" ] &&
+                ( ! echo "$VERSION" | grep -ri "$DISTRIB_CODENAME" &>/dev/null ) &&
+                VERSION="${VERSION} (${DISTRIB_CODENAME})"
+
+            if [ -n "$NAME" ] && [ -n "$VERSION" ]; then
+                os_name="${NAME} ${VERSION}"
+            elif [ -n "$PRETTY_NAME" ]; then
+                os_name="$PRETTY_NAME"
+            elif [ -n "$NAME" ] && [ -n "$VERSION_ID" ]; then
+                os_name="${NAME} ${VERSION_ID}"
+            elif [ -n "$NAME" ]; then
+                os_name="$NAME"
+            fi
+        else  # couldn't *source* a release file containing variables
+            for f in /etc/{system-,,redhat-,centos-}release; do
+                if [ -e "$f" ]; then
+                    os_name=$( head -n1 "$f" | xargs )
+                    break
+                fi
+            done
+        fi
 
         ;;
     esac
@@ -228,25 +212,25 @@ function lssys() {
 
     machine_info=''
 
-    [[ -n ${os_name} ]]         && machine_info="${machine_info}\n  ${os_name}"
-    [[ -n ${kern_name} ]]       && machine_info="${machine_info}\n    ${kern_name}"
+    [ -n "${os_name}" ]         && machine_info="${machine_info}\n  ${os_name}"
+    [ -n "${kern_name}" ]       && machine_info="${machine_info}\n    ${kern_name}"
 
     cpu_info=''
-    [[ -n ${cpus} ]]            && cpu_info="${cpu_info}${cpus}x "
-    [[ -n ${cpu_cores_per} ]]   && cpu_info="${cpu_info}${cpu_cores_per}-core "
-    [[ -n ${cpu_spd} ]]         && cpu_info="${cpu_info}${cpu_spd} "
-    [[ -n ${cpu_brand} ]]       && cpu_info="${cpu_info}${cpu_brand} "
+    [ -n "${cpus}" ]            && cpu_info="${cpu_info}${cpus}x "
+    [ -n "${cpu_cores_per}" ]   && cpu_info="${cpu_info}${cpu_cores_per}-core "
+    [ -n "${cpu_spd}" ]         && cpu_info="${cpu_info}${cpu_spd} "
+    [ -n "${cpu_brand}" ]       && cpu_info="${cpu_info}${cpu_brand} "
 
     cpu_total_cores=''
-    [[ -n ${cpu_cores} ]]       && cpu_total_cores="${cpu_total_cores}${cpu_cores} cores total"
-    [[ -n ${cpu_lcores} ]]      && cpu_total_cores="${cpu_total_cores}, ${cpu_lcores} logical cores"
-    [[ -n ${cpu_total_cores} ]] && cpu_info="${cpu_info}\n    (${cpu_total_cores})"
+    [ -n "${cpu_cores}" ]       && cpu_total_cores="${cpu_total_cores}${cpu_cores} cores total"
+    [ -n "${cpu_lcores}" ]      && cpu_total_cores="${cpu_total_cores}, ${cpu_lcores} logical cores"
+    [ -n "${cpu_total_cores}" ] && cpu_info="${cpu_info}\n    (${cpu_total_cores})"
 
-    [[ -n ${cpu_info} ]]        && machine_info="${machine_info}\n  ${cpu_info}"
+    [ -n "${cpu_info}" ]        && machine_info="${machine_info}\n  ${cpu_info}"
 
-    [[ -n $ram ]]               && machine_info="${machine_info}\n  ${ram} RAM"
-    [[ -n $os_arch ]]           && machine_info="${machine_info}\n  ${os_arch} architecture"
+    [ -n "$ram" ]               && machine_info="${machine_info}\n  ${ram} RAM"
+    [ -n "$os_arch" ]           && machine_info="${machine_info}\n  ${os_arch} architecture"
 
-    [[ -n "$machine_info" ]]        && echo -e "This machine:${machine_info}"
+    [ -n "$machine_info" ]        && echo -e "This machine:${machine_info}"
 }
 
