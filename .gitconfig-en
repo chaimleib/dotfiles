@@ -2,3 +2,5 @@
 	name = Chaim Halbert
 	email = chalbert@evernote.com
 	signingkey = FAD749FFE56596A7906A6D4A873238FC4B6D04F0
+[url "git@source.build.etonreve.com:7999/"]
+  insteadOf = https://source.build.etonreve.com/scm/
