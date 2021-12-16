@@ -279,6 +279,7 @@ if 0 && executable('python3')
 endif
 Plug 'pangloss/vim-javascript'
 Plug 'solarnz/thrift.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
