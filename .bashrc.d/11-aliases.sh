@@ -44,29 +44,18 @@ function rgc() {
 
 ## Meta shortcuts
 alias reinit='export CHAIMLEIBSDOTFILES= ;source ~/.profile'
-if ! have vim && have vi; then
-  if vi -h 2>&1 | grep VIM &>/dev/null ; then
-    alias vim='vi --cmd "set nocompat" -u ~/.vimrc'
-  else
-    alias vim='vi'
-  fi
-fi
-if have nvim; then
-  alias vim='nvim'
-  alias vimdiff='nvim -d'
-fi
-alias v='vim'
+alias v=$EDITOR
 
 if ! have subl && [ -x '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' ]; then
   alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 fi
 
-alias modb='vim ~/.bashrc'
-alias moda='vim ~/.bashrc.d/??-aliases.sh'
-alias modp='vim ~/.bashrc.d/??-paths.sh'
-alias modpr='vim ~/.bashrc.d/??-prompt.sh'
-alias modv='vim ~/.vimrc'
-alias modn='vim ~/.config/nvim/init.vim'
+alias modb='v ~/.bashrc'
+alias moda='v ~/.bashrc.d/??-aliases.sh'
+alias modp='v ~/.bashrc.d/??-paths.sh'
+alias modpr='v ~/.bashrc.d/??-prompt.sh'
+alias modv='v ~/.vimrc'
+alias modn='v ~/.config/nvim/init.vim'
 
 ## OS-specific shortcuts
 case $OSTYPE in

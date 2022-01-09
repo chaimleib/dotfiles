@@ -1,6 +1,18 @@
 #!/bin/bash
 
-export EDITOR='vim'
+if ! have vim && have vi; then
+  if vi -h 2>&1 | grep VIM &>/dev/null ; then
+    EDITOR='vi --cmd "set nocompat" -u ~/.vimrc'
+  else
+    EDITOR='vi'
+  fi
+fi
+if have nvim; then
+  EDITOR='nvim'
+  alias vimdiff='nvim -d'
+fi
+export EDITOR
+
 export VISUAL="$EDITOR"
 export TIMEFORMAT='%3lR'
 export RIPGREP_CONFIG_PATH=~/.config/rg/rgrc
