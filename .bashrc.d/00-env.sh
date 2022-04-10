@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if ! have vim && have vi; then
+if ! command -v vim >/dev/null && command -v vi >/dev/null; then
   if vi -h 2>&1 | grep VIM &>/dev/null ; then
     EDITOR='vi --cmd "set nocompat" -u ~/.vimrc'
   else
     EDITOR='vi'
   fi
 fi
-if have nvim; then
+if command -v nvim >/dev/null; then
   EDITOR='nvim'
   alias vimdiff='nvim -d'
 fi
