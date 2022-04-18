@@ -1,1 +1,1 @@
-vim -R $@
+$EDITOR -R $@
