@@ -1,2 +1,4 @@
 #!/bin/bash
-[[ -z "$CHAIMLEIBSDOTFILES" ]] && . ~/.bashrc
+if [ -z "$CHAIMLEIBSDOTFILES" ]; then
+  source ~/.bashrc
+fi
