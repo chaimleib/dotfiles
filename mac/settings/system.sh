@@ -13,7 +13,3 @@ fi
 
 echo Don\'t create .DS_Store on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-
-echo Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
-

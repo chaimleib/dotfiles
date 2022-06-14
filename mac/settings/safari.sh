@@ -12,7 +12,6 @@ echo "Enable developer features"
 defaults write com.apple.Safari WebKitDeveloperExtras -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
-#defaults write com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 echo Send Do Not Track header
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true

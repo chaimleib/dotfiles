@@ -7,11 +7,8 @@ fzf
 git
 go
 chaimleib/formulae/haveinet
-hub
 imagemagick
-mas
 neovim
-openjdk
 pandoc
 pyenv
 pyenv-virtualenv
@@ -20,9 +17,7 @@ readline
 chaimleib/formulae/repoactions
 chaimleib/formulae/resolve
 ripgrep
-sqlite
 watch
-wdiff
 wget
 xz
 zsh-completions
