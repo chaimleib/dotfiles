@@ -9,6 +9,6 @@ if command -v pyenv &>/dev/null; then
   #   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   #   eval "$(pyenv virtualenv-init -)"
   # fi
-  pyenv global 2.7.17 3.8.5
+  pyenv global 2.7.18 3.10.4
 fi
 
