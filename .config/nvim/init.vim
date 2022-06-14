@@ -379,17 +379,6 @@ augroup langClient
   let g:LanguageClient_rootMarkers = ['pom.xml', 'settings.gradle', 'Cargo.toml', '.git']
   let g:LanguageClient_serverCommands = {}
 
-  if executable('flow')
-    let g:LanguageClient_serverCommands.javascript = ['flow', 'lsp']
-    auto FileType javascript setlocal omnifunc=LanguageClient#complete
-    let g:LanguageClient_serverCommands['javascript.jsx'] = ['flow', 'lsp']
-    auto FileType javascript.jsx setlocal omnifunc=LanguageClient#complete
-  " elseif !exists('g:warnedMissingFlow')
-  "   echo 'Missing language server:'
-  "   echo '  yarn global add flow-bin'
-  "   let g:warnedMissingFlow = 1
-  endif
-
   if executable('rls')
     let g:LanguageClient_serverCommands.rust = ['rls']
     auto FileType rust setlocal omnifunc=LanguageClient#complete
