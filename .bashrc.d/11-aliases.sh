@@ -19,7 +19,7 @@ case $OSTYPE in
     ;;
 esac
 
-alias l='ls -FD'
+alias l='ls -F'
 alias lll='ls -CF --color=always | more'
 alias llla='ls -CFA --color=always | more'
 alias ll='ls -lh'
