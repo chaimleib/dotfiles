@@ -99,8 +99,7 @@ fi
 
 [[ $USER = cs9f* ]] && alias g++='g++ -g -Wall -I /home/ff/cs9f/lib'
 
-# sudo vim should use my own vimrc
-alias svim='sudo -E vim'
+alias sudo='sudo -E ' # preserve env, trailing space to interpret next aliases
 
 # copy SSH key
 alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(printf " $USER") | pbcopy'
