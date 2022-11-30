@@ -7,6 +7,9 @@ if ! command -v vim >/dev/null && command -v vi >/dev/null; then
     EDITOR='vi'
   fi
 fi
+if command -v vim >/dev/null; then
+  EDITOR='vim'
+fi
 if command -v nvim >/dev/null; then
   EDITOR='nvim'
   alias vimdiff='nvim -d'
