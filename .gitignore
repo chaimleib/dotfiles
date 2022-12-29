@@ -5,4 +5,5 @@
 repos/
 .bashrc.d/*-work-aliases.sh
 .tmp.driveupload/
+.config/karabiner/automatic_backups/
 
