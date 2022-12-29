@@ -23,6 +23,9 @@ if [ -n "$JAVA_HOME" ] && [ -d "$JAVA_HOME" ]; then
 fi
 export JAVA_OPTS="-Xms512m -Xmx4096m"
 
+# for compiling 3DP firmware
+# appendPath ~/.platformio/penv/bin
+
 PKG_CONFIG_PATH="$PKG_CONFIG_PATH":/usr/local/lib:/usr/X11/lib/pkgconfig
 
 if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
