@@ -5,9 +5,9 @@ if have rbenv; then
 fi
 
 # Load RVM into a shell session *as a function*
-# if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-#   source "$HOME/.rvm/scripts/rvm"
-# fi
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+  source "$HOME/.rvm/scripts/rvm"
+fi
 
 # Rails
 alias rp='bundle exec rails runner "puts Rails.root"'
