@@ -379,6 +379,11 @@ augroup langClient
   let g:LanguageClient_rootMarkers = ['pom.xml', 'settings.gradle', 'Cargo.toml', '.git']
   let g:LanguageClient_serverCommands = {}
 
+  if executable('clangd')
+    let g:LanguageClient_serverCommands.c = ['clangd', '-log=verbose']
+    auto FileType c setlocal omnifunc=LanguageClient#complete
+  endif
+
   if executable('rls')
     let g:LanguageClient_serverCommands.rust = ['rls']
     auto FileType rust setlocal omnifunc=LanguageClient#complete
