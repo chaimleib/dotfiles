@@ -78,7 +78,6 @@ function lssys() {
         else # iOS
           os_name=$(grep -o '[^"]\+ OS [^"]*' /var/logs/AppleSupport/general.log)
           kern_name=$(uname -v | sed 's/:.*//')
-          
         fi
         ;;
 
@@ -161,11 +160,14 @@ function lssys() {
         [ "${cpus:-0}" -eq 0 ] && cpus=1
         cpu_cores=$(echo "$cpusec" | grep "^processor" | wc -l | xargs)
         cpu_cores_per=$(echo "$cpusec" | grep "siblings" | cut -d: -f2 | xargs)
-        cpu_spd_mhz=$(echo "$cpusec" | grep "cpu MHz" | cut -d: -f2 | xargs)
-        [ -z "$cpu_spd_mhz" ] && cpu_spd_mhz=$(awk \
-            -v cpu_spd_khz=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq) \
-            'BEGIN { print cpu_spd_khz/1000 }')
-        cpu_spd=$(_mhz2ghz "$cpu_spd_mhz")
+        cpu_spd=$(echo "$cpusec" | sed -En '/model name/ s/.*[^\.0-9]([\.0-9]+\s?GHz).*/\1/p')
+        cpu_spd_boost=$(sed -E \
+          -e 's/^/000/' \
+          -e 's/^([0-9]*)([0-9]{2})[0-9]{4}$/\1.\2/' \
+          -e 's/^0+//' \
+          -e 's/^\./0./' \
+          /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
+        )
         cpu_brand=$(echo "$cpusec" | grep "model name" | cut -d: -f2 | _clean_cpu_brand)
 
         sourced_release=n
@@ -219,6 +221,7 @@ function lssys() {
     [ -n "${cpus}" ]            && cpu_info="${cpu_info}${cpus}x "
     [ -n "${cpu_cores_per}" ]   && cpu_info="${cpu_info}${cpu_cores_per}-core "
     [ -n "${cpu_spd}" ]         && cpu_info="${cpu_info}${cpu_spd} "
+    [ -n "${cpu_spd_boost}" ]   && cpu_info="${cpu_info}(${cpu_spd_boost}GHz boost) "
     [ -n "${cpu_brand}" ]       && cpu_info="${cpu_info}${cpu_brand} "
 
     cpu_total_cores=''
