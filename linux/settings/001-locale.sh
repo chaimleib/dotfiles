@@ -6,5 +6,5 @@ if [ -f /etc/locale.gen ]; then
     -e 's/# \(en_US\.UTF-8 UTF-8\)/\1/' \
     /etc/locale.gen
   sudo locale-gen
-  sudo update-locale LANG=en_US.UTF-8
+  command -v update-locale >/dev/null && sudo update-locale LANG=en_US.UTF-8
 fi
