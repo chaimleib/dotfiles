@@ -22,7 +22,7 @@ elif command -v apk &>/dev/null; then
   INSTALL='sudo apk add'
 elif command -v pacman &>/dev/null; then
   sudo pacman -Syu
-  INSTALL='sudo pacman -S --noconfirm'
+  INSTALL='sudo pacman -S --needed --noconfirm'
 fi
 export INSTALL
 
