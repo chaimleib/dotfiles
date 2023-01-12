@@ -23,7 +23,11 @@ export RIPGREP_CONFIG_PATH=~/.config/rg/rgrc
 # By default, SHELL gets set to the user's preferred shell (set via chsh),
 # regardless of the shell currently running. I always want new shells to be
 # like the currently-running shell unless I specify explicitly.
-cm=$(ps -o pid,comm | awk '$1=='$$' { print $2 }')
+if [ -n "$$" ]; then
+  cm=$(ps -o pid,comm | awk '$1=='"$$"' { print $2 }')
+else
+  cm=$SHELL
+fi
 case "$cm" in
   -*) export SHELL=$(which "${cm#-}") ;;
   *.sh) ;;
