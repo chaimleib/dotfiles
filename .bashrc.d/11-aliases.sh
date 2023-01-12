@@ -104,8 +104,6 @@ alias sudo='sudo -E ' # preserve env, trailing space to interpret next aliases
 # copy SSH key
 alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(printf " $USER") | pbcopy'
 
-alias brew='PATH=${PATH//$(pyenv root)\/shims:/} brew'
-
 ## Directory shortcuts
 function cdalias() {
   # alias maker for cd <dir>
