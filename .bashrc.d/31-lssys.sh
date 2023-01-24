@@ -67,7 +67,9 @@ function lssys() {
 
           cpus=$(echo "$profsec" | grep "Number of Processors" | cut -d: -f2 | xargs)
           cpu_cores=$(echo "$profsec" | grep "Total Number of Cores:" | cut -d: -f2 | xargs)
-          cpu_cores_per=$(( $cpu_cores / $cpus ))
+          if echo "$cpu_cores" | grep -E '^\d+$' >/dev/null; then
+            cpu_cores_per=$(( $cpu_cores / $cpus ))
+          fi
           cpu_spd=$(echo "$profsec" | grep "Processor Speed" | cut -d: -f2 | xargs)
           cpu_brand=$(sysctl -n machdep.cpu.brand_string | cut -d: -f2 | _clean_cpu_brand)
 
@@ -227,7 +229,7 @@ function lssys() {
     cpu_total_cores=''
     [ -n "${cpu_cores}" ]       && cpu_total_cores="${cpu_total_cores}${cpu_cores} cores total"
     [ -n "${cpu_lcores}" ]      && cpu_total_cores="${cpu_total_cores}, ${cpu_lcores} logical cores"
-    [ -n "${cpu_total_cores}" ] && cpu_info="${cpu_info}\n    (${cpu_total_cores})"
+    [ -n "${cpu_total_cores}" ] && cpu_info="${cpu_info}\n    ${cpu_total_cores}"
 
     [ -n "${cpu_info}" ]        && machine_info="${machine_info}\n  ${cpu_info}"
 
