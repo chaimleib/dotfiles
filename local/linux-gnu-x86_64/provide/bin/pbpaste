@@ -1,14 +1,16 @@
 #!/bin/bash
-if xsel --version &>/dev/null; then
+if wl-paste --version &>/dev/null; then
+  wl-paste
+elif xsel --version &>/dev/null; then
   xsel --clipboard --output
 elif xclip --version &>/dev/null; then
   xclip -selection clipboard -o
 else
   name=$(basename "$0")
   (
-  echo "$name depends on xsel or xclip. Install them with"
+  echo "$name depends on wl-paste, xsel or xclip. Install them with one of"
+  echo "  sudo pacman -S wl-clipboard"
   echo "  sudo apt-get install xsel"
-  echo "or"
   echo "  sudo apt-get install xclip"
   ) >&2
 fi
