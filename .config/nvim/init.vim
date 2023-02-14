@@ -382,6 +382,8 @@ augroup langClient
   if executable('clangd')
     let g:LanguageClient_serverCommands.c = ['clangd', '-log=verbose']
     auto FileType c setlocal omnifunc=LanguageClient#complete
+    let g:LanguageClient_serverCommands.cpp = ['clangd', '-log=verbose']
+    auto FileType cpp setlocal omnifunc=LanguageClient#complete
   endif
 
   if executable('rls')
@@ -439,6 +441,11 @@ augroup langClient
   "   echo 'Missing language server:'
   "   echo '  :GoInstallBinaries'
   "   let g:warnedMissingGopls = 1
+  endif
+
+  if executable('clangd')
+    let g:LanguageClient_serverCommands.c = ['clangd']
+    auto FileType c setlocal omnifunc=LanguageClient#complete
   endif
 
   "all languages
