@@ -40,6 +40,7 @@ if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
     ;;
   esac
 fi
+prependPath /opt/homebrew/bin
 # Haskell
 # prependPath ~/.cabal/bin
 
