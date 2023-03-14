@@ -43,7 +43,7 @@ function do_install() {
     go \
     bash zsh \
     tmux \
-    $(is_apk && echo man-db) \
+    $(is_apk && echo man-db man-pages) \
     python3 $(is_apt && echo python3-distutils) \
     $( (is_pacman && echo python-pip) ||
       (is_apk && echo py3-pip) ) \
