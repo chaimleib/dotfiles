@@ -5,7 +5,7 @@ removePath .
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Override default binaries with usr binaries
-PATH="$PYENV_ROOT"/bin:~/go/bin:~/.yarn/bin:~/.cargo/bin:/usr/local/bin:/usr/local/sbin:"$PATH"
+PATH="$PYENV_ROOT"/bin:~/go/bin:~/.yarn/bin:~/.cargo/bin:~/.local/bin:/usr/local/bin:/usr/local/sbin:"$PATH"
 
 [ -d /usr/local/opt/mysql@5.7 ] && PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
