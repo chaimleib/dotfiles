@@ -1,0 +1,21 @@
+#!/bin/sh
+
+function catOrArg() {
+  if [ -n "$1" ]; then
+    echo "$@"
+    return
+  fi
+  cat
+}
+
+ELECTRONFLAGS=$(tr '\n' ' ' <~/.config/electron-flags.conf)
+
+# replaces commands echoed from the app launcher
+exec $(catOrArg "$@" | sed -E \
+  -e 's/^firefox\b/env MOZ_ENABLE_WAYLAND=1 firefox/' \
+  -e 's/^evolution\b/env GDK_DPI_SCALE=0.75 GDK_SCALE=1 evolution/' \
+  -e 's/^whatsdesk\b/whatsdesk '"$ELECTRONFLAGS"'/' \
+  -e 's/^evernote\b/evernote '"$ELECTRONFLAGS"'/' \
+  -e 's/^telegram-desktop\b/telegram-desktop '"$ELECTRONFLAGS"'/' \
+  -e 's/^signal-desktop-beta\b/signal-desktop-beta '"$ELECTRONFLAGS"'/'
+)

@@ -49,7 +49,8 @@ function linhomedotconfig() {
   _lnargs \
     .config/nvim/init.vim \
     .config/nvim/autoload \
-    .config/rg
+    .config/rg \
+    .config/sway/config
   popd >/dev/null
 }
 
