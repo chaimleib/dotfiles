@@ -22,7 +22,7 @@ set $mail GDK_DPI_SCALE=0.75 GDK_SCALE=1 evolution
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu | swaymsg
 set $uifontfamily "Noto"
 set $uifontsizems "8"
 set $uifont "$uifontfamily $uifontsizems"
