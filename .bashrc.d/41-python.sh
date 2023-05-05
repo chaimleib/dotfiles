@@ -9,6 +9,7 @@ if command -v pyenv &>/dev/null; then
   #   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   #   eval "$(pyenv virtualenv-init -)"
   # fi
-  pyenv global $(pyenv versions | grep -F 3.10 | sort -rV | head -n1)
+  pyversion=$(pyenv versions | sed -En 's/^[^\d]*(3\.10(\.\d+)?).*$/\1/p' | sort -rV | head -n1)
+  pyenv global "$pyversion"
 fi
 
