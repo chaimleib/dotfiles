@@ -2,6 +2,7 @@
 
 set show-all-if-ambiguous on
 set bell-style none
+set enable-bracketed-paste on
 
 $if mode=emacs
   "\C-x\C-e": edit-and-execute-command
