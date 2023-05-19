@@ -248,6 +248,7 @@ let g:javascript_plugin_flow = 1
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/tagalong.vim'
 Plug 'cespare/vim-toml'
 Plug 'easymotion/vim-easymotion'
 if has('patch-7-4-2009') && executable('go')

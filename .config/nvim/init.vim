@@ -280,6 +280,7 @@ let g:javascript_plugin_flow = 1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/tagalong.vim'
 Plug 'cespare/vim-toml'
 Plug 'easymotion/vim-easymotion'
 if executable('go')
