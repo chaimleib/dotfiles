@@ -4,6 +4,8 @@ set ignorecase
 set smartcase
 set nohlsearch
 set incsearch "incsearch.vim highlights all matches, below
+autocmd CmdlineEnter [/\?] :set hlsearch
+autocmd CmdlineLeave [/\?] :set nohlsearch
 
 colorscheme desert
 set background=dark
@@ -287,8 +289,6 @@ if executable('go')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 endif
 Plug 'FooSoft/vim-argwrap'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax
 if executable('fzf')
   Plug 'junegunn/fzf'
