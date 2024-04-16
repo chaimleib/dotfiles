@@ -23,6 +23,9 @@ elif command -v apk &>/dev/null; then
 elif command -v pacman &>/dev/null; then
   sudo pacman -Syu
   INSTALL='sudo pacman -S --needed --noconfirm'
+elif command -v dnf &>/dev/null; then
+  sudo dnf update -y
+  INSTALL='sudo dnf install -y'
 fi
 export INSTALL
 
@@ -30,4 +33,3 @@ for file in $(ls "$this_dir"/installers/*.sh); do
   [ -x "$file" ] && "$file"
 done
 unset INSTALL
-git reset --hard  # undo changes to rc files
