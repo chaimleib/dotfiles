@@ -25,6 +25,8 @@ alias llla='ls -CFA --color=always | more'
 alias ll='ls -lh'
 alias la='ls -ACF'
 
+alias s='source ~/.bashrc'
+
 function sw() {
   tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
   mv "$1" "$tmpfile"
@@ -125,6 +127,7 @@ cdalias cddv   /dev
 cdalias cddw   ~/Downloads
 cdalias cde    /etc
 cdalias cdl    ~/Library
+cdalias cd3    ~/3pp
 cdalias cdloc  ~/dotfiles/local
 cdalias cds    ~/Sites/chaimleib.github.io
 cdalias cdu    /usr
