@@ -63,7 +63,22 @@ export GIT_PS1_SHOWUPSTREAM=verbose
 #export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWCOLORHINTS=1
 
-export HISTCONTROL=ignoredups
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=5000
+export SAVEHIST=$HISTSIZE
+# export HISTCONTROL=erasedups
+
+case "$SHELL" in
+*zsh)
+  setopt INC_APPEND_HISTORY
+  setopt HIST_FIND_NO_DUPS
+  ;;
+*bash)
+  shopt -s histappend
+  ;;
+esac
+
+
 case "$SHELL" in
   */zsh)
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
@@ -86,9 +101,6 @@ case "$SHELL" in
   p_prompt='%#'
   ;;
   *)
-  case "$SHELL" in
-    *bash) shopt -s histappend ;;
-  esac
 
   # https://tiswww.case.edu/php/chet/bash/bashref.html#Controlling-the-Prompt
   # \u - username
