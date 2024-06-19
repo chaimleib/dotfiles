@@ -4,7 +4,8 @@
 NVM_DIR="$HOME/.nvm"
 
 # Initialize shell function/vars
-if command -v fnm &>/dev/null; then
+if [ -d ~/.local/share/fnm ]; then
+  PATH="~/.local/share/fnm:$PATH"
   eval "$(fnm env)"
 elif [ -f "$NVM_DIR"/nvm.sh ]; then
   export NVM_DIR
