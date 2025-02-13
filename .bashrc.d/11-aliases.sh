@@ -34,7 +34,6 @@ function sw() {
   mv "$tmpfile" "$2"
 }
 
-alias more='less -R --SILENT --hilite-search --status-column'
 alias search-content='grep --color=always -n'
 function rgm() {
   rg --color=always "$@" | cut -c1-500 | more
@@ -45,19 +44,15 @@ function rgc() {
 
 
 ## Meta shortcuts
-alias reinit='export CHAIMLEIBSDOTFILES= ;source ~/.profile'
+alias s='export CHAIMLEIBSDOTFILES= ;source ~/.profile'
 alias v=$EDITOR
 
-if ! have subl && [ -x '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' ]; then
-  alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-fi
-
-alias modb='v ~/.bashrc'
-alias moda='v ~/.bashrc.d/??-aliases.sh'
-alias modp='v ~/.bashrc.d/??-paths.sh'
-alias modpr='v ~/.bashrc.d/??-prompt.sh'
-alias modv='v ~/.vimrc'
-alias modn='v ~/.config/nvim/init.vim'
+alias vb='v ~/.bashrc'
+alias va='v ~/.bashrc.d/??-aliases.sh'
+alias vp='v ~/.bashrc.d/??-paths.sh'
+alias vpr='v ~/.bashrc.d/??-prompt.sh'
+alias vv='v ~/.vimrc'
+alias vn='v ~/.config/nvim/init.vim'
 
 ## OS-specific shortcuts
 case $OSTYPE in
@@ -65,21 +60,22 @@ darwin*)
   alias hide='sudo chflags hidden'
   alias unhide='sudo chflags nohidden'
 
+  # replace matlab with octave
   ! have matlab && function matlab() {
-  newargs=''
-  for arg in "$@"; do
-  case $arg in
-  -nosplash|-nodesktop) echo "Ignored unknown option: $arg" >/dev/stderr
-  ;;
-  *) newargs="$newargs $arg"
-  ;;
-  esac
-  done
-  octave $newargs
+    newargs=''
+    for arg in "$@"; do
+      case $arg in
+      -nosplash|-nodesktop) echo "Ignored unknown option: $arg" >/dev/stderr
+      ;;
+      *) newargs="$newargs $arg"
+      ;;
+      esac
+    done
+    octave $newargs
   }
 
   if have brew; then
-    function brup() {
+    function b() {
       echo "Updating..." && brew update -v &&
         echo "Upgrading..." && brew upgrade &&
         echo "Cleaning..." && brew cleanup
@@ -104,7 +100,7 @@ fi
 alias sudo='sudo -E ' # preserve env, trailing space to interpret next aliases
 
 # copy SSH key
-alias cpkey='cat <(cat ~/.ssh/id_rsa.pub | xargs echo -n) <(printf " $USER") | pbcopy'
+alias cpkey='< ~/.ssh/id_ed25519.pub pbcopy'
 
 ## Directory shortcuts
 function cdalias() {
@@ -117,9 +113,10 @@ function cdalias() {
   fi
 }
 
+cdalias cd3    ~/3pp
 cdalias cda    /Applications
 cdalias cdb    ~/dotfiles/.bashrc.d
-cdalias cdc    /usr/local/Cellar
+cdalias cdc    ~/.config
 cdalias cdd    ~/Desktop
 cdalias cddc   ~/Documents
 cdalias cddot  ~/dotfiles
@@ -133,13 +130,11 @@ cdalias cds    ~/Sites/chaimleib.github.io
 cdalias cdu    /usr
 cdalias cdul   /usr/local
 cdalias cdv    /Volumes
+cdalias cdz    ~/.zshrc.d
 
 cdalias cdp    ~/projects
 cdalias cdpg   ~/projects/github
-cdalias cdpp   ~/Documents/Programming/Python
-cdalias cdy    ~/Documents/Programming/Renpy/yesoidos/game
 
-cdi() {
-  cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/"$1"
-}
-
+if have upower; then
+  alias bat='upower -i `upower -e | grep BAT`'
+fi
