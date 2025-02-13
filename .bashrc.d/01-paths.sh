@@ -5,7 +5,7 @@ removePath .
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Override default binaries with usr binaries
-PATH="$PYENV_ROOT"/bin:~/go/bin:~/.yarn/bin:~/.cargo/bin:~/.local/bin:/usr/local/bin:/usr/local/sbin:"$PATH"
+PATH="$PYENV_ROOT"/bin:~/go/bin:~/.yarn/bin:~/.cargo/bin:~/.local/bin:~/bin:/usr/local/bin:/usr/local/sbin:"$PATH"
 
 [ -d /var/lib/snapd/snap/bin ] && PATH="/var/lib/snapd/snap/bin:$PATH"
 
