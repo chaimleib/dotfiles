@@ -74,13 +74,16 @@ darwin*)
     octave $newargs
   }
 
-  if have brew; then
-    function b() {
-      echo "Updating..." && brew update -v &&
-        echo "Upgrading..." && brew upgrade &&
-        echo "Cleaning..." && brew cleanup
-    }
-  fi
+  have brew && function b() {
+    echo "Updating..." && brew update -v &&
+      echo "Upgrading..." && brew upgrade &&
+      echo "Cleaning..." && brew cleanup
+  }
+  ;;
+linux-gnu*)
+  have dnf && function b() {
+    sudo dnf update
+  }
 ;;
 esac
 
