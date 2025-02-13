@@ -235,6 +235,7 @@ set laststatus=2
 " %p vertical position as percent of file
 " %l/%L line number/total lines
 " %v column number
+let g:airline_theme='molokai'
 if !exists('g:airline_section_a')
   set statusline=%F%r%w%=%y\ %p%%\ %l/%L,%v
 endif
