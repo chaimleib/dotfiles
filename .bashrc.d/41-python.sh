@@ -9,7 +9,15 @@ if command -v pyenv &>/dev/null; then
   #   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   #   eval "$(pyenv virtualenv-init -)"
   # fi
-  pyversion=$(pyenv versions | sed -En 's/^[^\d]*(3\.11(\.\d+)?).*$/\1/p' | sort -rV | head -n1)
-  pyenv global "$pyversion"
+  pyversion=$(
+    pyenv versions |
+      sed -En 's/^[^\d]*(3\.[1-9]\d(\.\d+)?).*$/\1/p' |
+      sort -rV | head -n1
+  )
+  if [[ -z "$pyversion" ]]; then
+    # use system default
+    return
+  fi
+  pyenv global "$pyversion" >/dev/null
 fi
 
