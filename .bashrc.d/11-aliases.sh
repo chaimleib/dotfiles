@@ -52,7 +52,7 @@ alias va='v ~/.bashrc.d/??-aliases.sh'
 alias vp='v ~/.bashrc.d/??-paths.sh'
 alias vpr='v ~/.bashrc.d/??-prompt.sh'
 alias vv='v ~/.vimrc'
-alias vn='v ~/.config/nvim/init.vim'
+alias vn='v ~/.config/nvim/init.lua'
 
 ## OS-specific shortcuts
 case $OSTYPE in
