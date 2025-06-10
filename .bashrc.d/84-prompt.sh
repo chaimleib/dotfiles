@@ -66,7 +66,6 @@ export GIT_PS1_SHOWCOLORHINTS=1
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
-# export HISTCONTROL=erasedups
 
 case "$SHELL" in
 *zsh)
@@ -75,6 +74,7 @@ case "$SHELL" in
   ;;
 *bash)
   shopt -s histappend
+  export HISTCONTROL=erasedups
   ;;
 esac
 
