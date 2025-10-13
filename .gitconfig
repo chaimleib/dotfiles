@@ -3,8 +3,6 @@
 [user]
 	name = Chaim Halbert
 	email = chaim.leib.halbert@gmail.com
-[includeIf "gitdir:~/projects/evernote/**"]
-  path = ~/.gitconfig-en
 [color]
 	ui = auto
 [var]
