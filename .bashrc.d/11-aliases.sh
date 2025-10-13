@@ -30,7 +30,7 @@ alias s='source ~/.bashrc'
 alias dt='date +"%Y-%m-%d"'
 alias dtt='date +"%Y-%m-%d-%H-%M-%S%z"'
 
-alias bb='borg create --exclude-from ~/.borgignore /run/media/chaimleib/EMF/borg::`dtt` ~'
+alias bb='borg create -v --stats --exclude-from ~/.borgignore /run/media/chaimleib/EMF/borg::`dtt` ~'
 
 function sw() {
   tmpfile=$(mktemp $(dirname "$1")/XXXXXX)
