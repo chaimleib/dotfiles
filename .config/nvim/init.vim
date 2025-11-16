@@ -136,7 +136,9 @@ vnoremap <leader><leader> <Esc>
 tnoremap <leader><leader> <C-\><C-n>
 
 "Copy-paste modes
-set pastetoggle=<F1>
+if !has('nvim')
+  set pastetoggle=<F1>
+endif
 "Pass clipboard through to tmux (see .tmux.conf)
 set clipboard=unnamedplus
 
