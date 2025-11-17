@@ -76,31 +76,7 @@ function do_install() {
     wait_for_browser https://github.com/settings/ssh/new
   fi
 
-  echo Installing Rust...
-  mv ~/.gitconfig ~/.gitconfig.aside
-
-  # install rust for vim :PlugUpdate
-  # Otherwise, will get bogged down from Language Server Client
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-  ~/.cargo/bin/rustup component add rls rust-analysis rust-src
-
-  echo Installing pynvim
-  sudo pip3 install pynvim  # required for vim plug roxma/nvim-yarp
-
   . ~/.bashrc
-
-  echo Install nvim plugins
-  nvim -c :PlugUpdate
-
-  echo Installing fnm...
-  if ping -c1 fnm.vercel.app >/dev/null; then
-    curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
-  else
-    echo "$0: fnm.vercel.app unreachable" >&2
-    return 1
-  fi
-
-  mv ~/.gitconfig.aside ~/.gitconfig
 }
 
 do_install
