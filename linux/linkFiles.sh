@@ -47,10 +47,13 @@ function linhomedotconfig() {
   mkdir -p "${HOME}/.config/nvim"
   pushd "$this_dir/.." >/dev/null
   _lnargs \
-    .config/nvim/init.vim \
-    .config/nvim/autoload \
     .config/rg \
-    .config/sway/config
+    .config/sway/config \
+    .config/hypr/hyprland.conf \
+    .config/niri/config.kdl \
+    .config/waybar/config.jsonc \
+    .config/waybar/power_menu.xml \
+    .config/waybar/style.css
   popd >/dev/null
 }
 
