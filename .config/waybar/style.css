@@ -1,6 +1,6 @@
 * {
-    font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
-    font-size: 13px;
+    font-family: 'Nimbus Sans', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+    font-size: 16px;
 }
 
 window#waybar {
@@ -53,7 +53,9 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
     background-color: transparent;
     color: #ffffff;
 }
@@ -97,7 +99,9 @@ button:hover {
 #mpd {
     color: #ffffff;
     background-color: #2d3436;
-    padding: 0 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
     border-radius: 6px;
 }
 
