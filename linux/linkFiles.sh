@@ -44,7 +44,13 @@ function linhome() {
 }
 
 function linhomedotconfig() {
-  mkdir -p "${HOME}/.config/nvim"
+  mkdir -p \
+	  "${HOME}/.config/hypr" \
+	  "${HOME}/.config/niri" \
+	  "${HOME}/.config/nvim" \
+	  "${HOME}/.config/sway" \
+	  "${HOME}/.config/waybar"
+
   pushd "$this_dir/.." >/dev/null
   _lnargs \
     .config/rg \
