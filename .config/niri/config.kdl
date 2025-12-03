@@ -376,6 +376,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T repeat=false hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D repeat=false hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "pkill fuzzel || fuzzel"; }
+    Mod+E repeat=false hotkey-overlay-title="Manage Files: Nautilus" { spawn "nautilus"; }
     Super+Alt+L repeat=false hotkey-overlay-title="Lock the Screen" { spawn "loginctl" "lock-session"; }
     Mod+Slash repeat=false hotkey-overlay-title="Browse the Web: Brave Browser" { spawn "brave-browser"; }
 
