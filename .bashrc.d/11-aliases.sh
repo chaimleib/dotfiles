@@ -55,10 +55,12 @@ alias v=$EDITOR
 alias vb='v ~/.bashrc'
 alias va='v ~/.bashrc.d/??-aliases.sh'
 alias vh='v ~/.config/hypr/hyprland.conf'
+alias vni='v ~/.config/niri/config.kdl'
 alias vp='v ~/.bashrc.d/??-paths.sh'
 alias vpr='v ~/.bashrc.d/??-prompt.sh'
 alias vv='v ~/.vimrc'
 alias vn='v ~/.config/nvim/init.lua'
+alias vw='v ~/.config/waybar/style.css'
 
 ## OS-specific shortcuts
 case $OSTYPE in
