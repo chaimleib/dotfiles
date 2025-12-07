@@ -70,7 +70,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="10%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -79,6 +79,16 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+output "eDP-1" {
+    // Uncomment this line to disable this output.
+    // off
+    scale 1.5
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+    focus-at-startup
+}
+
 output "eDP-2" {
     // Uncomment this line to disable this output.
     // off
