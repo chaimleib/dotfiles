@@ -19,5 +19,6 @@ if command -v pyenv &>/dev/null; then
     return
   fi
   pyenv global "$pyversion" >/dev/null
+  eval "$(pyenv virtualenv-init -)"
 fi
 
