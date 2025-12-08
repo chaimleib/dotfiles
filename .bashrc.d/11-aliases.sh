@@ -26,6 +26,7 @@ alias ll='ls -lh'
 alias la='ls -ACF'
 
 alias s='source ~/.bashrc'
+alias progs='fd -t x . $(for d in $(lspath | sort -u); do [ -d "$d" ] && echo "$d"; done) | sort'
 
 alias dt='date +"%Y-%m-%d"'
 alias dtt='date +"%Y-%m-%d-%H-%M-%S%z"'
@@ -135,7 +136,6 @@ cdalias cddv   /dev
 cdalias cddw   ~/Downloads
 cdalias cde    /etc
 cdalias cdl    ~/Library
-cdalias cd3    ~/3pp
 cdalias cdloc  ~/dotfiles/local
 cdalias cds    ~/Sites/chaimleib.github.io
 cdalias cdu    /usr
