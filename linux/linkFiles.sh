@@ -47,6 +47,7 @@ function linhomedotconfig() {
   mkdir -p \
 	  "${HOME}/.config/fuzzel" \
 	  "${HOME}/.config/hypr" \
+	  "${HOME}/.config/kitty" \
 	  "${HOME}/.config/niri" \
 	  "${HOME}/.config/nvim" \
 	  "${HOME}/.config/sway" \
@@ -58,6 +59,7 @@ function linhomedotconfig() {
     .config/fuzzel/fuzzel.ini \
     .config/hypr/hyprland.conf \
     .config/hypr/hyprlock.conf \
+    .config/kitty/kitty.conf \
     .config/niri/config.kdl \
     .config/sway/config \
     .config/waybar/config.jsonc \
