@@ -45,6 +45,7 @@ function linhome() {
 
 function linhomedotconfig() {
   mkdir -p \
+	  "${HOME}/.config/fuzzel" \
 	  "${HOME}/.config/hypr" \
 	  "${HOME}/.config/niri" \
 	  "${HOME}/.config/nvim" \
@@ -54,9 +55,10 @@ function linhomedotconfig() {
   pushd "$this_dir/.." >/dev/null
   _lnargs \
     .config/rg \
-    .config/sway/config \
+    .config/fuzzel/fuzzel.ini \
     .config/hypr/hyprland.conf \
     .config/niri/config.kdl \
+    .config/sway/config \
     .config/waybar/config.jsonc \
     .config/waybar/power_menu.xml \
     .config/waybar/style.css
