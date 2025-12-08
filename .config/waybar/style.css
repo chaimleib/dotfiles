@@ -15,15 +15,6 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
 window#waybar.termite {
     background-color: #3F3F3F;
 }
@@ -43,13 +34,7 @@ button {
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
-    background: inherit;
     box-shadow: inset 0 -3px #ffffff;
-}
-
-/* you can set a style on hover for any module like this */
-#pulseaudio:hover {
-    background-color: #a37800;
 }
 
 #workspaces button {
@@ -61,7 +46,7 @@ button:hover {
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background-color: #333348;
 }
 
 #workspaces button.active {
@@ -101,7 +86,7 @@ button:hover {
     background-color: #2d3436;
     padding-left: 8px;
     padding-right: 8px;
-    padding-top: 3px;
+    padding-top: 3px; /* because of Nimbus Sans font */
     border-radius: 6px;
 }
 
@@ -153,7 +138,8 @@ button:hover {
 }
 
 #power-profiles-daemon {
-    /* padding-right: 15px; */
+    /* icon-only modules shift differently from text+icon, depending on font */
+    padding-top: 0;
 }
 
 #power-profiles-daemon.performance {
@@ -170,8 +156,11 @@ button:hover {
     color: #ffffff;
 }
 
-label:focus {
-    background-color: #000000;
+#bluetooth:hover,
+#idle_inhibitor:hover,
+#power-profiles-daemon:hover,
+#pulseaudio:hover {
+    box-shadow: inset 0 -3px #ffffff;
 }
 
 #cpu {
@@ -187,7 +176,7 @@ label:focus {
 }
 
 #backlight {
-    /* background-color: #90b1b1; */
+    background-color: #408181;
 }
 
 #network {
@@ -200,7 +189,6 @@ label:focus {
 
 #pulseaudio {
     background-color: #9160b1;
-    /* color: #000000; */
 }
 
 #pulseaudio.muted {
@@ -303,7 +291,7 @@ label:focus {
 }
 
 #scratchpad.empty {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 #privacy {
