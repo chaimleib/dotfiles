@@ -57,6 +57,7 @@ function linhomedotconfig() {
   _lnargs \
     .config/rg \
     .config/fuzzel/fuzzel.ini \
+    .config/hypr/hypridle.conf \
     .config/hypr/hyprland.conf \
     .config/hypr/hyprlock.conf \
     .config/kitty/kitty.conf \
