@@ -29,17 +29,17 @@ function is_dnf() {
   return 1
 }
 
-function wait_for_browser() {
-  if command -v brave-browser >/dev/null; then
-    tmpdir=$(mktemp -d)
-    cp -r ~/.config/BraveSoftware/Brave-Browser/ "$tmpdir"
-    rm -rf "$tmpdir"/Singleton*
-    brave-browser --user-data-dir="$tmpdir" "$1"
-    rm -rf "$tmpdir"
-  else
-    w3m "$1"
-  fi
-}
+# function wait_for_browser() {
+#   if command -v brave-browser >/dev/null; then
+#     tmpdir=$(mktemp -d)
+#     cp -r ~/.config/BraveSoftware/Brave-Browser/ "$tmpdir"
+#     rm -rf "$tmpdir"/Singleton*
+#     brave-browser --user-data-dir="$tmpdir" "$1"
+#     rm -rf "$tmpdir"
+#   else
+#     w3m "$1"
+#   fi
+# }
 
 function do_install() {
   [ -z "$INSTALL" ] && echo "INSTALL not set" && return 1
@@ -71,10 +71,10 @@ function do_install() {
     nodejs $( (is_dnf && echo nodejs-npm) || echo npm)
 
   # open browser to add ssh key to github and allow git cloning in later steps
-  echo Checking if we need to register pubkey with github.com...
-  if ! grep -F github.com ~/.ssh/known_hosts &>/dev/null; then
-    wait_for_browser https://github.com/settings/ssh/new
-  fi
+  # echo Checking if we need to register pubkey with github.com...
+  # if ! grep -F github.com ~/.ssh/known_hosts &>/dev/null; then
+  #   wait_for_browser https://github.com/settings/ssh/new
+  # fi
 
   . ~/.bashrc
 }
