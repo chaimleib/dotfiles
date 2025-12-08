@@ -5,14 +5,8 @@
 	email = chaim.leib.halbert@gmail.com
 [color]
 	ui = auto
-[var]
-	projectsDirectory = /Users/chalbert/projects/evernote
 [rerere]
 	enabled = true
-[credential]
-	helper = osxkeychain
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 [pull]
 	ff = only
 [init]
