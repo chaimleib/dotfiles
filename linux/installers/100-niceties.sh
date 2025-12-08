@@ -12,7 +12,8 @@ function do_install() {
 
   $INSTALL \
     $( (is_dnf && echo ImageMagick) || echo imagemagick) \
-    zip unzip
+    zip unzip \
+    gh
 }
 
 do_install
