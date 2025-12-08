@@ -56,6 +56,7 @@ alias v=$EDITOR
 alias vb='v ~/.bashrc'
 alias va='v ~/.bashrc.d/??-aliases.sh'
 alias vh='v ~/.config/hypr/hyprland.conf'
+alias vl='v ~/.config/hypr/hyprlock.conf'
 alias vni='v ~/.config/niri/config.kdl'
 alias vp='v ~/.bashrc.d/??-paths.sh'
 alias vpr='v ~/.bashrc.d/??-prompt.sh'

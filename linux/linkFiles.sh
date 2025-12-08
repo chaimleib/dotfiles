@@ -57,6 +57,7 @@ function linhomedotconfig() {
     .config/rg \
     .config/fuzzel/fuzzel.ini \
     .config/hypr/hyprland.conf \
+    .config/hypr/hyprlock.conf \
     .config/niri/config.kdl \
     .config/sway/config \
     .config/waybar/config.jsonc \
