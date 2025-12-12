@@ -18,8 +18,9 @@ function do_install() {
     fuzzel \
     network-manager-applet
 
-  is_dnf && sudo dnf copr enable solopasha/hyprland && $INSTALL \
+  is_dnf && sudo dnf copr enable -y lionheartp/hyprland && $INSTALL \
     hyprland \
+    hyprland-guiutils \
     hypridle \
     hyprlock
 }
