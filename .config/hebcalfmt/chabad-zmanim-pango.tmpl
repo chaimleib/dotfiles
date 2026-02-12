@@ -1,0 +1,288 @@
+{{- /* Shows: */ -}}
+{{- /*  - the given date in Jewish and Civil calendars */ -}}
+{{- /*  - special events today */ -}}
+{{- /*  - the omer count */ -}}
+{{- /*  - the parsha to be read this Shabbos */ -}}
+{{- /*  - generic zmanim */ -}}
+{{- /*  - zmanim specific to the day */ -}}
+{{- /*  - length of the halachic hour */ -}}
+{{- /*  - a warning about zmanim accuracy */ -}}
+{{- /*  - the past molad, until the 15th of the month */ -}}
+{{- /*  - the next molad, from the 16th of the month */ -}}
+
+{{- /* Configurations: */ -}}
+{{- /*  - CLI date */ -}}
+{{- /*  - bool cfg.daily_zmanim - enable all zmanim if true */ -}}
+{{- /*  - bool cfg.sunrise_sunset - enable neitz and shkiah if true */ -}}
+{{- /*  - bool cfg.candle_lighting - */ -}}
+{{- /*      enable zmanim for special mitzvos of the day, */ -}}
+{{- /*      like chametz, fasts, candles and havdalah */ -}}
+{{- /*  - bool cfg.daily_sedra - enable the parsha every day */ -}}
+{{- /*  - bool cfg.molad - enable the molad */ -}}
+{{- /*  - bool cfg.no_modern - disable modern holidays */ -}}
+{{- /*  - bool cfg.omer - enable the omer */ -}}
+{{- /*  - bool cfg.sedrot - enable the parsha on Shabbos */ -}}
+{{- /*  - bool cfg.shabbat_mevarchim - */ -}}
+{{- /*      enable Shabbat Mevarchim before Rosh Chodesh */ -}}
+{{- /*  - int cfg.candle_lighting_mins - */ -}}
+{{- /*      how many minutes before shkiah to light */ -}}
+{{- /*      for Shabbos and Yom Tov */ -}}
+{{- /*  - string cfg.city - location for zmanim */ -}}
+{{- /*  - float cfg.geo.lat, .lon - location for zmanim */ -}}
+{{- /*  - string cfg.timezone - location for zmanim */ -}}
+
+{{- $d := $.dateRange.StartOrToday false -}}
+{{- $shabbos := $d.OnOrAfter $.time.Saturday -}}
+
+{{- $z := forLocationDate $.location $d.Gregorian -}}
+{{- $zNext := forLocationDate $.location $d.Next.Gregorian -}}
+
+{{define "labeledTime" -}}
+  {{- $bigFmt := "15:04"}}
+  {{- with .fmt}}{{ $bigFmt = . }}{{end}}
+  {{- .label}}: {{""}}
+  {{- if .time.After timeNow -}}
+    <span font-weight="bold">{{.time.Format $bigFmt}}</span><span size="20pt" color="#606060">{{.time.Format ":05"}}</span>
+  {{- else -}}
+    <span color="#404040">{{.time.Format $bigFmt}}<span size="20pt">{{.time.Format ":05"}}</span></span>
+  {{- end}}
+{{- end}}
+
+{{- if or
+      $.calOptions.DailyZmanim
+      $.calOptions.SunriseSunset
+      $.calOptions.CandleLighting
+-}}
+<span size="36pt" line_height="1.5">Zmanim for {{$.location.Name}}</span>
+{{- end}}
+
+{{- /* Zmanim calculations are based on */}}
+{{- /* https://www.chabad.org/library/article_cdo/aid/3209349/jewish/About-Our-Zmanim-Calculations.htm */}}
+
+{{- /* $h is halachic hour duration using Neitz/Shkiah Amita @1.583 deg. */}}
+{{- $neitzAmiti := $z.TimeAtAngle 1.583 true}}
+{{- $shkiahAmitis := $z.TimeAtAngle 1.583 false}}
+{{- $neitzTomorrow := $zNext.TimeAtAngle 1.583 true}}
+{{- $h := durationDiv ($shkiahAmitis.Sub $neitzAmiti) 12}}
+{{- $halfH := durationDiv $h 2}}
+
+{{- /* For Mincha Gedolah, choose the greater of 30m or 0.5h after chatzos. */}}
+{{- $d30m := timeParseDuration "30m"}}
+{{- if lt $halfH $d30m }}
+{{-   $halfH = $d30m}}
+{{- end}}
+{{- $chatzos := $neitzAmiti.Add (durationMul $h 6) }}
+{{- $chatzosLailah := $shkiahAmitis.Add
+  (durationDiv ($neitzTomorrow.Sub $shkiahAmitis) 2) }}
+
+{{- /* Display today's zmanim. */}}
+
+{{- if or
+      (and (dayHasFlags $d $.event.MINOR_FAST) $.calOptions.CandleLighting)
+      $.calOptions.DailyZmanim
+}}
+
+{{-   $label := "Alos HaShachar"}}
+{{-     if dayHasFlags $d $.event.MINOR_FAST }}{{$label = printf "%s, Fast starts" $label}}{{end}}
+{{-     $label = printf "%s (16.9 deg)" $label}}
+{{      template "labeledTime" (map
+          "time" ($z.TimeAtAngle 16.9 true)
+          "label" $label) }}
+{{-   $label = "Misheyakir (10.2 deg)"}}
+{{      template "labeledTime" (map
+          "time" ($z.TimeAtAngle 10.2 true)
+          "label" $label) }}
+{{- end}}
+
+{{- if or $.calOptions.DailyZmanim $.calOptions.SunriseSunset}}
+{{-   $label := "Neitz (0.833 deg)"}}
+{{      template "labeledTime" (map
+          "time" ($z.TimeAtAngle 0.833 true)
+          "label" $label) }}
+{{- end}}
+{{- if $.calOptions.DailyZmanim}}
+{{-   $label := "Sof Zman Krias Shema"}}
+{{      template "labeledTime" (map
+          "time" ($neitzAmiti.Add (durationMul $h 3))
+          "label" $label) }}
+{{-   $label = "Sof Zman Tefillah"}}
+{{      template "labeledTime" (map
+          "time" ($neitzAmiti.Add (durationMul $h 4))
+          "label" $label) }}
+{{- end}}
+
+{{- if or $.calOptions.DailyZmanim $.calOptions.CandleLighting}}
+{{- /* Chametz zmanim before Pesach */}}
+{{-   if eq $.time.Saturday (hdateNew $d.Year $.hdate.Nisan 14).Weekday}}
+{{-     if hdateNew $d.Year $.hdate.Nisan 13 | hdateEqual $d}}
+{{-       $label := "Sof Zman Biur Chametz"}}
+{{          template "labeledTime" (map
+              "time" ($neitzAmiti.Add (durationMul $h 5))
+              "label" $label) }}
+{{-     else if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
+{{-       $label := "Sof Zman Achilas Chametz"}}
+{{          template "labeledTime" (map
+              "time" ($neitzAmiti.Add (durationMul $h 4))
+              "label" $label) }}
+{{-       $label = "Sof Zman Bittul Chametz"}}
+{{          template "labeledTime" (map
+              "time" ($neitzAmiti.Add (durationMul $h 5))
+              "label" $label) }}
+{{-     end}}
+{{-   else}}
+{{-     if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
+{{-       $label := "Sof Zman Achilas Chametz"}}
+{{          template "labeledTime" (map
+              "time" ($neitzAmiti.Add (durationMul $h 4))
+              "label" $label) }}
+{{-       $label = "Sof Zman Biur Chametz"}}
+{{          template "labeledTime" (map
+              "time" ($neitzAmiti.Add (durationMul $h 5))
+              "label" $label) }}
+{{-     end}}
+{{-   end}}
+{{- end}}
+
+{{- if $.calOptions.DailyZmanim}}
+{{    template "labeledTime" (map "time" $chatzos "label" "Chatzos") }}
+{{-   $label := "Mincha Gedolah"}}
+{{-     if le $halfH $d30m }}{{$label = printf "%s (floored to 30m past chatzos)" $label}}{{end}}
+{{      template "labeledTime" (map
+          "time" ($chatzos.Add $halfH)
+          "label" $label) }}
+{{-   $label = "Mincha Ketanah"}}
+{{      template "labeledTime" (map
+          "time" ($shkiahAmitis.Add (durationMul $h -2.5))
+          "label" $label) }}
+{{-   $label = "Plag HaMincha"}}
+{{      template "labeledTime" (map
+          "time" ($shkiahAmitis.Add (durationMul $h -1.25))
+          "label" $label) }}
+{{- end}}
+
+{{- /* Candle lighting */}}
+{{- $chanukah := ""}}
+{{- $chanukahTime := ""}}
+{{- range eventsByFlags (hebcal $d) $.event.CHANUKAH_CANDLES }}
+{{-   with asTimedEvent . -}}
+{{-     $chanukah = .LinkedEvent.Render $.language}}
+{{-   else}}
+{{-     $chanukah = .Render $.language}}
+{{-   end}}
+{{-   if eq $.time.Friday $d.Weekday}}
+{{-     $chanukahTime = "early"}}
+{{-   else if eq $.time.Saturday $d.Weekday}}
+{{-     $chanukahTime = "late"}}
+{{-   else}}
+{{-     $chanukahTime = "normal"}}
+{{-   end}}
+{{- end}}
+
+{{- if or $.calOptions.CandleLighting $.calOptions.DailyZmanim}}
+{{-   if and
+        (or
+          (eq $.time.Friday $d.Weekday)
+          (not (dayIsShabbatOrYomTov $d))
+        )
+        (dayIsShabbatOrYomTov $d.Next) }}
+{{-     $label := "Licht bentshen"}}
+{{-       with $chanukah}}{{$label = printf "%s %s, " . $label}}{{end -}}
+{{-       if hdateNew $d.Year $.hdate.Tishrei 9 | hdateEqual $d -}}
+{{-         $label = printf "%s, Fast starts" $label}}
+{{-       end}}
+{{-       $label = printf " (%sm)" $.calOptions.CandleLightingMins }}
+{{        template "labeledTime" (map
+            "time" (($z.TimeAtAngle 0.833 false).Add
+              (durationMul
+                (timeParseDuration "-1m")
+                (itof $.calOptions.CandleLightingMins)
+              )
+            )
+            "label" $label) }}
+{{-   end}}
+{{- end}}
+
+{{- $fast9Av := and
+        (eq $d.Month $.hdate.Av)
+        (dayHasFlags $d.Next $.event.MAJOR_FAST)
+        (ne $.time.Friday $d.Weekday)
+}}
+{{- if or
+      $.calOptions.SunriseSunset
+      $.calOptions.DailyZmanim
+      (and $.calOptions.CandleLighting (or
+        $fast9Av
+        (eq $chanukahTime "normal")
+      ))
+}}
+{{-   $label := "Shkiah"}}
+{{-     if $fast9Av}}
+{{-       $label = printf "%s, Fast starts" $label}}
+{{-     else if eq $chanukahTime "normal"}}
+{{-       $label = printf "%s, %s" $label $chanukah}}
+{{-     end}}
+{{-     $label = printf "%s (0.833 deg)" $label}}
+{{      template "labeledTime" (map
+          "time" ($z.TimeAtAngle 0.833 false)
+          "label" "Shkiah") }}
+{{- end}}
+
+{{- if $.calOptions.DailyZmanim}}
+{{    template "labeledTime" (map
+        "time" ($z.TimeAtAngle 1.583 false)
+        "label" "Shkiah Amitis/Bein HaShmashos starts (1.583 deg)") }}
+{{- end}}
+
+{{- /* What should we show for Tzeis? Havdalah? Licht? 3 medium star tzeis? */}}
+{{- if and (dayIsShabbatOrYomTov $d) (ne $.time.Friday $d.Weekday) }}
+{{-   if or $.calOptions.CandleLighting $.calOptions.DailyZmanim}}
+{{-     if dayIsShabbatOrYomTov $d.Next}}
+{{-       $label = "Licht bentshen"}}
+{{-     else}}
+{{-       $label = "Havdalah"}}
+{{-       if hdateNew $d.Year $.hdate.Tishrei 10 | hdateEqual $d}}
+{{-         $label = printf "%s, Fast ends" $label}}
+{{-       else if eq $chanukahTime "late"}}
+{{-         $label = printf "%s, %s" $label $chanukah}}
+{{-       end}}
+{{-     end}}
+{{-     $label = printf "%s (%f deg" $label $.calOptions.HavdalahDeg}}
+{{-     with $.calOptions.HavdalahMins}}
+{{-       $label = printf "%s + %dm" $label .}}
+{{-     end}}
+{{-     $label = printf "%s/3 small stars)" $label}}
+{{      template "labeledTime" (map
+          "time" (($z.TimeAtAngle $.calOptions.HavdalahDeg false).Add
+            (durationMul (timeParseDuration "1m") (itof $.calOptions.HavdalahMins))
+          )
+          "label" $label) }}
+{{-   end}}
+{{- else}}{{/* not after Shabbos or YK */}}
+{{-   if or
+        $.calOptions.DailyZmanim
+        (and
+          $.calOptions.CandleLighting
+          (dayHasFlags $d $.event.MINOR_FAST $.event.MAJOR_FAST)
+        )
+}}
+{{-     $label := "Tzeis"}}
+{{-       if dayHasFlags $d $.event.MINOR_FAST $.event.MAJOR_FAST -}}
+{{-         $label = printf "%s, Fast ends" $label}}
+{{-       end}}
+{{-       $label = printf "%s (6 deg/3 medium stars)" $label}}
+{{        template "labeledTime" (map
+            "time" ($z.TimeAtAngle 6 false)
+            "label" $label) }}
+{{-   end}}
+{{- end}}
+
+{{- /* Chatzos lailah - might be after midnight, so show the day of week. */}}
+{{- if $.calOptions.DailyZmanim}}
+{{    template "labeledTime" (map
+        "time" $chatzosLailah
+        "fmt" "(Mon) 15:04"
+        "label" "Chatzos HaLailah") }}
+
+A halachic hour is {{$h.Round $.time.Second}}.
+{{- end}}
+
