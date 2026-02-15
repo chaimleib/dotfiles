@@ -190,7 +190,7 @@
 {{-       if hdateNew $d.Year $.hdate.Tishrei 9 | hdateEqual $d -}}
 {{-         $label = printf "%s, Fast starts" $label}}
 {{-       end}}
-{{-       $label = printf " (%sm)" $.calOptions.CandleLightingMins }}
+{{-       $label = printf "%s (%dm)" $label $.calOptions.CandleLightingMins }}
 {{        template "labeledTime" (map
             "time" (($z.TimeAtAngle 0.833 false).Add
               (durationMul
