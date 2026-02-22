@@ -236,6 +236,7 @@
 {{- /* What should we show for Tzeis? Havdalah? Licht? 3 medium star tzeis? */}}
 {{- if and (dayIsShabbatOrYomTov $d) (ne $.time.Friday $d.Weekday) }}
 {{-   if or $.calOptions.CandleLighting $.calOptions.DailyZmanim}}
+{{-     $label := ""}}
 {{-     if dayIsShabbatOrYomTov $d.Next}}
 {{-       $label = "Licht bentshen"}}
 {{-     else}}
@@ -246,7 +247,7 @@
 {{-         $label = printf "%s, %s" $label $chanukah}}
 {{-       end}}
 {{-     end}}
-{{-     $label = printf "%s (%f deg" $label $.calOptions.HavdalahDeg}}
+{{-     $label = printf "%s (%0.1f deg" $label $.calOptions.HavdalahDeg}}
 {{-     with $.calOptions.HavdalahMins}}
 {{-       $label = printf "%s + %dm" $label .}}
 {{-     end}}
