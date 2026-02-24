@@ -40,13 +40,14 @@
 {{- $zNext := forLocationDate $.location $d.Next.Gregorian -}}
 
 {{define "labeledTime" -}}
+  {{- $grey := "#606060"}}
   {{- $bigFmt := "15:04"}}
   {{- with .fmt}}{{ $bigFmt = . }}{{end}}
   {{- .label}}: {{""}}
   {{- if .time.After timeNow -}}
-    <span font-weight="bold">{{.time.Format $bigFmt}}</span><span size="20pt" color="#606060">{{.time.Format ":05"}}</span>
+    <span font-weight="bold">{{.time.Format $bigFmt}}</span><span size="20pt" color="{{$grey}}">{{.time.Format ":05"}}</span>
   {{- else -}}
-    <span color="#404040">{{.time.Format $bigFmt}}<span size="20pt">{{.time.Format ":05"}}</span></span>
+    <span color="{{$grey}}">{{.time.Format $bigFmt}}<span size="20pt">{{.time.Format ":05"}}</span></span>
   {{- end}}
 {{- end}}
 
@@ -85,7 +86,8 @@
       $.calOptions.DailyZmanim
 }}
 
-{{-   $label = "Alos HaShachar"}}
+{{-   $label = "Alos"}}
+{{-     if $long}}{{$label = printf "%s HaShachar" $label}}{{end}}
 {{-     if dayHasFlags $d $.event.MINOR_FAST }}{{$label = printf "%s, Fast starts" $label}}{{end}}
 {{-     if $long}}{{$label = printf "%s (16.9 deg)" $label}}{{end}}
 {{      template "labeledTime" (map
@@ -106,15 +108,13 @@
           "label" $label) }}
 {{- end}}
 {{- if $.calOptions.DailyZmanim}}
-{{-   $label = ""}}
-{{-     if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-     $label = printf "%s Krias Shema" $label}}
+{{-   $label = "Krias Shema"}}
+{{-     if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($neitzAmiti.Add (durationMul $h 3))
           "label" $label) }}
-{{-   $label = ""}}
-{{-     if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-     $label = printf "%sTefillah" $label}}
+{{-   $label = "Tefillah"}}
+{{-     if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($neitzAmiti.Add (durationMul $h 4))
           "label" $label) }}
@@ -124,37 +124,32 @@
 {{- /* Chametz zmanim before Pesach */}}
 {{-   if eq $.time.Saturday (hdateNew $d.Year $.hdate.Nisan 14).Weekday}}
 {{-     if hdateNew $d.Year $.hdate.Nisan 13 | hdateEqual $d}}
-{{-       $label = ""}}
-{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-         $label = printf "%sBiur Chametz" $label}}
+{{-       $label = "Biur Chametz"}}
+{{-         if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
 {{-     else if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
-{{-       $label = ""}}
-{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-         $label = printf "%sAchilas Chametz" $label}}
+{{-       $label = "Achilas Chametz"}}
+{{-         if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 4))
               "label" $label) }}
-{{-       $label = ""}}
-{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-         $label = printf "%sBittul Chametz" $label}}
+{{-       $label = "Bittul Chametz"}}
+{{-         if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
 {{-     end}}
 {{-   else}}
 {{-     if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
-{{-       $label = ""}}
-{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-         $label = printf "%sAchilas Chametz" $label}}
+{{-       $label = "Achilas Chametz"}}
+{{-         if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 4))
               "label" $label) }}
-{{-       $label = ""}}
-{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
-{{-         $label = printf "%sBiur Chametz" $label}}
+{{-       $label = "Biur Chametz"}}
+{{-         if $long}}{{$label = printf "Sof Zman %s" $label}}{{end}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
@@ -165,7 +160,9 @@
 {{- if $.calOptions.DailyZmanim}}
 {{    template "labeledTime" (map "time" $chatzos "label" "Chatzos") }}
 {{-   $label = "Mincha Gedolah"}}
-{{-     if and $long (le $halfH $d30m) }}{{$label = printf "%s (floored to 30m past chatzos)" $label}}{{end}}
+{{-     if and $long (le $halfH $d30m) }}
+{{-       $label = printf "%s (floored to 30m past chatzos)" $label}}
+{{-     end}}
 {{      template "labeledTime" (map
           "time" ($chatzos.Add $halfH)
           "label" $label) }}
@@ -209,7 +206,9 @@
 {{-       if hdateNew $d.Year $.hdate.Tishrei 9 | hdateEqual $d -}}
 {{-         $label = printf "%s, Fast starts" $label}}
 {{-       end}}
-{{-       if $long}}{{$label = printf "%s (%dm)" $label $.calOptions.CandleLightingMins }}{{end}}
+{{-       if $long}}
+{{-         $label = printf "%s (%dm)" $label $.calOptions.CandleLightingMins }}
+{{-       end}}
 {{        template "labeledTime" (map
             "time" (($z.TimeAtAngle 0.833 false).Add
               (durationMul
@@ -248,10 +247,12 @@
 
 {{- if $.calOptions.DailyZmanim}}
 {{-   $label = "Bein HaShmashos"}}
-{{-     if $long}}{{$label = printf "Shkiah Amitis/%s starts (1.583 deg)" $label}}{{end}}
-{{    template "labeledTime" (map
-        "time" ($z.TimeAtAngle 1.583 false)
-        "label" $label) }}
+{{-     if $long}}
+{{-       $label = printf "Shkiah Amitis/%s starts (1.583 deg)" $label}}
+{{-     end}}
+{{      template "labeledTime" (map
+          "time" ($z.TimeAtAngle 1.583 false)
+          "label" $label) }}
 {{- end}}
 
 {{- /* What should we show for Tzeis? Havdalah? Licht? 3 medium star tzeis? */}}
