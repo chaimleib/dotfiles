@@ -30,10 +30,12 @@
 {{- /*  - string cfg.city - location for zmanim */ -}}
 {{- /*  - float cfg.geo.lat, .lon - location for zmanim */ -}}
 {{- /*  - string cfg.timezone - location for zmanim */ -}}
+{{- /*  - bool LONG_ZMANIM_LABELS - shows how zmanim are calculated */ -}}
 
 {{- $d := $.dateRange.StartOrToday false -}}
 {{- $shabbos := $d.OnOrAfter $.time.Saturday -}}
 
+{{- $long := getenv "LONG_ZMANIM_LABELS" -}}
 {{- $z := forLocationDate $.location $d.Gregorian -}}
 {{- $zNext := forLocationDate $.location $d.Next.Gregorian -}}
 
@@ -77,35 +79,42 @@
 
 {{- /* Display today's zmanim. */}}
 
+{{- $label := ""}}{{/* just to declare the variable for all scopes */}}
 {{- if or
       (and (dayHasFlags $d $.event.MINOR_FAST) $.calOptions.CandleLighting)
       $.calOptions.DailyZmanim
 }}
 
-{{-   $label := "Alos HaShachar"}}
+{{-   $label = "Alos HaShachar"}}
 {{-     if dayHasFlags $d $.event.MINOR_FAST }}{{$label = printf "%s, Fast starts" $label}}{{end}}
-{{-     $label = printf "%s (16.9 deg)" $label}}
+{{-     if $long}}{{$label = printf "%s (16.9 deg)" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($z.TimeAtAngle 16.9 true)
           "label" $label) }}
-{{-   $label = "Misheyakir (10.2 deg)"}}
+{{-   $label = "Misheyakir"}}
+{{-     if $long}}{{ $label = printf "%s (10.2 deg)" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($z.TimeAtAngle 10.2 true)
           "label" $label) }}
 {{- end}}
 
 {{- if or $.calOptions.DailyZmanim $.calOptions.SunriseSunset}}
-{{-   $label := "Neitz (0.833 deg)"}}
+{{-   $label = "Neitz"}}
+{{-     if $long}}{{ $label = printf "%s (0.833 deg)" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($z.TimeAtAngle 0.833 true)
           "label" $label) }}
 {{- end}}
 {{- if $.calOptions.DailyZmanim}}
-{{-   $label := "Sof Zman Krias Shema"}}
+{{-   $label = ""}}
+{{-     if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-     $label = printf "%s Krias Shema" $label}}
 {{      template "labeledTime" (map
           "time" ($neitzAmiti.Add (durationMul $h 3))
           "label" $label) }}
-{{-   $label = "Sof Zman Tefillah"}}
+{{-   $label = ""}}
+{{-     if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-     $label = printf "%sTefillah" $label}}
 {{      template "labeledTime" (map
           "time" ($neitzAmiti.Add (durationMul $h 4))
           "label" $label) }}
@@ -115,27 +124,37 @@
 {{- /* Chametz zmanim before Pesach */}}
 {{-   if eq $.time.Saturday (hdateNew $d.Year $.hdate.Nisan 14).Weekday}}
 {{-     if hdateNew $d.Year $.hdate.Nisan 13 | hdateEqual $d}}
-{{-       $label := "Sof Zman Biur Chametz"}}
+{{-       $label = ""}}
+{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-         $label = printf "%sBiur Chametz" $label}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
 {{-     else if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
-{{-       $label := "Sof Zman Achilas Chametz"}}
+{{-       $label = ""}}
+{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-         $label = printf "%sAchilas Chametz" $label}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 4))
               "label" $label) }}
-{{-       $label = "Sof Zman Bittul Chametz"}}
+{{-       $label = ""}}
+{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-         $label = printf "%sBittul Chametz" $label}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
 {{-     end}}
 {{-   else}}
 {{-     if hdateNew $d.Year $.hdate.Nisan 14 | hdateEqual $d}}
-{{-       $label := "Sof Zman Achilas Chametz"}}
+{{-       $label = ""}}
+{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-         $label = printf "%sAchilas Chametz" $label}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 4))
               "label" $label) }}
-{{-       $label = "Sof Zman Biur Chametz"}}
+{{-       $label = ""}}
+{{-         if $long}}{{$label = "Sof Zman "}}{{end}}
+{{-         $label = printf "%sBiur Chametz" $label}}
 {{          template "labeledTime" (map
               "time" ($neitzAmiti.Add (durationMul $h 5))
               "label" $label) }}
@@ -145,8 +164,8 @@
 
 {{- if $.calOptions.DailyZmanim}}
 {{    template "labeledTime" (map "time" $chatzos "label" "Chatzos") }}
-{{-   $label := "Mincha Gedolah"}}
-{{-     if le $halfH $d30m }}{{$label = printf "%s (floored to 30m past chatzos)" $label}}{{end}}
+{{-   $label = "Mincha Gedolah"}}
+{{-     if and $long (le $halfH $d30m) }}{{$label = printf "%s (floored to 30m past chatzos)" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($chatzos.Add $halfH)
           "label" $label) }}
@@ -185,12 +204,12 @@
           (not (dayIsShabbatOrYomTov $d))
         )
         (dayIsShabbatOrYomTov $d.Next) }}
-{{-     $label := "Licht bentshen"}}
+{{-     $label = "Licht bentshen"}}
 {{-       with $chanukah}}{{$label = printf "%s %s, " . $label}}{{end -}}
 {{-       if hdateNew $d.Year $.hdate.Tishrei 9 | hdateEqual $d -}}
 {{-         $label = printf "%s, Fast starts" $label}}
 {{-       end}}
-{{-       $label = printf "%s (%dm)" $label $.calOptions.CandleLightingMins }}
+{{-       if $long}}{{$label = printf "%s (%dm)" $label $.calOptions.CandleLightingMins }}{{end}}
 {{        template "labeledTime" (map
             "time" (($z.TimeAtAngle 0.833 false).Add
               (durationMul
@@ -215,28 +234,30 @@
         (eq $chanukahTime "normal")
       ))
 }}
-{{-   $label := "Shkiah"}}
+{{-   $label = "Shkiah"}}
 {{-     if $fast9Av}}
 {{-       $label = printf "%s, Fast starts" $label}}
 {{-     else if eq $chanukahTime "normal"}}
 {{-       $label = printf "%s, %s" $label $chanukah}}
 {{-     end}}
-{{-     $label = printf "%s (0.833 deg)" $label}}
+{{-     if $long}}{{$label = printf "%s (0.833 deg)" $label}}{{end}}
 {{      template "labeledTime" (map
           "time" ($z.TimeAtAngle 0.833 false)
           "label" "Shkiah") }}
 {{- end}}
 
 {{- if $.calOptions.DailyZmanim}}
+{{-   $label = "Bein HaShmashos"}}
+{{-     if $long}}{{$label = printf "Shkiah Amitis/%s starts (1.583 deg)" $label}}{{end}}
 {{    template "labeledTime" (map
         "time" ($z.TimeAtAngle 1.583 false)
-        "label" "Shkiah Amitis/Bein HaShmashos starts (1.583 deg)") }}
+        "label" $label) }}
 {{- end}}
 
 {{- /* What should we show for Tzeis? Havdalah? Licht? 3 medium star tzeis? */}}
 {{- if and (dayIsShabbatOrYomTov $d) (ne $.time.Friday $d.Weekday) }}
 {{-   if or $.calOptions.CandleLighting $.calOptions.DailyZmanim}}
-{{-     $label := ""}}
+{{-     $label = ""}}
 {{-     if dayIsShabbatOrYomTov $d.Next}}
 {{-       $label = "Licht bentshen"}}
 {{-     else}}
@@ -247,11 +268,13 @@
 {{-         $label = printf "%s, %s" $label $chanukah}}
 {{-       end}}
 {{-     end}}
-{{-     $label = printf "%s (%0.1f deg" $label $.calOptions.HavdalahDeg}}
-{{-     with $.calOptions.HavdalahMins}}
-{{-       $label = printf "%s + %dm" $label .}}
+{{-     if $long}}
+{{-       $label = printf "%s (%0.1f deg" $label $.calOptions.HavdalahDeg}}
+{{-       with $.calOptions.HavdalahMins}}
+{{-         $label = printf "%s + %dm" $label .}}
+{{-       end}}
+{{-       $label = printf "%s/3 small stars)" $label}}
 {{-     end}}
-{{-     $label = printf "%s/3 small stars)" $label}}
 {{      template "labeledTime" (map
           "time" (($z.TimeAtAngle $.calOptions.HavdalahDeg false).Add
             (durationMul (timeParseDuration "1m") (itof $.calOptions.HavdalahMins))
@@ -266,11 +289,13 @@
           (dayHasFlags $d $.event.MINOR_FAST $.event.MAJOR_FAST)
         )
 }}
-{{-     $label := "Tzeis"}}
+{{-     $label = "Tzeis"}}
 {{-       if dayHasFlags $d $.event.MINOR_FAST $.event.MAJOR_FAST -}}
 {{-         $label = printf "%s, Fast ends" $label}}
 {{-       end}}
-{{-       $label = printf "%s (6 deg/3 medium stars)" $label}}
+{{-       if $long}}
+{{-         $label = printf "%s (6 deg/3 medium stars)" $label}}
+{{-       end}}
 {{        template "labeledTime" (map
             "time" ($z.TimeAtAngle 6 false)
             "label" $label) }}
