@@ -1,7 +1,7 @@
 {
   "city": "Phoenix",
   "language": "ashkenazi",
-  "molad": false,
+  "molad": true,
   "omer": true,
   "sedrot": true,
   "daily_sedra": true,
