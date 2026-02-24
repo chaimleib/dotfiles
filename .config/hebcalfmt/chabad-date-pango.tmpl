@@ -37,8 +37,19 @@
 {{- $z := forLocationDate $.location $d.Gregorian -}}
 {{- $zNext := forLocationDate $.location $d.Next.Gregorian -}}
 
-{{$d.Gregorian.Format (printf "Monday, %s" $.time.DateOnly)}}
-{{$d}}
+{{- $grey := "#606060" -}}
+{{- $yellow := "#bbbb00" -}}
+{{- $green := "#66dd66" -}}
+
+<span size="90pt">{{timeNow.Format "15:04 -0700"}}</span>
+{{- $caNow := timeLoadLocation "America/Los_Angeles" | timeNow.In}}
+{{- if $caNow.IsDST}}
+<span size="20pt">DST: Arizona is on California time.</span>
+{{- else}}
+<span size="20pt" line_height="2" color="{{$grey}}">Standard Time: Arizona is on Colorado time.</span>
+{{- end}}
+<span color="{{$green}}">{{$d.Gregorian.Format (printf "Monday, %s" $.time.DateOnly)}}</span>
+<span color="{{$green}}">{{$d}}</span>
 
 {{- /* Is it a special day? */}}
 {{- range eventsByFlags (hebcal $d)
@@ -57,19 +68,19 @@
 }}
 {{-   if asOmerEvent . }}
 {{-     if $.calOptions.Omer}}
-Tonight, count the {{.Render $.language}}.
+<span color="{{$green}}">Tonight, count the {{.Render $.language}}.</span>
 {{-     end}}
 {{-   else if and
         (not (asTimedEvent .))
         (or (ne "Chag HaBanot" .Basename) (not $.calOptions.NoModern))
 }}
-{{      .Render $.language}}
+<span color="{{$green}}">{{      .Render $.language}}</span>
 {{-   end}}
 {{- end}}
 {{- /* Restore Chanukah untimed events, since Hebcal replaces them. */}}
 {{- range eventsByFlags (hebcal $d) $.event.CHANUKAH_CANDLES}}
 {{-   with asTimedEvent .}}
-{{      .LinkedEvent.Render $.language}}
+<span color="{{$green}}">{{      .LinkedEvent.Render $.language}}</span>
 {{-   end}}
 {{- end}}
 
@@ -119,7 +130,7 @@ This {{translate $.language "Shabbat"}} we read
 {{-     end}}
 {{-   end}}
 {{-   with $dayEvents}}
-<span color="#bbbb00">{{      $future.Gregorian.Format "Mon"}}, {{$future.MonthName $.language}} {{$future.Day}} / {{$future.Gregorian.Format "Jan 2"}}:</span>
+<span color="{{$yellow}}">{{      $future.Gregorian.Format "Mon"}}, {{$future.MonthName $.language}} {{$future.Day}} / {{$future.Gregorian.Format "Jan 2"}}:</span>
 {{-     range $dayEvents}}
    <span size="20pt">{{.}}</span>
 {{-     end}}
@@ -127,20 +138,7 @@ This {{translate $.language "Shabbat"}} we read
 {{- end}}
 
 {{- if $.calOptions.Molad}}
-{{-   if le $d.Day 15}}
-{{-     $molad := molad $d.Year $d.Month}}
-{{-     $moladTime := $molad.Date.Gregorian}}
-{{-       $moladTime = $moladTime.Add (
-            printf "%dh%dm" $molad.Hours $molad.Minutes | timeParseDuration
-          ) }}
-
-The molad for this month, {{$d.MonthName $.language}},
-  {{- ""}} is {{$molad.Date.Weekday}}, {{$molad.Date}}
-  {{- ""}} at {{$moladTime.Format "3:04"}}
-  {{- ""}} and {{$molad.Chalakim}}
-  {{- ""}} {{if eq $molad.Chalakim 1}}cheilek{{else}}chalakim{{end}}
-  {{- ""}} {{$moladTime.Format "PM"}}.
-{{-   else}}
+{{-   if ge $d.Day 16}}
 {{-     $nextMonth := hdateNextMonth $d}}
 {{-     $molad := molad $nextMonth.Year $nextMonth.Month}}
 {{-     $moladTime := $molad.Date.Gregorian}}
@@ -149,8 +147,9 @@ The molad for this month, {{$d.MonthName $.language}},
           ) }}
 
 The molad for next month, {{$nextMonth.MonthName $.language}},
-  {{- ""}} is {{$molad.Date.Weekday}}, {{$molad.Date}}
-  {{- ""}} at {{$moladTime.Format "3:04"}}
+  {{- ""}} is {{""}}
+{{$molad.Date.Weekday}}, {{$molad.Date}}
+at {{$moladTime.Format "3:04"}}
   {{- ""}} and {{$molad.Chalakim}}
   {{- ""}} {{if eq $molad.Chalakim 1}}cheilek{{else}}chalakim{{end}}
   {{- ""}} {{$moladTime.Format "PM"}}.
