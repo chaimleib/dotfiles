@@ -56,7 +56,6 @@
       $.event.EREV
       $.event.CHAG
       $.event.CHOL_HAMOED
-      $.event.OMER_COUNT
       $.event.CHANUKAH_CANDLES
       $.event.MINOR_HOLIDAY
       $.event.ROSH_CHODESH
@@ -66,21 +65,26 @@
       $.event.SHABBAT_MEVARCHIM
       $.event.USER_EVENT
 }}
-{{-   if asOmerEvent . }}
-{{-     if $.calOptions.Omer}}
-<span color="{{$green}}">Tonight, count the {{.Render $.language}}.</span>
-{{-     end}}
-{{-   else if and
+{{-   if and
         (not (asTimedEvent .))
         (or (ne "Chag HaBanot" .Basename) (not $.calOptions.NoModern))
 }}
 <span color="{{$green}}">{{      .Render $.language}}</span>
 {{-   end}}
 {{- end}}
+
 {{- /* Restore Chanukah untimed events, since Hebcal replaces them. */}}
 {{- range eventsByFlags (hebcal $d) $.event.CHANUKAH_CANDLES}}
 {{-   with asTimedEvent .}}
 <span color="{{$green}}">{{      .LinkedEvent.Render $.language}}</span>
+{{-   end}}
+{{- end}}
+
+{{- /* Show tonight's omer count with $d.Next, */}}
+{{- /* rather than last night's count with $d. */}}
+{{- if $.calOptions.Omer}}
+{{-   range eventsByFlags (hebcal $d.Next) $.event.OMER_COUNT}}
+<span color="{{$green}}">Tonight is the {{.Render $.language}}.</span>
 {{-   end}}
 {{- end}}
 
