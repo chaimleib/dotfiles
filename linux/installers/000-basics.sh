@@ -50,7 +50,6 @@ function do_install() {
       (is_apt && echo build-essential) ) \
       autoconf automake \
     $(is_apk && echo gcr-dev webkit2gtk-dev) \
-      gperf \
       w3m \
     $( (is_pacman && echo imlib2) ||
       (is_apk && echo imlib2) ||
@@ -59,9 +58,8 @@ function do_install() {
     neovim \
     tree \
     ripgrep \
+    fzf \
     git \
-    go \
-    bash zsh \
     tmux \
     $(is_apk && echo man-db man-pages) \
     python3 $(is_apt && echo python3-distutils) \
