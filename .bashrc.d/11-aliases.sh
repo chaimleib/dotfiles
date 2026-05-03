@@ -148,5 +148,5 @@ cdalias cdp    ~/projects
 cdalias cdpg   ~/projects/github
 
 if have upower; then
-  alias bat='upower -i `upower -e | grep BAT`'
+  alias bat='upower -i `upower -e | grep -i bat`'
 fi
