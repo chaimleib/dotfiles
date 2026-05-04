@@ -1,6 +1,6 @@
 #!/bin/bash
 
-battery_data=$(upower -i "$(upower -e | grep BAT)")
+battery_data=$(upower -i "$(upower -e | grep -i bat)")
 percent=$(
   echo "$battery_data" |
     sed -nE 's/^\s+percentage:\s+([[0-9.]+)%/\1/p'
