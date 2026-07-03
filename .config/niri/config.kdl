@@ -353,8 +353,8 @@ window-rule {
 window-rule {
     match app-id=r#"^$"# title="^Picture in picture$"
     open-floating true
-    default-column-width { proportion 0.2; }
-    default-window-height { proportion 0.2; }
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
     default-floating-position x=0 y=0 relative-to="bottom-left"
     geometry-corner-radius 0 0 0 0
 }
