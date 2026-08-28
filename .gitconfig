@@ -11,3 +11,13 @@
 	ff = only
 [init]
 	defaultBranch = master
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+	helper = libsecret
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+	helper = libsecret
+[merge]
+	tool = nvimdiff
