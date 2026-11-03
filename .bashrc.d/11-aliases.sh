@@ -26,7 +26,50 @@ alias ll='ls -lh'
 alias la='ls -ACF'
 
 alias s='source ~/.bashrc'
+
+# List installed shell programs.
 alias progs='fd -t x . $(for d in $(lspath | sort -u); do [ -d "$d" ] && echo "$d"; done) | sort'
+
+# List installed desktop files runnable in the current desktop environment.
+function apps() {
+  local onlyShow=
+  local desktopMatch=
+  while read -r app; do
+    if grep '^NoDisplay=true' "$app" >/dev/null; then
+      continue
+    fi
+
+    onlyShow=$(sed -n 's/^OnlyShowIn=//p' "$app")
+    if [ -n "$onlyShow" ]; then
+      # See if any colon-separated items in XDG_CURRENT_DESKTOP match
+      # any semicolon-separated items in the OnlyShowIn field.
+      # Combine the lists, sort, and if there are no duplicate lines,
+      # no match was found.
+      desktopMatch=$(echo "$onlyShow;XDG_CURRENT_DESKTOP" |
+        tr ';:[:upper:]' '\n\n[:lower:]' | sort | uniq -d)
+      if [ -z "$desktopMatch" ]; then
+        continue
+      fi
+    fi
+
+    # Display the file, names and description separated by tabs.
+    printf '%s\t%s\n' \
+      "$app" \
+      "$(sed -n \
+        -e 's/^Name=//p' \
+        -e 's/^GenericName=//p' \
+        -e 's/^Comment=//p' \
+        "$app" |
+        tr '\n' '\t')"
+
+  done < <(
+    fd '\.desktop$' \
+      /usr/share/applications \
+      /usr/local/share/applications \
+      ~/.local/share/applications
+    ) |
+    sort
+}
 
 alias dt='date +"%Y-%m-%d"'
 alias dtt='date +"%Y-%m-%d-%H-%M-%S%z"'
