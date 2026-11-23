@@ -14,6 +14,8 @@ spawn-at-startup "waybar"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
+spawn-at-startup "systemctl" "--user" "start" "plasma-polkit-agent"
+
 spawn-at-startup "hypridle"
 
 // Shows wifi network menu in system tray.
@@ -98,7 +100,7 @@ input {
 output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
-    scale 1
+    scale 1.5
     transform "normal"
     position x=0 y=0
     variable-refresh-rate on-demand=true
